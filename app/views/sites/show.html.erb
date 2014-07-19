@@ -2,10 +2,9 @@
 
 
 
-<p>
-  <strong>Name:</strong>
-  <%= @site.name %>
-</p>
+
+  <h1><%= @site.name %></h1>
+
 
 <p>
   <strong>Url:</strong>
@@ -13,9 +12,40 @@
 </p>
 
 <p>
-  <strong>User ID:</strong>
-  <%= @site.user_id %>
+  <strong>Location of Coupon Code Field</strong>
+  <%= @site.coupon_url %>
 </p>
+
+
+<div class="jumbotron center">
+<h2>Copy and paste the following code just before the "&lt;/html&gt;" tag on <strong> all pages</strong> of your website:</h2>
+<textarea class="form-control" id="siteTextarea" readonly >
+Script that users can paste into their websites goes here </textarea>
+</div>
+
+<div class="jumbotron center">
+<h2>Copy and paste the following code just before the "&lt;/html&gt;" tag on <strong> your order confirmation page</strong> of your website:</h2>
+<textarea class="form-control" id="siteTextarea" readonly >
+Script that users can paste into their order confirmation page goes here </textarea>
+</div>
+
+<div class="jumbotron">
+<h3>Test Status</h3>
+
+<table class="table table-responsive" style="text-align:left;">
+<tr><th>Code</th><th>Status</th></tr>
+<tr><td>Sitewide Code</td><td>run test, found, or not found</td></tr>
+<tr><td>Confirmation Code</td><td>run test, found, or not found</td></tr>
+
+</table>
+
+
+</table>
+
+<a href="#" class="btn btn-primary">Run New Test</a>
+
+</div>
+
 
 <%= link_to 'Edit', edit_site_path(@site) %> |
 <%= link_to 'Back', sites_path %>
