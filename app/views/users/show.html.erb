@@ -20,6 +20,15 @@
     <%= @user.role %>
   </p>
 
+  <p>
+<strong>Sites:</strong>
+<ul>
+   <% for site in @user.sites %>
+      <li><%= link_to site.name, site %></li>
+    <% end %>
+    </ul>
+  </p>
+
  
   <% if user_signed_in? && current_user.admin? %>
     <%= link_to 'Edit', edit_user_path(@user) %> |

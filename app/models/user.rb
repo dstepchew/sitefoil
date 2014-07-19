@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
           validates_presence_of :full_name
-          
+            has_many :sites
   def admin?
     role == 'ADMIN'
   end
