@@ -1,0 +1,28 @@
+<% @title = @user.full_name + " - Sitefoil" %>
+
+<div class="container">
+
+<ol class="breadcrumb">
+  <li><%= link_to 'Home', root_path %></li>
+  <li><%= link_to 'Users', users_path %></li>
+  <li class="active"> <%= @user.full_name %></li>
+</ol>
+  <h1>
+    <%= @user.full_name %>
+  </h1>
+
+  <p>
+    <%= @user.email %>
+  </p>
+
+  <p>
+    <strong>Role:</strong>
+    <%= @user.role %>
+  </p>
+
+ 
+  <% if user_signed_in? && current_user.admin? %>
+    <%= link_to 'Edit', edit_user_path(@user) %> |
+  <% end %>
+  <%= link_to 'Back', users_path %>
+</div>

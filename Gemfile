@@ -33,6 +33,10 @@ gem 'bootstrap-sass'
 
 gem 'devise'
 
+gem 'simple_form'
+
+gem 'ransack'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
