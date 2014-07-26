@@ -11,7 +11,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140719203944) do
+ActiveRecord::Schema.define(version: 20140726213912) do
+
+  create_table "actions", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "channel_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "acts", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "channel_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "channels", force: true do |t|
+    t.string   "name"
+    t.string   "status"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ingredients", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "recipes", force: true do |t|
+    t.string   "name"
+    t.string   "status"
+    t.integer  "hits"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "site_id"
+    t.string   "trigger_id"
+    t.string   "act_id"
+    t.string   "trig_channel_id"
+    t.string   "act_channel_id"
+  end
 
   create_table "sites", force: true do |t|
     t.string   "name"
@@ -20,9 +65,22 @@ ActiveRecord::Schema.define(version: 20140719203944) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.string   "coupon_url"
+    t.string   "coupon_id"
+    t.string   "status"
+    t.string   "checkout_url"
+    t.string   "total_id"
+    t.string   "confirmation_url"
   end
 
   add_index "sites", ["user_id"], name: "index_sites_on_user_id"
+
+  create_table "triggers", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "channel_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",        null: false

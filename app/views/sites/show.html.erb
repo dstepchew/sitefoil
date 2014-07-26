@@ -12,8 +12,13 @@
 </p>
 
 <p>
-  <strong>Location of Coupon Code Field</strong>
-  <%= @site.coupon_url %>
+  <strong>Location of Coupon Code Field:</strong>
+  <%= @site.coupon_url %>, <strong>ID of field</strong>: <%= @site.coupon_id %>
+</p>
+
+<p>
+  <strong>Location of Confirmation and Order Total:</strong>
+  <%= @site.confirmation_url %>, <strong>ID of field</strong>: <%= @site.total_id %>
 </p>
 
 
@@ -35,7 +40,7 @@ Script that users can paste into their order confirmation page goes here </texta
 <table class="table table-responsive" style="text-align:left;">
 <tr><th>Code</th><th>Status</th></tr>
 <tr><td>Sitewide Code</td><td>run test, found, or not found</td></tr>
-<tr><td>Confirmation Code</td><td>run test, found, or not found</td></tr>
+<tr><td>Confirmation Code</td><td>run test, found, not found, found but missing order totals</td></tr>
 
 </table>
 

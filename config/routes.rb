@@ -1,4 +1,16 @@
 Sitefoil::Application.routes.draw do
+  resources :recipes
+
+  resources :channels
+
+  resources :acts
+
+  resources :actions
+
+  resources :triggers
+
+  resources :ingredients
+
   resources :sites
 
   devise_for :users

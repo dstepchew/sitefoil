@@ -1,6 +1,6 @@
 class SitesController < ApplicationController
   before_action :set_site, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user!
   before_action :correct_user, only: [:edit, :update, :destroy]
 
   def index
@@ -52,6 +52,9 @@ class SitesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def site_params
-      params.require(:site).permit(:name,:url,:coupon_url)
+      params.require(:site).permit(:name,:url,:coupon_url, :coupon_id, :checkout_url, :confirmation_url, :total_id,
+        recipe_attributes: [
+                 :id, :name, :description
+              ])
     end
 end

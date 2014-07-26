@@ -1,0 +1,73 @@
+<%= form_for(@recipe) do |f| %>
+  <% if @recipe.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
+
+      <ul>
+      <% @recipe.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name %><br>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :status %><br>
+    <%= f.text_field :status, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :description %><br>
+    <%= f.text_area :description, class: "form-control" %>
+  </div>
+
+<hr>
+  <div class="form-group">
+        <%= f.label :site, "Which Site Is This For?" %>
+        <%= collection_select(:recipe, :site_id, Site.all, :id, :name, {:prompt=> "Select A Site"}, {:class => "form-control"} ) %>
+      </div>
+
+  <hr>
+
+
+    <div class="form-group">
+        <%= f.label :channel, "Choose A Trigger Channel" %>
+        <%= collection_select(:recipe, :trig_channel_id, Channel.all, :id, :name, {:prompt=> "Select A Channel"}, {:class => "form-control"} ) %>
+      </div>
+
+      <div class="form-group">
+      Available channel triggers get listed here.
+      </div>
+
+      <div class="form-group">
+      Available trigger ingredient fields get listed here
+      </div>
+
+<hr>
+    <div class="form-group">
+        <%= f.label :channel, "Choose An Action Channel" %>
+        <%= collection_select(:recipe, :act_channel_id, Channel.all, :id, :name, {:prompt=> "Select A Channel"}, {:class => "form-control"} ) %>
+      </div>
+
+      <div class="form-group">
+      Available channel actions get listed here.
+      </div>
+
+       <div class="form-group">
+      Available action ingredient fields get listed here
+      </div>
+
+
+      <div>
+      Recipe summary goes here:
+
+      <h2>IF __________ Then __________ </h2>
+      </div>
+
+ <div class="form-group">
+           <%= f.submit class: "btn btn-primary" %>
+        </div>
+<% end %>
