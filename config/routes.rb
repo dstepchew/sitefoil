@@ -1,4 +1,7 @@
 Sitefoil::Application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+
   resources :recipes
 
   resources :channels
@@ -14,8 +17,8 @@ Sitefoil::Application.routes.draw do
   resources :sites
 
   devise_for :users
-root "pages#home"
-get "about" => "pages#about"
+  root "pages#home"
+  get "about" => "pages#about"
 
 
 resources :users
@@ -73,4 +76,6 @@ resources :users
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  match "/:controller(/:action)", via: [:get,:post]
 end
