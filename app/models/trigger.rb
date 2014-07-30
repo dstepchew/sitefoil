@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: triggers
+#
+#  id          :integer          not null, primary key
+#  name        :string(255)
+#  description :text
+#  channel_id  :string(255)
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
 class Trigger < ActiveRecord::Base
 
 	belongs_to :recipe
