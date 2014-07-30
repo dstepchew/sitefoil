@@ -57,3 +57,6 @@ group :production do
      gem 'pg'
      gem 'rails_12factor'
 end
+
+gem 'activeadmin', github: 'gregbell/active_admin'
+gem 'annotate'
