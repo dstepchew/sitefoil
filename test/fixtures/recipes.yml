@@ -1,3 +1,21 @@
+# == Schema Information
+#
+# Table name: recipes
+#
+#  id              :integer          not null, primary key
+#  name            :string(255)
+#  status          :string(255)
+#  hits            :integer
+#  description     :text
+#  created_at      :datetime
+#  updated_at      :datetime
+#  site_id         :string(255)
+#  trigger_id      :string(255)
+#  act_id          :string(255)
+#  trig_channel_id :string(255)
+#  act_channel_id  :string(255)
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
