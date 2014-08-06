@@ -25,7 +25,7 @@
 <div class="jumbotron center">
 <h2>Copy and paste the following code just before the "&lt;/html&gt;" tag on <strong> all pages</strong> of your website:</h2>
 <textarea class="form-control" id="siteTextarea" readonly >
-   <script src=http://<%= request.host_with_port %>/tracker.js />
+   <script src=<%= @site.tracker_url(request.host_with_port) %> />
 </textarea>
 </div>
 
@@ -40,7 +40,8 @@
 
 <table class="table table-responsive" style="text-align:left;">
 <tr><th>Code</th><th>Status</th></tr>
-<tr><td>Sitewide Code</td><td>run test, found, or not found</td></tr>
+<tr><td>Sitewide Code</td><td id='site_test_status'>
+  </td></tr>
 <tr><td>Confirmation Code</td><td>run test, found, not found, found but missing order totals</td></tr>
 
 </table>
@@ -48,7 +49,7 @@
 
 </table>
 
-<a href="#" class="btn btn-primary">Run New Test</a>
+<a href="#" class="btn btn-primary" onclick='testSite(<%= @site.id %>);return false;'>Run All Tests</a>
 
 </div>
 
