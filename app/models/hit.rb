@@ -13,6 +13,7 @@
 #  visitor_id  :integer
 #  created_at  :datetime
 #  updated_at  :datetime
+#  referrer    :string(255)
 #
 
 class Hit < ActiveRecord::Base

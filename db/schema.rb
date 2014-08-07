@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140730143150) do
+ActiveRecord::Schema.define(version: 20140807035621) do
 
   create_table "actions", force: true do |t|
     t.string   "name"
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 20140730143150) do
     t.integer  "visitor_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "referrer"
   end
 
   create_table "ingredients", force: true do |t|
