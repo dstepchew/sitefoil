@@ -1,35 +1,31 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <div class="panel-title">
-      <h1>Sign in</h1>
+
+ <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+
+
+<div class="jumbotron">
+  <div class="container">
+    <span class="glyphicon glyphicon-hand-down"></span>
+    <h2>Sign In</h2>
+    <div class="box">
+        <%= f.email_field :email, class: "", :autofocus => true, :placeholder => 'Email Address' %>
+	    <%= f.password_field :password, :autofocus => true, :placeholder => 'password' %>
+	    <%= button_tag( :class => "btn btn-default full-width") do %>
+  		<span class="glyphicon glyphicon-ok"></span>
+		<% end %>
+
+	    
     </div>
   </div>
-  <div class="panel-body">
-    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+<div class="clearfix"></div>
+</div>
 
-      <div class="form-group">
-        <%= f.label :email %>
-        <%= f.email_field :email, class: "form-control", :autofocus => true %>
-      </div>
 
-      <div class="form-group">
-        <%= f.label :password %>
-        <%= f.password_field :password, class: "form-control" %>
-      </div>
+ <% end %>
+<div class="clearfix"></div>
 
-      <div class="form-group">
-        <div class="checkbox">
-          <%= f.check_box :remember_me %>
-          <%= f.label :remember_me %>
-        </div>
-      </div>
 
-      <div class="form-group">
-        <%= f.submit "Sign in", class: "btn btn-primary" %>
-      </div>
-    <% end %>
-  </div>
-  <div class="panel-footer">
+<div class="panel-footer" style="display:none;">
     <%= render "devise/shared/links" %>
   </div>
-</div>
+
+<% content_for :body_class, "small-form" %>

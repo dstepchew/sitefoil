@@ -4,16 +4,217 @@ $body-bg:                                                   #ecf0f1;
 $font-family-sans-serif:                'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $navbar-height:                                        45px;
 $navbar-default-bg:                          white;
-$navbar-default-brand-color:      #c0392b;
-$brand-primary:                                    #c0392b;
+$navbar-default-brand-color:      #f96145;
+$brand-primary:                                    #f96145;
 $jumbotron-bg:                                         white;
 
 @import 'bootstrap';
+
+#wrap
+{
+min-height: 100%;
+}
+
+#wrap, #main, .container, .jumbotron {
+	position:relative;
+}
+
+#main
+{
+overflow:auto;
+padding-bottom:240px; /* this needs to be bigger than footer height*/
+}
 
 .center {
      text-align: center;
 }
 
+.clear {
+	clear:both;
+}
+
+.hidden { display: none; }
+
 .navbar-brand {
      font-weight: bold;
+}
+
+.sf-home {
+
+	background-image: url(https://s3-us-west-2.amazonaws.com/sitefoil/images/home1.jpg);
+	background-position: center top;
+	background-size: cover;
+}
+
+body.home .navbar {
+	margin-bottom:0px;
+}
+
+footer {
+	background-color: #F5F5F5;
+    border-color: #DDDDDD;
+    color: #333333;
+    padding:20px;
+    min-height:200px;
+    margin-top:40px;
+    position: relative;
+	margin-top: -200px; /* negative value of footer height */
+	clear:both;
+
+}
+
+
+/* HOME PAGE */
+
+body.home .top-container {
+    width:100%;
+    overflow-y:hidden;
+
+}
+
+body.home img.slide-bg {
+	position:absolute;
+	width:100%;
+	min-height: 500px;
+	top:0px;
+}
+
+body.home .slide1 {
+	min-height:700px;
+}
+
+.header-text {
+	padding:60px;
+}
+
+.header-text h2 {
+	font-size:3em;
+	padding:4px;
+	background:#FFF;
+}
+
+.header-text h3 {
+	padding:4px;
+	background:#FFF;
+}
+
+/* Forms */
+
+
+body.small-form, body.main-form {
+    background: url(https://s3-us-west-2.amazonaws.com/sitefoil/images/main-bg.jpg);
+    background-attachment:fixed;
+}
+
+body.small-form .jumbotron, body.main-form .little-form.jumbotron {
+	text-align: center;
+	width: 30rem;
+	border-radius: 0.5rem;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	position: relative;
+	margin: 4rem auto;
+	background-color: #fff;
+	padding: 2rem;
+}
+
+
+
+body.main-form .jumbotron {
+	text-align: center;
+	width: 100%;
+	border-radius: 0.5rem;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	position: relative;
+	margin: 4rem auto;
+	background-color: #fff;
+	padding: 2rem;
+}
+
+form .glyphicon {
+	font-size: 10rem;
+	margin-top: 3rem;
+		color: #f96145;
+}
+
+form .container .glyphicon.glyphicon-ok {margin-top:0px;}
+
+body.small-form input, body.main-form input, body.main-form textarea {
+	width: 100%;
+	margin-bottom: 1.4rem;
+	padding: 0.9rem;
+	background-color: #ecf2f4;
+	border-radius: 0.2rem;
+	font-size:14px;
+	border: none;
+}
+body.small-form h2, body.main-form h2 {
+	margin-bottom: 3rem;
+	font-weight: bold;
+	color: #ababab;
+}
+body.small-form .btn, body.main-form .btn {
+	border-radius: 0.2rem;
+}
+body.small-form .btn .glyphicon, body.main-form .btn .glyphicon {
+	font-size: 3rem;
+	color: #fff;
+}
+body.small-form .full-width,  body.main-form .full-width{
+	background-color: #8eb5e2;
+	width: 100%;
+	-webkit-border-top-right-radius: 0;
+	-webkit-border-bottom-right-radius: 0;
+	-moz-border-radius-topright: 0;
+	-moz-border-radius-bottomright: 0;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+body.small-form .box, body.main-form .box {
+	position: relative;
+	bottom: 0;
+	left: 0;
+	margin-bottom: 0rem;
+	margin-left: 0rem;
+	margin-right: 0rem;
+}
+
+body.main-form .box {
+	text-align:left;
+}
+
+body.main-form .hero {
+	color:#FFF;
+	width:100%;
+	margin: 4rem auto;
+	background-color: transparent;
+	padding-top: 2rem; padding-bottom: 2rem;
+	text-align:center;
+}
+
+body.main-form .hero .glyphicon {
+	color:#FFF; text-align:center;
+}
+
+
+
+@media screen and (min-width:768px){
+    .navbar-brand-centered {
+        position: relative;
+        left: 50%;
+        display: block;
+        width: 160px;
+        text-align: center;
+        background-color: #fff;
+    }
+    .navbar>.container .navbar-brand-centered, 
+    .navbar>.container-fluid .navbar-brand-centered {
+        margin-left: -80px;
+    }
 }

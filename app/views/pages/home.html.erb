@@ -1,11 +1,58 @@
-<div class="jumbotron center">
+    <% @title = 'Site Automation With Sitefoil' %>
+<% @description = 'Automate Your Site' %>
+
+    <% if user_signed_in? %>
+    <div class="jumbotron center">
      <h1>Welcome to my app!</h1>
-     <% if user_signed_in? %>
-          # do something
-     <% else %>
-       <p>
-         <%= link_to "Log in", new_user_session_path, class: "btn btn-default btn-lg" %>
-         <%= link_to "Sign up", new_user_registration_path, class: "btn btn-primary btn-lg" %>
-       </p>
-  <% end %>  
+ 
+        
+   
+      
+  
 </div>
+
+  <% else %>
+  
+
+
+
+
+	<div class="row slide1">
+	<img src="https://s3-us-west-2.amazonaws.com/sitefoil/images/home1.jpg" alt="First slide" class="slide-bg">
+
+<!-- Static Header -->
+                    <div class="header-text">
+                        <div class="col-md-12 text-center">
+                            <h2>
+                            	<span><strong>AUTOMATE WITH SITEFOIL</strong></span>
+                            </h2>
+                            <br>
+                            <h3>
+                            	<span>keep your webstore fresh</span>
+                            </h3>
+                            <br>
+                            <div class="">
+                            	<%= link_to "Start Here", new_recipe_path, class: "btn btn-primary btn-lg active" %>
+	        					 
+  
+
+                                </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div><!-- /header-text -->
+
+
+
+
+
+		
+	</div>
+
+
+
+
+<div class="sf-home">
+	
+</div>
+  <% end %>  
+<% content_for :body_class, "home" %>

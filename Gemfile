@@ -38,6 +38,8 @@ gem 'simple_form'
 
 gem 'ransack'
 
+gem 'mail_form'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
