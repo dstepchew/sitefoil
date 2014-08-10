@@ -103,7 +103,8 @@ body.home .slide1 {
 
 body.small-form, body.main-form {
     background: url(https://s3-us-west-2.amazonaws.com/sitefoil/images/main-bg.jpg);
-    background-attachment:fixed;
+    background-attachment: fixed !important;
+background-size: cover !important;
 }
 
 body.small-form .jumbotron, body.main-form .little-form.jumbotron {
@@ -140,6 +141,7 @@ form .glyphicon {
 	font-size: 10rem;
 	margin-top: 3rem;
 		color: #f96145;
+		margin:auto;
 }
 
 form .container .glyphicon.glyphicon-ok {margin-top:0px;}

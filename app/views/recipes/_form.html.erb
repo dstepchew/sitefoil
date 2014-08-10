@@ -17,7 +17,7 @@
   <div class="little-form jumbotron" id="recipe-slide-1">
 
 <div class="container">
-    <span class="glyphicon glyphicon-hand-down text-center"></span>
+    <span class="glyphicon glyphicon-hand-down text-center hidden-xs"></span>
     <h2>New Recipe</h2>
     <div class="box">
         
@@ -49,7 +49,7 @@
 </div>
  <div class="hero" id="recipe-slide-2">
 
-    <span class="glyphicon glyphicon-fire"></span>
+    <span class="glyphicon glyphicon-fire hidden-xs"></span>
     <h2>If THIS</h2>
 
 
@@ -69,11 +69,28 @@
                   Available trigger ingredient fields get listed here
                   </div>
 
-
-   
 <div class="hero" id="recipe-slide-5">
 
-<span class="glyphicon glyphicon-play-circle"></span>
+    <span class="glyphicon glyphicon-fire hidden-xs"></span>
+    <h2>AND THIS* (optional)</h2>
+
+
+                <div class="form-group">
+                    <%= f.label :channel, "Choose A Trigger Channel" %>
+                    <%= collection_select(:recipe, :trig_channel_id, Channel.all, :id, :name, {:prompt=> "Select A Channel"}, {:class => "form-control"} ) %>
+                  </div>
+</div>
+                  <div class="hero" id="recipe-slide-6">
+                  Available channel triggers get listed here.
+                  </div>
+
+                  <div class="hero" id="recipe-slide-17">
+                  Available trigger ingredient fields get listed here
+                  </div>
+   
+<div class="hero" id="recipe-slide-8">
+
+<span class="glyphicon glyphicon-play-circle hidden-xs"></span>
     <h2>Then THIS</h2>
 
 
@@ -82,35 +99,18 @@
                     <%= collection_select(:recipe, :act_channel_id, Channel.all, :id, :name, {:prompt=> "Select A Channel"}, {:class => "form-control"} ) %>
                   </div>
 </div>
-                  <div class="hero" id="recipe-slide-6">
+                  <div class="hero" id="recipe-slide-9">
                   Channel Logo Goes Here<br>
                   Available channel actions get listed here.
                   </div>
 
-                   <div class="hero" id="recipe-slide-7">
+                   <div class="hero" id="recipe-slide-10">
                     Channel Logo Goes Here<br>
                   Available action ingredient fields get listed here
                   </div>
 
 
-<div class="hero" id="recipe-slide-8">
 
-    <span class="glyphicon glyphicon-ban-circle"></span>
-    <h2>UNLESS THIS</h2>
-
-
-                <div class="form-group">
-                    <%= f.label :channel, "Choose A Trigger Channel" %>
-                    <%= collection_select(:recipe, :trig_channel_id, Channel.all, :id, :name, {:prompt=> "Select A Channel"}, {:class => "form-control"} ) %>
-                  </div>
-</div>
-                  <div class="hero" id="recipe-slide-9">
-                  Available channel triggers get listed here.
-                  </div>
-
-                  <div class="hero" id="recipe-slide-10">
-                  Available trigger ingredient fields get listed here
-                  </div>
 
    
     
