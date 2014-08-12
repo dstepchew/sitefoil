@@ -6,4 +6,5 @@
 window.testSite = (site_id) ->
 	$.get "/dashboard/test_site",{site_id:site_id}, (resp) ->
 		resp = JSON.parse(resp)
-		$("#site_test_status").html(resp.script_installed)
+		$("#site_test_script_installed").html(resp.script_installed)
+		$("#site_test_coupon_field").html(resp.coupon_field)

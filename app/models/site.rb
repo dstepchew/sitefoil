@@ -9,10 +9,10 @@
 #  updated_at       :datetime
 #  user_id          :integer
 #  coupon_url       :string(255)
-#  coupon_id        :string(255)
+#  coupon_selector  :string(255)
 #  status           :string(255)
 #  checkout_url     :string(255)
-#  total_id         :string(255)
+#  total_selector   :string(255)
 #  confirmation_url :string(255)
 #
 
@@ -27,14 +27,11 @@ class Site < ActiveRecord::Base
 
   def test_script_installed
   	require 'open-uri'
-  	url = self.url
-  	if !url.starts_with? "http"
-  		url = "http://#{url}"
-  	end
+  	url = Site::fix_url self.url
   	Rails.logger.info("reading: #{url}")
     begin
-  	  html = open(url).read
-    rescue
+  	  html = open(url).read 
+    rescue 
       return "can't open #{url}"
     end
 
@@ -50,8 +47,44 @@ class Site < ActiveRecord::Base
   	return "link to tracking script not found"
   end
 
+  def test_coupon_field
+    require 'open-uri'
+
+    begin
+      html = open(Site::fix_url self.coupon_url).read 
+    rescue 
+      return "can't open coupon url #{self.coupon_url}"
+    end
+
+    return "coupon element not found" if !Site::selector_exists html, self.coupon_selector 
+
+    "selector found"
+
+  end
+
   def tracker_url host_with_port
     "http://#{host_with_port}/tracker.js"
+  end
+
+  def self.selector_exists html, selector
+    doc = Nokogiri::HTML(html)
+    doc.search(Site::fix_selector selector).length>0
+  end
+
+  def self.fix_selector selector
+    if (selector.include? "#") || (selector.include? ".")
+      selector
+    else
+      "##{selector}"
+    end
+  end
+
+  def self.fix_url url
+    if url.starts_with? "http"
+      url 
+    else
+      "http://#{url}"
+    end
   end
 
 end

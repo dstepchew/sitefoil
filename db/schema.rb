@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140807035621) do
+ActiveRecord::Schema.define(version: 20140812152737) do
 
   create_table "actions", force: true do |t|
     t.string   "name"
@@ -112,10 +112,10 @@ ActiveRecord::Schema.define(version: 20140807035621) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.string   "coupon_url"
-    t.string   "coupon_id"
+    t.string   "coupon_selector"
     t.string   "status"
     t.string   "checkout_url"
-    t.string   "total_id"
+    t.string   "total_selector"
     t.string   "confirmation_url"
   end
 

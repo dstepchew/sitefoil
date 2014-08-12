@@ -13,12 +13,12 @@
 
 <p>
   <strong>Location of Coupon Code Field:</strong>
-  <%= @site.coupon_url %>, <strong>ID of field</strong>: <%= @site.coupon_id %>
+  <%= @site.coupon_url %>, <strong>ID of field</strong>: <%= @site.coupon_selector %>
 </p>
 
 <p>
   <strong>Location of Confirmation and Order Total:</strong>
-  <%= @site.confirmation_url %>, <strong>ID of field</strong>: <%= @site.total_id %>
+  <%= @site.confirmation_url %>, <strong>ID of field</strong>: <%= @site.total_selector %>
 </p>
 
 
@@ -40,9 +40,9 @@
 
 <table class="table table-responsive" style="text-align:left;">
 <tr><th>Code</th><th>Status</th></tr>
-<tr><td>Sitewide Code</td><td id='site_test_status'>
+<tr><td>Sitewide Code</td><td id='site_test_script_installed'>
   </td></tr>
-<tr><td>Confirmation Code</td><td>run test, found, not found, found but missing order totals</td></tr>
+<tr><td>Coupon Field</td><td id='site_test_coupon_field'></td></tr>
 
 </table>
 
