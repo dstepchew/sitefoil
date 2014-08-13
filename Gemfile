@@ -64,3 +64,5 @@ end
 gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'annotate'
 gem 'nokogiri'
+
+gem 'protected_attributes'

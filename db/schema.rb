@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140812152737) do
+ActiveRecord::Schema.define(version: 20140813024732) do
 
   create_table "actions", force: true do |t|
     t.string   "name"
@@ -117,6 +117,8 @@ ActiveRecord::Schema.define(version: 20140812152737) do
     t.string   "checkout_url"
     t.string   "total_selector"
     t.string   "confirmation_url"
+    t.text     "tag"
+    t.text     "recipes_list"
   end
 
   add_index "sites", ["user_id"], name: "index_sites_on_user_id"

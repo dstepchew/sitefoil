@@ -14,15 +14,20 @@
 #  checkout_url     :string(255)
 #  total_selector   :string(255)
 #  confirmation_url :string(255)
+#  tag              :text
+#  recipes_list     :text
 #
 
 class Site < ActiveRecord::Base
+
+  attr_protected []
 
 	validates_presence_of :user_id, :name, :url
   	 
 	belongs_to :user
 	has_many :recipes
 	has_many :channels
+  serialize :tag, Hash
 
 
   def test_script_installed
@@ -63,7 +68,7 @@ class Site < ActiveRecord::Base
   end
 
   def tracker_url host_with_port
-    "http://#{host_with_port}/tracker.js"
+    "http://#{host_with_port}/tracker.js?site_id=#{self.id}"
   end
 
   def self.selector_exists html, selector
@@ -87,4 +92,12 @@ class Site < ActiveRecord::Base
     end
   end
 
+
+  def recipe_if_referrer_then_set_value referrer, field_selector, value
+    "console.log('document.referrer: '+document.referrer) \n"+
+    "if(document.referrer==\"#{referrer}\") { \n"+
+    "  document.querySelector(\"#{field_selector}\").value=\"#{value}\" \n"+
+    "} \n"
+
+  end
 end

@@ -1,5 +1,5 @@
 'use strict';
-console.log("sitefoil tracker.js script started")
+console.log("sitefoil tracker.js script started, site_id: "+<%= @site.id rescue 'not defined' %>)
 var hit_id = "<%= @hit.id %>"
 
 
@@ -13,3 +13,22 @@ xhr.onreadystatechange = function (data) {
   }
 }
 xhr.send();
+
+
+window.onload = function() {
+
+	<% @site.recipes_list.split("\n").each do |recipe| %>
+		<% continue if recipe.blank? %>
+		<%= "// recipe: #{recipe}\n".html_safe %>
+		try {
+			<% begin %>
+				<%= eval("@site.recipe_#{recipe}").html_safe %>
+			<% rescue %>
+				<%= "// error! while trying to build recipe code: #{recipe}".html_safe %>
+			<% end %>
+		} catch (err) {
+		  console.log("error while running recipe: <%= recipe %>")
+		}
+	<% end %>
+
+}

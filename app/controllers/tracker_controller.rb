@@ -6,6 +6,8 @@ class TrackerController < ApplicationController
   #tracker.js script is fetched with this method
   def index
 
+     @site = Site.find params[:site_id]
+
      if cookies[:track_id]
        Rails.logger.info "returning visitor"
        visitor = Visitor.find_by_id cookies[:track_id]
