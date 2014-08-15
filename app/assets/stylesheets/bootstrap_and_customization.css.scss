@@ -98,13 +98,32 @@ body.home .slide1 {
 	background:#FFF;
 }
 
-/* Forms */
 
 
-body.small-form, body.main-form {
+/* Forms  */
+
+h2.form-section-header {
+	clear: both;
+font-size: 2em;
+font-weight: bold;
+border-top: 1px #ebebeb solid;
+padding: 10px 120px 10px 0;
+
+}
+
+.form-section-step {
+
+	display: inline-block;
+padding-left: 2em;
+color: #dfdfdf;
+}
+
+
+
+/* body.small-form, body.main-form {
     background: url(https://s3-us-west-2.amazonaws.com/sitefoil/images/main-bg.jpg);
     background-attachment: fixed !important;
-background-size: cover !important;
+	background-size: cover !important;
 }
 
 body.small-form .jumbotron, body.main-form .little-form.jumbotron {
@@ -135,7 +154,7 @@ body.main-form .jumbotron {
 	margin: 4rem auto;
 	background-color: #fff;
 	padding: 2rem;
-}
+}*/
 
 form .glyphicon {
 	font-size: 10rem;
@@ -146,6 +165,7 @@ form .glyphicon {
 
 form .container .glyphicon.glyphicon-ok {margin-top:0px;}
 
+/*
 body.small-form input, body.main-form input, body.main-form textarea {
 	width: 100%;
 	margin-bottom: 1.4rem;
@@ -159,15 +179,21 @@ body.small-form h2, body.main-form h2 {
 	margin-bottom: 3rem;
 	font-weight: bold;
 	color: #ababab;
-}
+} 
+
+*/
+
 body.small-form .btn, body.main-form .btn {
 	border-radius: 0.2rem;
+	background-color: #8eb5e2;
 }
 body.small-form .btn .glyphicon, body.main-form .btn .glyphicon {
 	font-size: 3rem;
 	color: #fff;
 }
-body.small-form .full-width,  body.main-form .full-width{
+
+/*
+body.small-form .full-width,  body.main-form .full-width {
 	background-color: #8eb5e2;
 	width: 100%;
 	-webkit-border-top-right-radius: 0;
@@ -191,6 +217,12 @@ body.main-form .box {
 	text-align:left;
 }
 
+body.small-form label, body.main-form label {
+	font-size:14px;
+	color:#777777;
+
+}
+
 body.main-form .hero {
 	color:#FFF;
 	width:100%;
@@ -203,7 +235,7 @@ body.main-form .hero {
 body.main-form .hero .glyphicon {
 	color:#FFF; text-align:center;
 }
-
+*/
 
 
 @media screen and (min-width:768px){

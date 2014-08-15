@@ -17,7 +17,7 @@ Sitefoil::Application.routes.draw do
   resources :sites
 
   devise_for :users
-  root "pages#home"
+  root "recipes#index"
   get "about" => "pages#about"
   get "privacy" => "pages#privacy"
   get "terms" => "pages#terms"
