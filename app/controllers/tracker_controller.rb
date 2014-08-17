@@ -25,11 +25,11 @@ class TrackerController < ApplicationController
        visitor = Visitor.create
        cookies[:track_id] = { :value => visitor.id, :expires => 30.days.from_now }      
      end
-     @hit = visitor.hits.new ip: request.remote_ip, 
-       browser: request.env['HTTP_USER_AGENT']
+     @hit = visitor.hits.new
      #saving whole data just in case
      @hit.tag[:location] = request.location.data
      @hit.tag[:user_agent] = request.user_agent
+     @hit.ip = request.remote_ip
      @hit.country = request.location.data["country_name"]
      @hit.state = request.location.data["region_name"]
      @hit.city = request.location.data["city"]
@@ -49,6 +49,7 @@ class TrackerController < ApplicationController
   end
 
   def dbg
+    throw request
     render text:request.location.data.to_json
   end
 
