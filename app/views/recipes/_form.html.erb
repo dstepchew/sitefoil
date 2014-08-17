@@ -1,5 +1,5 @@
 
-
+<div class="container">
 <%= form_for(@recipe) do |f| %>
   <% if @recipe.errors.any? %>
     <div id="error_explanation">
@@ -14,43 +14,41 @@
   <% end %>
 
 
-  <div class="little-form jumbotron" id="recipe-slide-1">
+  <div id="recipe-slide-1">
 
 <div class="container">
-    <span class="glyphicon glyphicon-hand-down text-center hidden-xs"></span>
-    <h2>New Recipe</h2>
+  <h2 class="form-section-header">Choose A Website
+      <span class="form-section-step">Step 1 of 7</span>
+  </h2>
+  <p class="form-section-description">
+      Each recipe can only belong to one website of your choice:
+  </p>
+   
     <div class="box">
         
        
-              <div class="form-group">
-                <%= f.label :name, "Name Your Recipe" %><br>
-                <%= f.text_field :name, class: "form-control" %>
-              </div>
-        
-        
-        
-              <div class="form-group" style="display:none;">
-                <%= f.label :description, "Describe What It Does (optional)" %><br>
-                <%= f.text_area :description, class: "form-control" %>
-              </div>
 
             
          
               <div class="form-group">
-                    <%= f.label :site, "Which Site Is This For?" %>
+                   
                     <%= collection_select(:recipe, :site_id, Site.all, :id, :name, {:prompt=> "Select A Site"}, {:class => "form-control"} ) %>
                   </div>
 
-                   <button class="btn btn-default full-width"><span class="glyphicon glyphicon-ok"></span></button>
              
          
     </div>
 </div>  
 </div>
  <div class="hero" id="recipe-slide-2">
+ <div class="container">
 
-    <span class="glyphicon glyphicon-fire hidden-xs"></span>
-    <h2>If THIS</h2>
+    <h2 class="form-section-header">Choose A Trigger Channel
+      <span class="form-section-step">Step 2 of 7</span>
+  </h2>
+  <p class="form-section-description">
+      Below are all the available channels that provide a trigger:
+  </p>
 
 
                 <div class="form-group">
@@ -58,55 +56,106 @@
                     <%= collection_select(:recipe, :trig_channel_id, Channel.all, :id, :name, {:prompt=> "Select A Channel"}, {:class => "form-control"} ) %>
                   </div>
 </div>
+</div>
+
+
 
                   <div class="hero" id="recipe-slide-3">
-                  Channel Logo Goes Here<br>
+                  <div class="container">
+
+
+    <h2 class="form-section-header">Choose A Trigger
+      <span class="form-section-step">Step 2 of 7</span>
+  </h2>
+ 
+               
                   Available channel triggers get listed here.
+                  </div>
                   </div>
 
                   <div class="hero" id="recipe-slide-4">
-                  Channel Logo Goes Here<br>
-                  Available trigger ingredient fields get listed here
+                  <div class="container">
+
+                    <h2 class="form-section-header">Complete Trigger Fields
+      <span class="form-section-step">Step 2 of 7</span>
+  </h2>
+  <h3>Trigger Name Goes Here</h3>
+                
+                <p>  Available trigger ingredient fields get listed here, unless none to complete</p>
+                  </div>
                   </div>
 
 <div class="hero" id="recipe-slide-5">
+<div class="container">
 
-    <span class="glyphicon glyphicon-fire hidden-xs"></span>
-    <h2>AND THIS* (optional)</h2>
-
+    <h2 class="form-section-header">Choose An Additional Trigger Channel or <a href="#">Skip This</a>
+      <span class="form-section-step">Step 2 of 7</span>
+  </h2>
+   <p class="form-section-description">
+      Use available trigger channels to add a second rule to your original trigger (optional):
+  </p>
+ 
 
                 <div class="form-group">
-                    <%= f.label :channel, "Choose A Trigger Channel" %>
+                
                     <%= collection_select(:recipe, :trig_channel_id, Channel.all, :id, :name, {:prompt=> "Select A Channel"}, {:class => "form-control"} ) %>
                   </div>
-</div>
+</div></div>
                   <div class="hero" id="recipe-slide-6">
-                  Available channel triggers get listed here.
+                 <div class="container">
+
+
+    <h2 class="form-section-header">Choose A Trigger
+      <span class="form-section-step">Step 2 of 7</span>
+  </h2></div>
                   </div>
 
-                  <div class="hero" id="recipe-slide-17">
-                  Available trigger ingredient fields get listed here
+                  <div class="hero" id="recipe-slide-7">
+                 <div class="container">
+
+                    <h2 class="form-section-header">Complete Trigger Fields
+      <span class="form-section-step">Step 2 of 7</span>
+  </h2>
+  <h3>Trigger Name Goes Here</h3>
+                
+                <p>  Available trigger ingredient fields get listed here, unless none to complete</p>
+                  </div>
+                  </div>
                   </div>
    
 <div class="hero" id="recipe-slide-8">
+<div class="container">
 
-<span class="glyphicon glyphicon-play-circle hidden-xs"></span>
-    <h2>Then THIS</h2>
-
+ <h2 class="form-section-header">Choose An Action Channel
+      <span class="form-section-step">Step 3 of 7</span>
+  </h2>
+   <p class="form-section-description">
+      Below are all the available channels that provide an action:
+  </p>
 
                 <div class="form-group">
-                    <%= f.label :channel, "Choose An Action Channel" %>
+                    
                     <%= collection_select(:recipe, :act_channel_id, Channel.all, :id, :name, {:prompt=> "Select A Channel"}, {:class => "form-control"} ) %>
                   </div>
-</div>
+</div></div>
                   <div class="hero" id="recipe-slide-9">
-                  Channel Logo Goes Here<br>
+                  <div class="container">
+                   <h2 class="form-section-header">Choose An Action
+      <span class="form-section-step">Step 4 of 7</span>
+  </h2>
+                  
                   Available channel actions get listed here.
+                  </div>
                   </div>
 
                    <div class="hero" id="recipe-slide-10">
-                    Channel Logo Goes Here<br>
+                   <div class="container">
+                    <h2 class="form-section-header">Complete Action Fields
+      <span class="form-section-step">Step 5 of 7</span>
+  </h2>
+                   
                   Available action ingredient fields get listed here
+                  </div>
                   </div>
 
 
@@ -154,6 +203,11 @@
               -need fields/values for start and end time/date
         </div>
 
+         <div class="form-group">
+                <%= f.label :name, "Name Your Recipe" %><br>
+                <%= f.text_field :name, class: "form-control" %>
+              </div>
+
         </div>
 
              <div class="row">
@@ -169,5 +223,7 @@
 
         </div></div>
 <% end %>
+
+</div>
 
 

@@ -11,15 +11,28 @@
     </div>
   <% end %>
 
-   <div class="form-group">
-    <%= f.label :name %><br>
-    <%= f.text_field :name, class: "form-control" %>
-  </div>
-    <div class="form-group">
-    <%= f.label :url %><br>
-    <%= f.text_field :url, class: "form-control" %>
-  </div>
-  <div class="form-group">
+
+  <div class="little-form jumbotron" id="recipe-slide-1">
+
+<div class="container">
+    <span class="glyphicon glyphicon-globe text-center hidden-xs"></span>
+    <div class="box">
+        
+       
+              <div class="form-group" style="margin-top:20px;">
+                <%= f.label :name, "Name Your Site" %><br>
+                <%= f.text_field :name, class: "form-control" %>
+              </div>
+        
+        
+        
+              <div class="form-group">
+                <%= f.label :url, "Site URL address" %><br>
+                <%= f.text_field :url, class: "form-control" %>
+              </div>
+
+            
+         <div class="form-group hidden">
     <%= f.label :coupon_url, "Coupon Field Location" %><br>
     <%= f.text_field :coupon_url, class: "form-control" %>
   </div>
@@ -29,13 +42,13 @@
     <%= f.text_field :coupon_selector, class: "form-control" %>
   </div>
 
-   <div class="form-group">
+   <div class="form-group hidden">
     <%= f.label :checkout_url, "Checkout Page URL Location" %><br>
     <%= f.text_field :checkout_url, class: "form-control" %>
   </div>
 
    <div class="form-group">
-    <%= f.label :confirmation_url, "Order Confirmation Page URL Location" %><br>
+    <%= f.label :confirmation_url, "Order Confirmation Page URL" %><br>
     <%= f.text_field :confirmation_url, class: "form-control" %>
   </div>
 
@@ -43,8 +56,14 @@
     <%= f.label :total_selector, "Total ID" %><br>
     <%= f.text_field :total_selector, class: "form-control" %>
   </div>
- <div class="form-group">
-    <%= f.submit class: "btn btn-primary" %>
+
+                   <button class="btn btn-default full-width"><span class="glyphicon glyphicon-ok"></span></button>
+             
+         
+    </div>
+</div>  
+</div>
+
   </div>
  
 <% end %>
