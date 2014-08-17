@@ -29,9 +29,11 @@ class TrackerController < ApplicationController
        browser: request.env['HTTP_USER_AGENT']
      #saving whole data just in case
      @hit.tag[:location] = request.location.data
+     @hit.tag[:user_agent] = request.user_agent
      @hit.country = request.location.data["country_name"]
      @hit.state = request.location.data["region_name"]
      @hit.city = request.location.data["city"]
+     @hit.browser = request.user_agent
      @hit.save
      render "index", :content_type => "application/javascript"
   end
