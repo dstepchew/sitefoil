@@ -14,8 +14,13 @@
 #  created_at  :datetime
 #  updated_at  :datetime
 #  referrer    :string(255)
+#  tag         :text
 #
 
 class Hit < ActiveRecord::Base
 	belongs_to :visitor, touch: true
+	serialize :tag, Hash
+	def after_create
+		self.tag ||= {}
+	end
 end

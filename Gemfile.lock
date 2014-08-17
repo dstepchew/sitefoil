@@ -49,12 +49,18 @@ GEM
       activesupport (>= 3.0.0)
     arel (4.0.2)
     bcrypt (3.1.7)
+    better_errors (1.1.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     bootstrap-sass (3.0.3.0)
       sass (~> 3.2)
     bourbon (3.2.3)
       sass (~> 3.2)
       thor
     builder (3.1.4)
+    coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -62,6 +68,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.1)
+    debug_inspector (0.0.2)
     devise (3.2.4)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -72,6 +79,7 @@ GEM
     execjs (2.2.1)
     formtastic (2.3.0.rc3)
       actionpack (>= 3.0)
+    geocoder (1.1.9)
     has_scope (0.6.0.rc)
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
@@ -186,9 +194,12 @@ PLATFORMS
 DEPENDENCIES
   activeadmin!
   annotate
+  better_errors
+  binding_of_caller
   bootstrap-sass
   coffee-rails (~> 4.0.0)
   devise
+  geocoder
   jbuilder (~> 1.2)
   jquery-rails
   mail_form

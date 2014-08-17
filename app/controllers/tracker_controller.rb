@@ -6,7 +6,15 @@ class TrackerController < ApplicationController
   #tracker.js script is fetched with this method
   def index
 
-     @site = Site.find params[:site_id]
+     if !params[:site_id]
+        throw "site_id parameter not specified"
+     end
+ 
+     @site = Site.find_by_id params[:site_id]
+
+     if !@site
+       throw "site with such id not found"
+     end
 
      if cookies[:track_id]
        Rails.logger.info "returning visitor"
@@ -17,8 +25,14 @@ class TrackerController < ApplicationController
        visitor = Visitor.create
        cookies[:track_id] = { :value => visitor.id, :expires => 30.days.from_now }      
      end
-     @hit = visitor.hits.create ip: request.remote_ip, 
+     @hit = visitor.hits.new ip: request.remote_ip, 
        browser: request.env['HTTP_USER_AGENT']
+     #saving whole data just in case
+     @hit.tag[:location] = request.location.data
+     @hit.country = request.location.data["country_name"]
+     @hit.state = request.location.data["region_name"]
+     @hit.city = request.location.data["city"]
+     @hit.save
      render "index", :content_type => "application/javascript"
   end
 
@@ -30,6 +44,10 @@ class TrackerController < ApplicationController
        hit.update_attributes referrer: params[:hit][:referrer]
      end
      render text:"data from script for hit id: #{params[:hit_id]} posted"
+  end
+
+  def dbg
+    render text:request.location.data.to_json
   end
 
   private
