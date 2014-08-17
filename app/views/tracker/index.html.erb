@@ -17,7 +17,7 @@ xhr.send();
 
 window.onload = function() {
 
-	<% @site.recipes_list.split("\n").each do |recipe| %>
+	<% @site.recipes_list.to_s.split("\n").each do |recipe| %>
 		<% continue if recipe.blank? %>
 		<%= "// recipe: #{recipe}\n".html_safe %>
 		try {
