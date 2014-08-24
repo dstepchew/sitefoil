@@ -1,0 +1,150 @@
+:css
+  .slide {display:none}
+.container
+  = form_for(@recipe) do |f|
+    - if @recipe.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@recipe.errors.count, "error")
+          prohibited this recipe from being saved:
+        %ul
+          - @recipe.errors.full_messages.each do |msg|
+            %li= msg
+    - if !current_user
+      #sign_up.form-inline
+        %h1 Sign Up
+        .form-group
+          %label Email:
+          %input.form-control{:name => "new_user[email]", :placeholder => "email", :type => "email"}/
+        .form-group
+          %label Password:
+          %input.form-control{:name => "new_user[password]", :placeholder => "password", :type => "password"}/
+        %br/
+        %a{:href => "javascript:$(\"#sign_up\").hide();$(\"#sign_in\").show();"} Already Signed Up
+      #sign_in.form-inline{:style => "display:none"}
+        %h1 Sign In
+        .form-group
+          %label Email:
+          %input.form-control{:name => "user[email]", :placeholder => "email", :type => "email"}/
+        .form-group
+          %label Password:
+          %input.form-control{:name => "user[password]", :placeholder => "password", :type => "password"}/
+        %br/
+        %a{:href => "javascript:$(\"#sign_in\").hide();$(\"#sign_up\").show();"} Don't have account
+    #recipe-slide-1
+      .container
+        %h2.form-section-header
+          Choose A Website
+          %span.form-section-step Step 1 of 7
+        %p.form-section-description
+          Each recipe can only belong to one website of your choice:
+        .box
+          - if current_user
+            .form-group
+              = collection_select(:recipe, :site_id, current_user.sites, :id, :name, {:prompt=> "select a site"}, {:class => "form-control"} )
+          .form-group
+            %label Create new site:
+            %input.form-control{:name => "new_site_url", :placeholder => "url"}/
+    #recipe-slide-2.slide
+      .container
+        %h2.form-section-header
+          Choose A Trigger Channel
+          %span.form-section-step Step 2 of 7
+        %p.form-section-description
+          Below are all the available channels that provide a trigger:
+        .form-group
+          = f.label :channel, "Choose A Trigger Channel"
+          = collection_select(:recipe, :trig_channel_id, ApplicationHelper::trigger_channels, :to_s, :to_s, {:prompt=> "select a channel"}, {:class => "form-control"} )
+    #recipe-slide-3.slide
+      .container
+        %h2.form-section-header
+          Choose A Trigger
+          %span.form-section-step Step 2 of 7
+        Available channel triggers get listed here.
+    #recipe-slide-4.slide
+      .container
+        %h2.form-section-header
+          Complete Trigger Fields
+          %span.form-section-step Step 2 of 7
+        %h3 Trigger Name Goes Here
+        %p Available trigger ingredient fields get listed here, unless none to complete
+    #recipe-slide-5.slide
+      .container
+        %h2.form-section-header
+          Choose An Additional Trigger Channel or
+          %a{:href => "#"} Skip This
+          %span.form-section-step Step 2 of 7
+        %p.form-section-description
+          Use available trigger channels to add a second rule to your original trigger (optional):
+        .form-group
+          = collection_select(:recipe, :trig_channel_id, ApplicationHelper::trigger_channels, :to_s, :to_s, {:prompt=> "select a channel"}, {:class => "form-control"} )
+    #recipe-slide-6.slide
+      .container
+        %h2.form-section-header
+          Choose A Trigger
+          %span.form-section-step Step 2 of 7
+    #recipe-slide-7.slide
+      .container
+        %h2.form-section-header
+          Complete Trigger Fields
+          %span.form-section-step Step 2 of 7
+        %h3 Trigger Name Goes Here
+        %p Available trigger ingredient fields get listed here, unless none to complete
+    #recipe-slide-8.slide
+      .container
+        %h2.form-section-header
+          Choose An Action Channel
+          %span.form-section-step Step 3 of 7
+        %p.form-section-description
+          Below are all the available channels that provide an action:
+        .form-group
+          = collection_select(:recipe, :act_channel_id, ApplicationHelper::action_channels, :to_s, :to_s, {:prompt=> "select a channel"}, {:class => "form-control"} )
+    #recipe-slide-9.slide
+      .container
+        %h2.form-section-header
+          Choose An Action
+          %span.form-section-step Step 4 of 7
+        Available channel actions get listed here.
+    #recipe-slide-10.slide
+      .container
+        %h2.form-section-header
+          Complete Action Fields
+          %span.form-section-step Step 5 of 7
+        Available action ingredient fields get listed here
+    #recipe-slide-11.jumbotron
+      .container
+        .row
+          .col-xs-12.col-sm-12.col-md-12
+            Recipe summary goes here:
+            .row
+              .col-xs-12.col-sm-4.col-md-4.text-center
+                %h2 IF __________
+              .col-xs-12.col-sm-4.col-md-4.text-center
+                %h2 Then __________
+              .col-xs-12.col-sm-4.col-md-4.text-center
+                %h2 UNLESS __________
+          .col-xs-12.col-sm-12.col-md-12
+            %p Turn it on now? Or save it for later?
+            .btn-group{"data-toggle" => "buttons"}
+              %label.btn.btn-primary
+                = f.radio_button :status, "active", id: 'active', value: "active"
+                Start It Now
+              %label.btn.btn-primary
+                = f.radio_button :status, "scheduled", id: 'scheduled', value: "scheduled"
+                Schedule It To Run
+              %label.btn.btn-primary
+                = f.radio_button :status, "inactive", id: 'inactive', value: "inactive"
+                Just Save It For Now!
+            %br/
+            drop down calendar and time when schedule is chosen
+            \-need fields/values for start and end time/date
+          .form-group
+            = f.label :name, "Name Your Recipe"
+            %br/
+            = f.text_field :name, class: "form-control"
+        .row
+          .col-xs-12.col-sm-4.col-md-4.text-center
+          .col-xs-12.col-sm-4.col-md-4.text-center
+            = button_tag( :class => "btn btn-default full-width") do
+              %span.glyphicon.glyphicon-ok
+          .col-xs-12.col-sm-4.col-md-4.text-center
