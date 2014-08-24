@@ -34,17 +34,22 @@
     #recipe-slide-1
       .container
         %h2.form-section-header
-          Choose A Website
+          Specify A Website
           %span.form-section-step Step 1 of 7
         %p.form-section-description
           Each recipe can only belong to one website of your choice:
         .box
-          - if current_user
-            .form-group
-              = collection_select(:recipe, :site_id, current_user.sites, :id, :name, {:prompt=> "select a site"}, {:class => "form-control"} )
           .form-group
-            %label Create new site:
-            %input.form-control{:name => "new_site_url", :placeholder => "url"}/
+            - if current_user
+              #site_select
+                = collection_select(:recipe, :site_id, current_user.sites, :id, :name, {:prompt=> "select a site"}, {:class => "form-control"} )
+                %a{:href => "javascript:$(\"#site_select\").hide();$(\"#site_create\").show();"} create new site
+              #site_create{style:'display:none'}
+                %input.form-control{:name => "new_site_url", :placeholder => "url"}
+                %a{:href => "javascript:$(\"#site_create\").hide();$(\"#site_select\").show();"} select existing site
+            - else
+              %label Site url:
+              %input.form-control{:name => "new_site_url", :placeholder => "url"}
     #recipe-slide-2.slide
       .container
         %h2.form-section-header
