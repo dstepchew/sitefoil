@@ -1,6 +1,6 @@
 <%= render 'pages/home' unless user_signed_in? %>
 
-
+ <% if user_signed_in? %>
 
 <h1>Listing recipes</h1>
 
@@ -35,3 +35,7 @@
 <br>
 
 <%= link_to 'New Recipe', new_recipe_path %>
+
+ <% else %>
+
+ <% end %>  
