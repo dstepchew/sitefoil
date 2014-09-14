@@ -1,35 +1,33 @@
 'use strict';
 console.log("sitefoil tracker.js script started, site_id: "+<%= @site.id rescue 'not defined' %>)
-var hit_id = "<%= @hit.id %>"
+
+function sitefoil_log_user_data() {
+	var hit_id = "<%= @hit.id %>"
 
 
-var xhr = new XMLHttpRequest()
-var url = "http://<%= request.host_with_port%>/tracker/data_from_script?hit_id="+hit_id+
-          "&hit[referrer]="+encodeURIComponent(document.referrer)
-xhr.open('GET', url);
-xhr.onreadystatechange = function (data) {
-  if(xhr.readyState==4) {
-    console.log(xhr.responseText)
-  }
+	var xhr = new XMLHttpRequest()
+	var url = "http://<%= request.host_with_port%>/tracker/data_from_script?hit_id="+hit_id+
+	          "&hit[referrer]="+encodeURIComponent(document.referrer)
+	xhr.open('GET', url);
+	xhr.onreadystatechange = function (data) {
+	  if(xhr.readyState==4) {
+	    console.log(xhr.responseText)
+	  }
+	}
+	xhr.send();
 }
-xhr.send();
+
+sitefoil_log_user_data()
+
+var sitefoil_hit = JSON.parse('<%= @hit.to_json.html_safe %>')
 
 
 function sitefoil_on_load() {
 
-	<% @site.recipes_list.to_s.split("\n").each do |recipe| %>
-		<% continue if recipe.blank? %>
-		<%= "// recipe: #{recipe}\n".html_safe %>
-		try {
-			<% begin %>
-				<%= eval("@site.recipe_#{recipe}").html_safe %>
-			<% rescue %>
-				<%= "// error! while trying to build recipe code: #{recipe}".html_safe %>
-			<% end %>
-		} catch (err) {
-		  console.log("error while running recipe: <%= recipe %>")
-		}
-	<% end %>
+  var hit = sitefoil_hit;
+
+  //running recipes
+  <%= @site.recipes_list.html_safe %>
 
 }
 
