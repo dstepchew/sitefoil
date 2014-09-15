@@ -28,7 +28,7 @@ function sitefoil_on_load() {
   <% if @site %>  
 	  //running recipes
 	  <% @site.recipes.each do |recipe| %>
-	    <%= recipe.js %>
+	    <%= recipe.js.html_safe %>
 	  <% end %>
 	<% else %>
 	  // SITE NOT DEFINED!
