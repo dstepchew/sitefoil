@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140817020826) do
+ActiveRecord::Schema.define(version: 20140915042823) do
 
   create_table "actions", force: true do |t|
     t.string   "name"
@@ -99,11 +99,12 @@ ActiveRecord::Schema.define(version: 20140817020826) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "site_id"
+    t.integer  "site_id",         limit: 255
     t.string   "trigger_id"
     t.string   "act_id"
     t.string   "trig_channel_id"
     t.string   "act_channel_id"
+    t.text     "js"
   end
 
   create_table "sites", force: true do |t|
@@ -119,7 +120,6 @@ ActiveRecord::Schema.define(version: 20140817020826) do
     t.string   "total_selector"
     t.string   "confirmation_url"
     t.text     "tag"
-    t.text     "recipes_list"
   end
 
   add_index "sites", ["user_id"], name: "index_sites_on_user_id"

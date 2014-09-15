@@ -25,9 +25,11 @@ var sitefoil_hit = JSON.parse('<%= @hit.to_json.html_safe %>')
 function sitefoil_on_load() {
 
   var hit = sitefoil_hit;
-
+  
   //running recipes
-  <%= @site.recipes_list.html_safe %>
+  <% @site.recipes.each do |recipe| %>
+    <%= recipe.js %>
+  <% end %>
 
 }
 

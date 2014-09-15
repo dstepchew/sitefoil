@@ -9,14 +9,16 @@
 #  description     :text
 #  created_at      :datetime
 #  updated_at      :datetime
-#  site_id         :string(255)
+#  site_id         :integer
 #  trigger_id      :string(255)
 #  act_id          :string(255)
 #  trig_channel_id :string(255)
 #  act_channel_id  :string(255)
+#  js              :text
 #
 
 class Recipe < ActiveRecord::Base
+	 attr_protected []
 
 	 has_one :trigger
 	# has_one :channels, through :trigger

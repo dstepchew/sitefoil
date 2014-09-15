@@ -8,6 +8,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Site</th>
       <th>Status</th>
       <th>Hits</th>
       <th>Description</th>
@@ -21,6 +22,7 @@
     <% @recipes.each do |recipe| %>
       <tr>
         <td><%= recipe.name %></td>
+        <td><%= recipe.site.url rescue '' %></td>
         <td><%= recipe.status %></td>
         <td><%= recipe.hits %></td>
         <td><%= recipe.description %></td>
