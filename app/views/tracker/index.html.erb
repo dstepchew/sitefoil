@@ -1,7 +1,7 @@
 'use strict';
 console.log("sitefoil tracker.js script started, site_id: "+<%= @site.id rescue 'not defined' %>)
 
-function sitefoil_log_user_data() {
+function sitefoil_save_visitor_data() {
 	var hit_id = "<%= @hit.id %>"
 
 
@@ -17,19 +17,22 @@ function sitefoil_log_user_data() {
 	xhr.send();
 }
 
-sitefoil_log_user_data()
+sitefoil_save_visitor_data()
 
-var sitefoil_hit = JSON.parse('<%= @hit.to_json.html_safe %>')
-
+var sitefoil_visitor = JSON.parse('<%= @hit.to_json.html_safe %>')
 
 function sitefoil_on_load() {
 
-  var hit = sitefoil_hit;
+  var visitor = sitefoil_visitor;
   
-  //running recipes
-  <% @site.recipes.each do |recipe| %>
-    <%= recipe.js %>
-  <% end %>
+  <% if @site %>  
+	  //running recipes
+	  <% @site.recipes.each do |recipe| %>
+	    <%= recipe.js %>
+	  <% end %>
+	<% else %>
+	  // SITE NOT DEFINED!
+	<% end %>
 
 }
 
