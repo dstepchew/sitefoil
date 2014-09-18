@@ -1,0 +1,141 @@
+<style>
+#recipe_wizard, #recipe_wizard input, #recipe_wizard select {
+	font-size: 25px !important; margin: 10px;
+}
+
+select, input, #recipe { border:0; color:#000000; background: #fff;
+font-size:20px; font-weight:bold; padding:2px 10px; 
+ *background:#FFFFFF; -webkit-appearance: none; }
+
+</style>
+<script>
+
+function onConditionChange() {
+	var condition_name = $("#condition").val()
+	$("#condition_param").hide().val("")
+	if(condition_name) {
+		$("#condition_method").show()
+		  .html($(".condition_methods[data-condition-name='"+condition_name+"']").html())
+	} else {
+		$("#condition_method").hide()
+	}
+
+}
+
+function onConditionMethodChange() {
+	var condition_method = $("#condition_method").val()
+	if(condition_method.indexOf("?")!=-1) {
+		$("#condition_param").show().val("")
+	} else {
+		$("#condition_param").hide()
+	}
+}
+
+function onActionChange() {
+	var action = $("#action").val()
+	if(action) {
+		$("#action_params").show()
+		  .html($(".action_params[data-action-name='"+action+"']").html())
+	} else {
+		$("#action_params").hide()
+	}
+}
+
+function buildRecipe() {
+	console.log("build recipe")
+	var js = "";
+	var condition_name = $("#condition").val()
+	console.log(condition_name)
+	var condition_name_js = $("#condition option[value='"+condition_name+"']").attr('data-js')
+	console.log(condition_name_js)
+	var method_js = $("#condition_method").val()
+	console.log("method_js",method_js)
+	var value_js = $("#condition_param").val()
+
+	var condition_js = ""
+
+	if(method_js && method_js.indexOf("?")!=-1) {
+    condition_js = condition_name_js+method_js.replace("?",value_js)
+	} else {
+		condition_js = condition_name_js+method_js
+	}
+
+  var action_js;
+
+  var action_name = $("#action").val()
+  console.log("action name", action_name)
+  var action_js = $("#action option[value='"+action_name+"']").attr("data-js")
+
+  $("#action_params input").each(function() {
+  	var name = $(this).attr("name")
+  	var val = $(this).val()
+  	console.log("action_param input: ", name, val)
+  	action_js = action_js.replace(":"+name, val)
+  })
+
+	js = "if("+condition_js+") { "+action_js+" }";
+
+	$("#recipe").html(js)
+
+}
+
+$(function() {
+  $("body").on("change","select",buildRecipe)
+  $("body").on("keyup","input",buildRecipe)
+})
+
+</script>
+
+
+<div id=recipe_wizard style='font-size:40px'>
+	if 
+
+	<select id=condition onchange='onConditionChange()' style='font-size:40px'>
+		<option value=''>-- select variable -- </option>
+		<% ApplicationHelper::conditions.each do |condition| %>
+		  <option value='<%= condition[:name] %>' data-js='<%= condition[:js] %>'><%= condition[:name] %></option>
+		<% end %>
+	</select>
+
+	<select id=condition_method style='display:none' onchange='onConditionMethodChange()'>
+	</select>
+
+
+	<% ApplicationHelper::conditions.each do |condition| %>
+		<div class='condition_methods' data-condition-name='<%= condition[:name] %>' style='display:none'>
+		  <option value=''>-- select method -- </option>
+			<% condition[:methods].each do |method| %>
+			  <option value='<%= method %>'><%= ApplicationHelper::human_method(method) %></option>
+			<% end %>
+		</div>
+	<% end %>
+
+  <input id=condition_param style='display:none'>
+
+	<br>
+
+	then
+
+	<select id=action onchange='onActionChange()'>
+		<option value=''>-- select action -- </option>
+		<% ApplicationHelper::actions.each do |action| %>
+			<option data-js='<%= action[:js] %>' value='<%= action[:name] %>'><%= action[:name] %></option>
+		<% end %>
+	</select>
+
+  <span id=action_params>
+  </span>
+
+	<% ApplicationHelper::actions.each do |action| %>
+		<div class='action_params' data-action-name='<%= action[:name] %>' style='display:none'>
+			<% action[:params].each do |param| %>
+				<%= param %>: <input name=<%= param %>>
+			<% end %>
+		</div>
+	<% end %>
+
+<br>
+<br>
+  <div id=recipe style='height:100px'>
+  </div>
+</div>
