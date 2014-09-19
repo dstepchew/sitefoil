@@ -1,3 +1,4 @@
+<script src=/bower_components/underscore.string/dist/underscore.string.min.js></script>
 <style>
 #recipe_wizard, #recipe_wizard input, #recipe_wizard select {
 	font-size: 25px !important; margin: 10px 0;
@@ -15,10 +16,13 @@ function onConditionChange() {
 	var condition_name = condition.find("#condition_name").val()
 	condition.find("#condition_param").hide().val("")
 	if(condition_name) {
+	  condition.find("#logic").show()		
 		condition.find("#condition_method").show()
 		  .html($(".condition_methods[data-condition-name='"+condition_name+"']").html())
 	} else {
 		condition.find("#condition_method").hide()
+	  condition.find("#logic").val("").trigger("change")
+	  condition.find("#logic").hide()		
 	}
 
 }
@@ -26,7 +30,7 @@ function onConditionChange() {
 function onConditionMethodChange() {
 	var condition = $(this).parents(".condition")	
 	var condition_method = condition.find("#condition_method").val()
-	if(condition_method.indexOf("?")!=-1) {
+	if(_.str.contains(condition_method,"?")) {
 		condition.find("#condition_param").show().val("")
 	} else {
 		condition.find("#condition_param").hide()
@@ -83,7 +87,7 @@ function buildRecipe() {
 		var this_condition_js;
 
 
-		if(method_js && method_js.indexOf("?")!=-1) {
+		if(method_js && _.str.contains(method_js,"?")) {
 	    this_condition_js = condition_name_js+method_js.replace("?",value_js)
 		} else {
 			this_condition_js = condition_name_js+method_js
@@ -152,8 +156,7 @@ $(function() {
 	  <input id=condition_param style='display:none'>
 
 
-		<br>
-		<select id=logic onchange='onLogicChange.apply(this)'>
+		<select id=logic onchange='onLogicChange.apply(this)' style='display:none'>
 				<option value=''></option>
 				<option value='and'>and</option>
 		</select>

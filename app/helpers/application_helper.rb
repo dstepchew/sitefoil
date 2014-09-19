@@ -22,7 +22,6 @@ module ApplicationHelper
 
 	def self.actions
     [
-    	{ name: 'apply recipe', js: 'apply_recipe(":name")', params: [:name] },
     	{ name: 'alert', js: 'alert(":message")', params: [:message] },
     	{ name: 'set control value', js: 'document.querySelector(":selector").value=":value"', params:[:selector,:value] },
     	{ name: 'send email', js: 'email_to(":email",":message")', params: [:email,:message] } 
