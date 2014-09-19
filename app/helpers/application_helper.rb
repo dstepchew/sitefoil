@@ -11,10 +11,10 @@ module ApplicationHelper
 
 	def self.conditions
 		[
-			{ name: 'referrer', js: 'document.referrer', methods: ['=="?"']},
-	    { name: 'country', js: 'visitor.country', methods: ['=="?"']},
-	    { name: 'hour', js: 'visitor.hour', methods: ['==?','>=?','<=?']},
-	    { name: 'weekday number', js: 'vistor.weekday', methods: ['==?','>=?','<=?']},
+			{ name: 'referrer', js: 'document.referrer', methods: ['=="?"','!="?"','.one_of("?")']},
+	    { name: 'country', js: 'visitor.country', methods: ['=="?"','!="?"']},
+	    { name: 'hour', js: 'visitor.hour', methods: ['==?','>=?','<=?','!=?']},
+	    { name: 'weekday number', js: 'vistor.weekday', methods: ['==?','>=?','<=?','!=?']},
 	    { name: 'visitor type', js: 'visitor.state', methods: ['=="new"','=="returning"']},
 	    { name: 'platform', js: 'visitor.platform', methods: ['=="tablet"','=="desktop"','=="mobile"']}
 	  ]
@@ -22,6 +22,7 @@ module ApplicationHelper
 
 	def self.actions
     [
+    	{ name: 'apply recipe', js: 'apply_recipe(":name")', params: [:name] },
     	{ name: 'alert', js: 'alert(":message")', params: [:message] },
     	{ name: 'set control value', js: 'document.querySelector(":selector").value=":value"', params:[:selector,:value] },
     	{ name: 'send email', js: 'email_to(":email",":message")', params: [:email,:message] } 
@@ -29,7 +30,11 @@ module ApplicationHelper
   end
 
   def self.human_method js
-  	ret = {'==?'=>'equals', 
+  	ret = {
+  	 '.one_of("?")'=>"one of",
+  	 '!="?"'=>'not equal',
+  	 '!=?'=>'not equal',
+  	 '==?'=>'equals', 
   	 '=="?"'=>'equals',
   	 '>=?'=>'bigger or equal', 
   	 '<=?'=>'lower or equal'}[js]
