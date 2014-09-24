@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140915042823) do
+ActiveRecord::Schema.define(version: 20140924083628) do
 
   create_table "actions", force: true do |t|
     t.string   "name"
@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 20140915042823) do
     t.string   "trig_channel_id"
     t.string   "act_channel_id"
     t.text     "js"
+    t.text     "wizard_json"
   end
 
   create_table "sites", force: true do |t|

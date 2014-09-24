@@ -15,7 +15,6 @@
 #  total_selector   :string(255)
 #  confirmation_url :string(255)
 #  tag              :text
-#  recipes_list     :text
 #
 
 class Site < ActiveRecord::Base

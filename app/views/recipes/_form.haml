@@ -116,41 +116,25 @@
           Complete Action Fields
           %span.form-section-step Step 5 of 7
         Available action ingredient fields get listed here
-    #recipe-slide-11.jumbotron
+    #recipe-slide-11.jumbotron{style: 'background:#eee;'}
       .container
         .row
           .col-xs-12.col-sm-12.col-md-12
-            Recipe summary goes here:
-            .row
-              .col-xs-12.col-sm-4.col-md-4.text-center
-                %h2 IF __________
-              .col-xs-12.col-sm-4.col-md-4.text-center
-                %h2 Then __________
-              .col-xs-12.col-sm-4.col-md-4.text-center
-                %h2 UNLESS __________
-          .col-xs-12.col-sm-12.col-md-12
-            %p Turn it on now? Or save it for later?
-            .btn-group{"data-toggle" => "buttons"}
-              %label.btn.btn-primary
-                = f.radio_button :status, "active", id: 'active', value: "active"
-                Start It Now
-              %label.btn.btn-primary
-                = f.radio_button :status, "scheduled", id: 'scheduled', value: "scheduled"
-                Schedule It To Run
-              %label.btn.btn-primary
-                = f.radio_button :status, "inactive", id: 'inactive', value: "inactive"
-                Just Save It For Now!
             %br/
-            drop down calendar and time when schedule is chosen
-            \-need fields/values for start and end time/date
           .form-group
             = f.label :name, "Name Your Recipe"
             %br/
             = f.text_field :name, class: "form-control"
           .form-group
+            = render "recipes/wizard"
+          .form-group{ style: 'display:none' }
+            = f.label :name, "JSON"
+            %br/
+            = f.text_area :wizard_json, rows: 3, class: "form-control"
+          .form-group{ style: 'display:none' }
             = f.label :name, "JS"
             %br/
-            = f.text_area :js, rows: 10, class: "form-control"
+            = f.text_area :js, rows: 3, class: "form-control"
         .row
           .col-xs-12.col-sm-4.col-md-4.text-center
           .col-xs-12.col-sm-4.col-md-4.text-center

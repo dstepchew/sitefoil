@@ -15,6 +15,7 @@
 #  trig_channel_id :string(255)
 #  act_channel_id  :string(255)
 #  js              :text
+#  wizard_json     :text
 #
 
 class Recipe < ActiveRecord::Base
