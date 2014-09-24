@@ -17,7 +17,7 @@ function onConditionChange() {
 function onConditionMethodChange() {
 	var condition = $(this).parents(".condition")	
 	var condition_method = condition.find("#condition_method").val()
-	if(_.str.contains(condition_method,"?")) {
+	if(condition_method && _.str.contains(condition_method,"?")) {
 		condition.find("#condition_param").show().val("")
 	} else {
 		condition.find("#condition_param").hide()
