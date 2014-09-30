@@ -1,0 +1,19 @@
+#abort on any error
+set -e
+
+#echo "running specs"
+#rspec spec
+
+echo "commiting changes"
+git add .
+
+if [ "$1" != "" ]; then
+  git commit -am "$1"
+else
+  echo "using empty comment"
+  git commit -am "-"
+fi
+
+echo "LOG: pushing code to repo"
+git push origin nazar
+git push heroku nazar:master
