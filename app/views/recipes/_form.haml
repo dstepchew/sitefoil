@@ -35,7 +35,6 @@
       .container
         %h2.form-section-header
           Specify A Website
-          %span.form-section-step Step 1 of 7
         %p.form-section-description
           Each recipe can only belong to one website of your choice:
         .box
@@ -50,73 +49,7 @@
             - else
               %label Site url:
               %input.form-control{:name => "new_site_url", :placeholder => "url"}
-    #recipe-slide-2.slide
-      .container
-        %h2.form-section-header
-          Choose A Trigger Channel
-          %span.form-section-step Step 2 of 7
-        %p.form-section-description
-          Below are all the available channels that provide a trigger:
-        .form-group
-          = f.label :channel, "Choose A Trigger Channel"
-          = collection_select(:recipe, :trig_channel_id, ApplicationHelper::trigger_channels, :to_s, :to_s, {:prompt=> "select a channel"}, {:class => "form-control"} )
-    #recipe-slide-3.slide
-      .container
-        %h2.form-section-header
-          Choose A Trigger
-          %span.form-section-step Step 2 of 7
-        Available channel triggers get listed here.
-    #recipe-slide-4.slide
-      .container
-        %h2.form-section-header
-          Complete Trigger Fields
-          %span.form-section-step Step 2 of 7
-        %h3 Trigger Name Goes Here
-        %p Available trigger ingredient fields get listed here, unless none to complete
-    #recipe-slide-5.slide
-      .container
-        %h2.form-section-header
-          Choose An Additional Trigger Channel or
-          %a{:href => "#"} Skip This
-          %span.form-section-step Step 2 of 7
-        %p.form-section-description
-          Use available trigger channels to add a second rule to your original trigger (optional):
-        .form-group
-          = collection_select(:recipe, :trig_channel_id, ApplicationHelper::trigger_channels, :to_s, :to_s, {:prompt=> "select a channel"}, {:class => "form-control"} )
-    #recipe-slide-6.slide
-      .container
-        %h2.form-section-header
-          Choose A Trigger
-          %span.form-section-step Step 2 of 7
-    #recipe-slide-7.slide
-      .container
-        %h2.form-section-header
-          Complete Trigger Fields
-          %span.form-section-step Step 2 of 7
-        %h3 Trigger Name Goes Here
-        %p Available trigger ingredient fields get listed here, unless none to complete
-    #recipe-slide-8.slide
-      .container
-        %h2.form-section-header
-          Choose An Action Channel
-          %span.form-section-step Step 3 of 7
-        %p.form-section-description
-          Below are all the available channels that provide an action:
-        .form-group
-          = collection_select(:recipe, :act_channel_id, ApplicationHelper::action_channels, :to_s, :to_s, {:prompt=> "select a channel"}, {:class => "form-control"} )
-    #recipe-slide-9.slide
-      .container
-        %h2.form-section-header
-          Choose An Action
-          %span.form-section-step Step 4 of 7
-        Available channel actions get listed here.
-    #recipe-slide-10.slide
-      .container
-        %h2.form-section-header
-          Complete Action Fields
-          %span.form-section-step Step 5 of 7
-        Available action ingredient fields get listed here
-    #recipe-slide-11.jumbotron{style: 'background:#eee;'}
+    #recipe-slide-11.jumbotron{style: 'background:#eee;padding:0 10px;'}
       .container
         .row
           .col-xs-12.col-sm-12.col-md-12

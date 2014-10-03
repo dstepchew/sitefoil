@@ -11,12 +11,13 @@ module ApplicationHelper
 
 	def self.conditions
 		[
-			{ name: 'referrer', js: 'document.referrer', methods: ['=="?"','!="?"','.one_of("?")']},
-	    { name: 'country', js: 'visitor.country', methods: ['=="?"','!="?"']},
-	    { name: 'hour', js: 'visitor.hour', methods: ['==?','>=?','<=?','!=?']},
-	    { name: 'weekday number', js: 'vistor.weekday', methods: ['==?','>=?','<=?','!=?']},
-	    { name: 'visitor type', js: 'visitor.state', methods: ['=="new"','=="returning"']},
-	    { name: 'platform', js: 'visitor.platform', methods: ['=="tablet"','=="desktop"','=="mobile"']}
+      { name: 'element clicked id', js: '(el_click) && el_clicked_id', methods: ['=="?"']},
+			{ name: 'referrer', js: '(page_load || el_click) && document.referrer', methods: ['=="?"','!="?"']},
+	    { name: 'country', js: '(page_load || el_click) && visitor.country', methods: ['=="?"','!="?"']},
+	    { name: 'hour', js: '(page_load || el_click) && visitor.hour', methods: ['==?','>=?','<=?','!=?']},
+	    { name: 'weekday number', js: '(page_load || el_click) && vistor.weekday', methods: ['==?','>=?','<=?','!=?']},
+	    { name: 'visitor type', js: '(page_load || el_click) && visitor.state', methods: ['=="new"','=="returning"']},
+	    { name: 'platform', js: '(page_load || el_click) && visitor.platform', methods: ['=="tablet"','=="desktop"','=="mobile"']}
 	  ]
 	end
 
