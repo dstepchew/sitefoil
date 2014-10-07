@@ -27,8 +27,10 @@ class TrackerController < ApplicationController
      end
      @hit = visitor.hits.new
      #saving whole data just in case
+     @hit.referrer = request.referrer
      @hit.tag[:location] = request.location.data
      @hit.tag[:user_agent] = request.user_agent
+     @hit.site = @site
      @hit.ip = request.remote_ip
      @hit.country = request.location.data["country_name"]
      @hit.state = request.location.data["region_name"]
@@ -43,7 +45,7 @@ class TrackerController < ApplicationController
 
      if params.has_key? :hit_id
        hit = Hit.find(params[:hit_id])
-       hit.update_attributes referrer: params[:hit][:referrer]
+       #hit.update_attributes referrer: params[:hit][:referrer]
      end
      render text:"data from script for hit id: #{params[:hit_id]} posted"
   end

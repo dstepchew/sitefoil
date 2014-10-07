@@ -11,6 +11,7 @@ module ApplicationHelper
 
 	def self.conditions
 		[
+      { name: 'page url', js: '(page_load || el_clicked) && location.href', methods: ['=="?"'] },
       { name: 'element clicked id', js: '(el_click) && el_clicked_id', methods: ['=="?"']},
 			{ name: 'referrer', js: '(page_load || el_click) && document.referrer', methods: ['=="?"','!="?"']},
 	    { name: 'country', js: '(page_load || el_click) && visitor.country', methods: ['=="?"','!="?"']},

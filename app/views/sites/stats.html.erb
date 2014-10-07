@@ -1,0 +1,26 @@
+<h1><%= @site.name %> - site statistics</h1>
+
+<h3>Visitors</h3>
+<p>
+	Total unique visitors: <%= @site.unique_visitors_count %>
+</p>
+
+<p>
+	Total hits: <%= @site.hits.count %>
+</p>
+
+<h3>E-commerce</h3>
+
+<p>
+	Unique visitors made order: <%= @site.unique_visitors_made_order_count %>
+</p>
+
+<p>
+	Total orders: <%= @site.order_count %>
+</p>
+
+<p>
+	Conversion rate: <%= @site.conversion_rate.round(2) %> %
+</p>
+
+

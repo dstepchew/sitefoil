@@ -15,6 +15,7 @@
 #  total_selector   :string(255)
 #  confirmation_url :string(255)
 #  tag              :text
+#  order_url        :string(255)
 #
 
 class Site < ActiveRecord::Base
@@ -26,8 +27,25 @@ class Site < ActiveRecord::Base
 	belongs_to :user
 	has_many :recipes
 	has_many :channels
+  has_many :hits
   serialize :tag, Hash
 
+
+  def order_count
+    self.hits.where(referrer: self.order_url).count
+  end
+
+  def unique_visitors_count
+    self.hits.group(:visitor).count.count
+  end
+
+  def unique_visitors_made_order_count
+    self.hits.where(referrer: self.order_url).group(:visitor).count.count
+  end
+
+  def conversion_rate
+    100 * self.unique_visitors_made_order_count.to_f / self.unique_visitors_count.to_f
+  end
 
   def test_script_installed
   	require 'open-uri'
@@ -49,21 +67,6 @@ class Site < ActiveRecord::Base
   		end
   	end
   	return "link to tracking script not found"
-  end
-
-  def test_coupon_field
-    require 'open-uri'
-
-    begin
-      html = open(Site::fix_url self.coupon_url).read 
-    rescue 
-      return "can't open coupon url #{self.coupon_url}"
-    end
-
-    return "coupon element not found" if !Site::selector_exists html, self.coupon_selector 
-
-    "selector found"
-
   end
 
   def tracker_url host_with_port
@@ -91,12 +94,4 @@ class Site < ActiveRecord::Base
     end
   end
 
-
-  def recipe_if_referrer_then_set_value referrer, field_selector, value
-    "console.log('document.referrer: '+document.referrer) \n"+
-    "if(document.referrer==\"#{referrer}\") { \n"+
-    "  document.querySelector(\"#{field_selector}\").value=\"#{value}\" \n"+
-    "} \n"
-
-  end
 end

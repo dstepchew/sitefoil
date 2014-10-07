@@ -15,7 +15,12 @@ Sitefoil::Application.routes.draw do
 
   resources :ingredients
 
-  resources :sites
+  resources :sites do
+    member do
+      get 'stats'
+      get 'recipes'
+    end
+  end
 
   devise_for :users
 
@@ -26,7 +31,7 @@ Sitefoil::Application.routes.draw do
   get "terms" => "pages#terms"
 
   match '/contacts',     to: 'contacts#new',             via: 'get'
-resources "contacts", only: [:new, :create]
+  resources "contacts", only: [:new, :create]
 
 
 resources :users
