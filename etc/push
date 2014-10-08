@@ -1,5 +1,5 @@
 #abort on any error
-set -e
+#set -e
 
 #echo "running specs"
 #rspec spec
