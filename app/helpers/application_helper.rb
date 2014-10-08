@@ -11,7 +11,7 @@ module ApplicationHelper
 
 	def self.conditions
 		[
-      { name: 'page url', js: '(page_load || el_clicked) && location.href', methods: ['=="?"'] },
+      { name: 'page url', js: '(page_load || el_click) && location.href', methods: ['=="?"'] },
       { name: 'element clicked id', js: '(el_click) && el_clicked_id', methods: ['=="?"']},
 			{ name: 'referrer', js: '(page_load || el_click) && document.referrer', methods: ['=="?"','!="?"']},
 	    { name: 'country', js: '(page_load || el_click) && visitor.country', methods: ['=="?"','!="?"']},
@@ -26,7 +26,7 @@ module ApplicationHelper
     [
     	{ name: 'alert', js: 'alert(":message")', params: [:message] },
     	{ name: 'set control value', js: 'document.querySelector(":selector").value=":value"', params:[:selector,:value] },
-    	{ name: 'send email', js: 'email_to(":email",":message")', params: [:email,:message] } 
+    	{ name: 'send email', js: 'this.email_to(":to_email",":message")', params: [:to_email,:message] } 
     ]
   end
 

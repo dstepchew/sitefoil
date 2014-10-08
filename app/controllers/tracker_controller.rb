@@ -20,6 +20,7 @@ class TrackerController < ApplicationController
        Rails.logger.info "returning visitor"
        visitor = Visitor.find_by_id cookies[:track_id]
      end
+
      if !visitor
        Rails.logger.info "new visitor"
        visitor = Visitor.create
@@ -50,9 +51,9 @@ class TrackerController < ApplicationController
      render text:"data from script for hit id: #{params[:hit_id]} posted"
   end
 
-  def dbg
-    throw request
-    render text:request.location.data.to_json
+  def email_action
+    (Mailer::email_action subject: "sitefoil notification", text: params[:text], to_email:params[:to_email]).deliver
+    render nothing: true
   end
 
   private
