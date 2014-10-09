@@ -16,14 +16,21 @@
 #  act_channel_id  :string(255)
 #  js              :text
 #  wizard_json     :text
+#  enabled				 :boolean
 #
 
 class Recipe < ActiveRecord::Base
-	 attr_protected []
+	attr_protected []
 
-	 has_one :trigger
+	has_one :trigger
 	# has_one :channels, through :trigger
-	 has_one :act
+	has_one :act
 
-	 belongs_to :site
+	belongs_to :site
+
+	def name_or_action
+		return self['name'] if !self['name'].blank?
+		JSON::parse(self.wizard_json)['action']['name'] + ' "' +
+		JSON::parse(self.wizard_json)['action']['params'][0]['val']+'"'
+	end
 end

@@ -36,7 +36,7 @@ var sitefoil = {
 		console.log("el_clicked_id",el_clicked_id)
 	  <% if @site %>  
 		  //running recipes
-		  <% @site.recipes.each do |recipe| %>
+		  <% @site.recipes.where(enabled:true).each do |recipe| %>
 		    <%= recipe.js.html_safe %>
 		  <% end %>
 		<% else %>

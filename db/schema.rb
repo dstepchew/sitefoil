@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141007104625) do
+ActiveRecord::Schema.define(version: 20141009072736) do
 
   create_table "actions", force: true do |t|
     t.string   "name"
@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(version: 20141007104625) do
     t.string   "act_channel_id"
     t.text     "js"
     t.text     "wizard_json"
+    t.boolean  "enabled",                     default: true
   end
 
   create_table "sites", force: true do |t|

@@ -1,17 +1,20 @@
 <%= render 'pages/home' unless user_signed_in? %>
 
-
+<style>
+table.recipes td, table.recipes th {
+  padding: 10px 10px; 
+}
+</style>
 
 <h1>Recipes</h1>
 
-<table>
+<table class='recipes'>
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Site</th>
-      <th>Status</th>
-      <th>Hits</th>
-      <th>Description</th>
+      <th>name</th>
+      <th>site</th>
+      <th>on/off</th>
+      <th>hits</th>
       <th></th>
       <th></th>
       <th></th>
@@ -21,11 +24,10 @@
   <tbody>
     <% @recipes.each do |recipe| %>
       <tr>
-        <td><%= recipe.name %></td>
+        <td><%= recipe.name_or_action %></td>
         <td><%= recipe.site.url rescue '' %></td>
-        <td><%= recipe.status %></td>
+        <td><%= recipe.enabled ? "on" : "" %></td>
         <td><%= recipe.hits %></td>
-        <td><%= recipe.description %></td>
         <td><%= link_to 'Edit', edit_recipe_path(recipe), data: { no_turbolink: true } %></td>
         <td><%= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

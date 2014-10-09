@@ -11,6 +11,7 @@ module ApplicationHelper
 
 	def self.conditions
 		[
+      { name: 'page visit', js: '(page_load) && ', methods: ['true'] },
       { name: 'page url', js: '(page_load || el_click) && location.href', methods: ['=="?"'] },
       { name: 'element clicked id', js: '(el_click) && el_clicked_id', methods: ['=="?"']},
 			{ name: 'referrer', js: '(page_load || el_click) && document.referrer', methods: ['=="?"','!="?"']},
@@ -24,8 +25,9 @@ module ApplicationHelper
 
 	def self.actions
     [
+      { name: 'show hidden element', js: 'sitefoil.$(":selector").show()', params: [:selector]},
     	{ name: 'alert', js: 'alert(":message")', params: [:message] },
-    	{ name: 'set control value', js: 'document.querySelector(":selector").value=":value"', params:[:selector,:value] },
+    	{ name: 'autofill', js: 'document.querySelector(":selector").value=":value"', params:[:selector,:value] },
     	{ name: 'send email', js: 'this.email_to(":to_email",":message")', params: [:to_email,:message] } 
     ]
   end
@@ -33,6 +35,7 @@ module ApplicationHelper
   def self.human_method js
   	ret = {
   	 '.one_of("?")'=>"one of",
+     'true'=>'happen',
   	 '!="?"'=>'not equal',
   	 '!=?'=>'not equal',
   	 '==?'=>'equals', 

@@ -59,6 +59,9 @@
             %br/
             = f.text_field :name, class: "form-control"
           .form-group
+            = f.check_box :enabled
+            = f.label :enabled, "Enabled"
+          .form-group
             = render "recipes/wizard"
           .form-group{ style: 'display:none' }
             = f.label :name, "JSON"
