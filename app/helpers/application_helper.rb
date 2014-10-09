@@ -11,6 +11,7 @@ module ApplicationHelper
 
 	def self.conditions
 		[
+      { name: 'date', js: '(page_load || el_click) && sitefoil.date_int', methods: ['==sitefoil.date_to_int("?")','>=sitefoil.date_to_int("?")','<=sitefoil.date_to_int("?")','!=sitefoil.date_to_int("?")'] },
       { name: 'page visit', js: '(page_load) && ', methods: ['true'] },
       { name: 'page url', js: '(page_load || el_click) && location.href', methods: ['=="?"'] },
       { name: 'element clicked id', js: '(el_click) && el_clicked_id', methods: ['=="?"']},
@@ -48,6 +49,14 @@ module ApplicationHelper
   		return "is "+js.gsub('=="','').gsub('"','')
   	end
 
+    ret = {
+      '==' => 'equals',
+      '>=' => 'bigger or equal',
+      '<=' => 'lower or equal',
+      '!=' => 'not equal'
+    }[js[0,2]]
+
+    return ret if ret
 
   end
 

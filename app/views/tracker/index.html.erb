@@ -27,6 +27,10 @@ var sitefoil = {
 			text: text
 		})
 	},
+	date_int: new Date('<%= Time.now.to_s%>'),
+	date_to_int: function(date_string) {
+		return (new Date(date_string));
+	},
 	recipes: function() {
 		var page_load = this.page_load;
 		var el_click = this.el_click;
