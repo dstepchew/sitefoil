@@ -31,6 +31,15 @@ var sitefoil = {
 	date_to_int: function(date_string) {
 		return (new Date(date_string));
 	},
+	hours_minutes_int: <%= Time.now.hour %>*60+<%= Time.now.min %>,
+	hours_minutes_to_int: function(s) {
+		try {
+		  var parts = s.split(":")
+		  return parseInt(parts[0])*60+parseInt(parts[1])
+		} catch(err) {
+			console.log(err.message)
+		}
+	},
 	recipes: function() {
 		var page_load = this.page_load;
 		var el_click = this.el_click;

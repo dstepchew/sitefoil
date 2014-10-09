@@ -13,7 +13,7 @@ font-size:20px; font-weight:bold; padding:2px 10px;
 </style>
 
 
-<% ApplicationHelper::conditions.each do |condition| %>
+<% ApplicationHelper::triggers.each do |condition| %>
 	<div class='condition_methods' data-condition-name='<%= condition[:name] %>' style='display:none'>
 	  <option value=''>-- select method -- </option>
 		<% condition[:methods].each do |method| %>
@@ -29,7 +29,7 @@ font-size:20px; font-weight:bold; padding:2px 10px;
 
 		<select id=condition_name onchange='onConditionChange.apply(this)' style='font-size:40px'>
 			<option value=''>-- select variable -- </option>
-			<% ApplicationHelper::conditions.each do |condition| %>
+			<% ApplicationHelper::triggers.each do |condition| %>
 			  <option value='<%= condition[:name] %>' data-js='<%= condition[:js] %>'><%= condition[:name] %></option>
 			<% end %>
 		</select>
