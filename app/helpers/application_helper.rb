@@ -32,6 +32,8 @@ module ApplicationHelper
 
 	def self.actions
     [
+      { name: 'custom site footer', js: 'sitefoil.footer_show(":html")', params: [:html] },
+      { name: 'custom site banner', js: 'sitefoil.banner_show(":html")', params: [:html] },
       { name: 'show hidden element', js: 'sitefoil.$(":selector").show()', params: [:selector]},
     	{ name: 'alert', js: 'alert(":message")', params: [:message] },
     	{ name: 'autofill', js: 'document.querySelector(":selector").value=":value"', params:[:selector,:value] },

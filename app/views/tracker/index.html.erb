@@ -28,6 +28,16 @@ var sitefoil = {
 			text: text
 		})
 	},
+	banner_show: function(html) {
+		console.log("banner_show")
+		sitefoil.$("body").prepend('<div class=sitefoil-banner style=z-index:99999;position:fixed;top:0px;width:100%;margin:0px;padding:0px;></div>')
+		sitefoil.$(".sitefoil-banner:last").html(html)
+	},
+	footer_show: function(html) {
+		console.log("footer_show")
+		sitefoil.$("body").prepend('<div class=sitefoil-footer style=z-index:99999;position:fixed;bottom:0px;width:100%;margin:0px;padding:0px;></div>')
+		sitefoil.$(".sitefoil-footer:last").html(html)
+	},
 	date_int: new Date('<%= Time.now.to_s%>'),
 	date_to_int: function(date_string) {
 		return (new Date(date_string));
