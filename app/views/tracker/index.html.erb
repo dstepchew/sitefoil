@@ -16,6 +16,7 @@ if(k&&j[k]&&(e||j[k].data)||void 0!==d||"string"!=typeof b)return k||(k=i?a[h]=c
 
 'use strict';
 var sitefoil = {
+	language: (window.navigator.userLanguage || window.navigator.language),
 	visitor: JSON.parse('<%= @hit.to_json.html_safe %>'),
 	page_load: false,
 	el_click: false,

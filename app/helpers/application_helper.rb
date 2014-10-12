@@ -11,6 +11,7 @@ module ApplicationHelper
 
 	def self.triggers
 		[
+      { name: 'language', js: '(page_load || el_click) && sitefoil.language', methods: ['=="?"','!="?"'] },
       { name: 'hours:minutes', js: '(page_load || el_click) && sitefoil.hours_minutes_int', 
         input_type: 'time',
         methods: ['==sitefoil.hours_minutes_to_int("?")','>=sitefoil.hours_minutes_to_int("?")','<=sitefoil.hours_minutes_to_int("?")','!=sitefoil.hours_minutes_to_int("?")'] },
