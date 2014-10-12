@@ -11,8 +11,12 @@ module ApplicationHelper
 
 	def self.triggers
 		[
-      { name: 'hours:minutes', js: '(page_load || el_click) && sitefoil.hours_minutes_int', methods: ['==sitefoil.hours_minutes_to_int("?")','>=sitefoil.hours_minutes_to_int("?")','<=sitefoil.hours_minutes_to_int("?")','!=sitefoil.hours_minutes_to_int("?")'] },
-      { name: 'date', js: '(page_load || el_click) && sitefoil.date_int', methods: ['==sitefoil.date_to_int("?")','>=sitefoil.date_to_int("?")','<=sitefoil.date_to_int("?")','!=sitefoil.date_to_int("?")'] },
+      { name: 'hours:minutes', js: '(page_load || el_click) && sitefoil.hours_minutes_int', 
+        input_type: 'time',
+        methods: ['==sitefoil.hours_minutes_to_int("?")','>=sitefoil.hours_minutes_to_int("?")','<=sitefoil.hours_minutes_to_int("?")','!=sitefoil.hours_minutes_to_int("?")'] },
+      { name: 'date', js: '(page_load || el_click) && sitefoil.date_int', 
+        input_type: 'date',
+        methods: ['==sitefoil.date_to_int("?")','>=sitefoil.date_to_int("?")','<=sitefoil.date_to_int("?")','!=sitefoil.date_to_int("?")'] },
       { name: 'page visit', js: '(page_load) && ', methods: ['true'] },
       { name: 'page url', js: '(page_load || el_click) && location.href', methods: ['=="?"'] },
       { name: 'element clicked id', js: '(el_click) && el_clicked_id', methods: ['=="?"']},

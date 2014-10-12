@@ -4,8 +4,10 @@ function onConditionChange() {
 	condition.find("#condition_param").hide().val("")
 	if(condition_name) {
 	  condition.find("#logic").show()		
+	  var condition_method_template = $(".condition_methods[data-condition-name='"+condition_name+"']")
 		condition.find("#condition_method").show()
-		  .html($(".condition_methods[data-condition-name='"+condition_name+"']").html())
+		  .html(condition_method_template.html())
+		condition.find("#condition_method").attr("data-input-type",condition_method_template.attr("data-input-type"))
 	} else {
 		condition.find("#condition_method").hide()
 	  condition.find("#logic").val("").trigger("change")
@@ -18,7 +20,11 @@ function onConditionMethodChange() {
 	var condition = $(this).parents(".condition")	
 	var condition_method = condition.find("#condition_method").val()
 	if(condition_method && _.str.contains(condition_method,"?")) {
-		condition.find("#condition_param").show().val("")
+		condition.find("#condition_param").removeAttr("type").show().val("")
+		var input_type = condition.find("#condition_method").attr("data-input-type")
+		if(input_type) {
+			condition.find("#condition_param").attr("type",input_type)
+		}
 	} else {
 		condition.find("#condition_param").hide()
 	}
@@ -165,5 +171,5 @@ $(function() {
   recipe_restore($("#recipe_wizard_json").val())
 
   $("body").on("change","select",buildRecipe)
-  $("body").on("keyup","input",buildRecipe)
+  $("body").on("keyup change","input",buildRecipe)
 })
