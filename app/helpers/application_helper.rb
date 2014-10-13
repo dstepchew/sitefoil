@@ -36,7 +36,7 @@ module ApplicationHelper
       { name: 'custom site banner', js: 'sitefoil.banner_show(":html")', params: [{name: :html, input_type: :textarea }] },
       { name: 'show hidden element', js: 'sitefoil.$(":selector").show()', params: [:selector]},
     	{ name: 'alert', js: 'alert(":message")', params: [:message] },
-    	{ name: 'autofill', js: 'document.querySelector(":selector").value=":value"', params:[:selector,:value] },
+    	{ name: 'autofill', js: 'document.querySelector(":selector").value=":value"', params:[{name: :selector, input_type: :selector_pick},:value] },
     	{ name: 'send email', js: 'this.email_to(":to_email",":message")', params: [:to_email,:message] } 
     ]
   end

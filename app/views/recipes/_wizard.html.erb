@@ -80,7 +80,10 @@ select, input[type=text], input[type=date], input[type=time], #recipe {
 		<div class='action_params' data-action-name='<%= action[:name] %>' style='display:none'>
 			<% action[:params].each do |param| %>
 				<% param_name = (param[:name] rescue param) %>
-				<% if (param[:input_type] rescue false) == :textarea %>
+				<% if (param[:input_type] rescue false) == :selector_pick %>
+					<%= (param[:caption] || param_name) rescue param_name %>:
+					<input class='action_param' name=<%= param_name %>>
+				<% elsif (param[:input_type] rescue false) == :textarea %>
 					<br><%= (param[:caption] || param_name) rescue param_name %>:<br>
 					<textarea class=action_param name=<%= param_name %>></textarea>
 				<% else %>

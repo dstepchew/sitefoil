@@ -2,6 +2,7 @@ Sitefoil::Application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   get '/recipes/wizard' => "recipes#wizard"
+  get '/recipes/selector_pick' => "recipes#selector_pick"
 
   resources :recipes
 
