@@ -100,11 +100,12 @@ function buildRecipe() {
   console.log("action name", action_name)
   var action_js = $("#action option[value='"+action_name+"']").attr("data-js")
 
-  $("#action_params input").each(function() {
+  $("#action_params input, #action_params textarea").each(function() {
   	var name = $(this).attr("name")
   	var val = $(this).val()
   	console.log("action_param input: ", name, val)
-  	action_js = action_js.replace(":"+name, val)
+  	action_js = action_js.replace('":'+name+'"', "decodeURIComponent('"+encodeURIComponent(val)+"')")
+  	action_js = action_js.replace(':'+name, val)
   })
 
 	js = "if("+condition_js+") { "+action_js+" }";
@@ -131,8 +132,8 @@ function recipe_save() {
   	params: []
   }
 
-  $("#action_params input").each(function() {
-   var param = {name:$(this).attr("name"),val: $(this).val()}
+  $("#action_params .action_param").each(function() {
+   var param = {name:$(this).attr("name"),val: encodeURIComponent($(this).val())}
    recipe.action.params.push(param)
   })
 
@@ -160,7 +161,7 @@ function recipe_restore(json) {
 
 		$("#action").val(recipe.action.name).trigger("change")
 		_.each(recipe.action.params,function(param) {
-			$("#action_params input[name='"+param.name+"']").val(param.val)
+			$("#action_params .action_param[name='"+param.name+"']").val(decodeURIComponent(param.val))
 		})
   }
 }
@@ -170,6 +171,6 @@ function recipe_restore(json) {
 $(function() {
   recipe_restore($("#recipe_wizard_json").val())
 
-  $("body").on("change","select",buildRecipe)
-  $("body").on("keyup change","input",buildRecipe)
+  $("body").on("change","select, .action_param",buildRecipe)
+  $("body").on("keyup change","input, .action_param",buildRecipe)
 })

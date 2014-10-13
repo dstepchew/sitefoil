@@ -6,6 +6,12 @@
 	font-size: 25px !important; margin: 10px 0;
 }
 
+#recipe_wizard textarea {
+	width: 100%;
+	line-height: 25px;
+	height: 120px;
+}
+
 select, input[type=text], input[type=date], input[type=time], #recipe { 
 	border:0; color:#000000; background: #fff;
 	font-size:20px; font-weight:bold; padding:2px 10px; 
@@ -73,7 +79,13 @@ select, input[type=text], input[type=date], input[type=time], #recipe {
 	<% ApplicationHelper::actions.each do |action| %>
 		<div class='action_params' data-action-name='<%= action[:name] %>' style='display:none'>
 			<% action[:params].each do |param| %>
-				<%= param %>: <input name=<%= param %>>
+				<% param_name = (param[:name] rescue param) %>
+				<% if (param[:input_type] rescue false) == :textarea %>
+					<br><%= (param[:caption] || param_name) rescue param_name %>:<br>
+					<textarea class=action_param name=<%= param_name %>></textarea>
+				<% else %>
+					<%= param_name %>: <input class=action_param name=<%= param_name %>>
+				<% end %>
 			<% end %>
 		</div>
 	<% end %>

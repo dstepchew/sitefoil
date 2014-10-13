@@ -31,6 +31,6 @@ class Recipe < ActiveRecord::Base
 	def name_or_action
 		return self['name'] if !self['name'].blank?
 		JSON::parse(self.wizard_json)['action']['name'] + ' "' +
-		JSON::parse(self.wizard_json)['action']['params'][0]['val']+'"'
+		ActionController::Base.helpers.truncate(URI.unescape(JSON::parse(self.wizard_json)['action']['params'][0]['val']),length:30,omission:'...')+'"'
 	end
 end
