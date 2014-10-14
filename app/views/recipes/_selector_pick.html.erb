@@ -1,40 +1,68 @@
-<div id=selector_pick style='display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:100;'>
-	<div style='z-index:101;position:absolute;display:block;background:#fff;width:calc(100% - 100px);left:50px;top:50px;height:calc(100% - 100px);border:1px solid black;padding:40px;'>
-	enter site url: <input name=url style='width:100%;'><br>
-	found selectors: <br>
-	<select id=selectors size="2" style="width: 155px; height: 118px" >
-	</select>	
-	</div>
-
-	<div style='z-index:100;position:absolute;top:0;left:0;width:100%;height:100%;background:#000;opacity:0.3;'>
-	</div>
+<%# include this partial in top of page
+modal dialog will autoopen on .selector_pick control mouse click
+%>
+<div class="modal fade" id="selector_pick_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Enter page url and pick selector</h4>
+      </div>
+      <div class="modal-body">
+				enter site url: <input name=url style='width:100%;'><br>
+				<div id=error style='color:red;height:20px;'></div><br>
+				<div id=selectors_section style='display:none' ondblclick='selector_pick_ok()'>
+					found selectors: <br>
+					<select id=selectors size="2" style="width: 155px; height: 200px;" >
+					</select>	
+				</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" onclick='selector_pick_ok()'>OK</button>
+        <button type="button" class="btn " data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
-function selector_pick_show() {
-		$("#selector_pick").show()
+var selector_pick_callback;
+
+function selector_pick_show(callback) {
+	selector_pick_callback = callback;
+	$("#selector_pick_modal").modal()
 }
 
+function selector_pick_ok() {
+	 $('#selector_pick_modal').modal('toggle');
+	 selector_pick_callback($("#selector_pick_modal #selectors").val())
+}
 $(function() {
-	$("#selector_pick input[name=url]").keydown(function(e) {
+	$("#selector_pick_modal input[name=url]").keydown(function(e) {
 		if(e.keyCode==13) {
-			$("#selector_pick #selectors").html("")
+			$("#selector_pick_modal #selectors").html("")
+			$("#selector_pick_modal #error").html("please wait...")
 			$.getJSON("/api/page_selectors_scan",{url: $(this).val()},function(resp) {
-				for(var i=0;i<resp.length;i++) {
-					$("#selector_pick #selectors").append("<option value='"+resp[i]+"'>"+resp[i]+"</option>")
+				$("#selector_pick_modal #error").html("")
+				if(resp.error_message) {
+					$("#selector_pick_modal #error").html(resp.error_message)
+					return;
 				}
+				for(var i=0;i<resp.selectors.length;i++) {
+					$("#selector_pick_modal #selectors").append("<option value='"+resp.selectors[i]+"'>"+resp.selectors[i]+"</option>")
+					$("#selector_pick_modal #selectors_section").show()
+				}
+
 			})
 		}
 	})
 
-	$(document).on("keydown",function(e) {
-		if(e.keyCode==27 && $("#selector_pick").is(":visible")) {
-			$("#selector_pick").hide()
-		}
-	})
-
 	$(document).on("click",".selector_pick",function() {
-		selector_pick_show()
+		var control = $(this).prev()
+
+		selector_pick_show(function(pick) {
+			control.val(pick)
+		})
 	})
 })
 </script>

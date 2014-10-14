@@ -2,19 +2,25 @@ class ApiController < ApplicationController
   
 
   def page_selectors_scan
+    sleep 1.5
   	require 'open-uri'
+    ret = {selectors:[],error_message:nil}
 
-  	html = open(params[:url]).read
+    begin
+  	   html = open(params[:url]).read
+    rescue
+      ret[:error_message] = 'error while opening/reading url'
+      render text: ret.to_json
+      return
+    end
   	doc = Nokogiri::HTML(html)
 
-  	selectors = []
-
   	doc.css("input").each do |el|
-  		selectors << "#"+el["id"] if el["id"]
+  		ret[:selectors] << "#"+el["id"] if el["id"]
   	end
 
 
-  	render text: selectors.to_json
+  	render text: ret.to_json
 
   end
 end

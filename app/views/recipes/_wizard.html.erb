@@ -83,6 +83,7 @@ select, input[type=text], input[type=date], input[type=time], #recipe {
 				<% if (param[:input_type] rescue false) == :selector_pick %>
 					<%= (param[:caption] || param_name) rescue param_name %>:
 					<input class='action_param' name=<%= param_name %>>
+					<input type=button value='...' style='margin-left:-35px' 	class='selector_pick'>
 				<% elsif (param[:input_type] rescue false) == :textarea %>
 					<br><%= (param[:caption] || param_name) rescue param_name %>:<br>
 					<textarea class=action_param name=<%= param_name %>></textarea>
