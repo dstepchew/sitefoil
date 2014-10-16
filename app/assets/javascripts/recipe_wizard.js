@@ -1,6 +1,8 @@
 function onConditionChange() {
 	var condition = $(this).parents(".condition")
 	var condition_name = condition.find("#condition_name").val()
+	console.log(condition_name)
+	condition.find("#condition_param_wrap").html($(".condition_param_template[data-condition-name='"+condition_name+"']").html())
 	condition.find("#condition_param").hide().val("")
 	if(condition_name) {
 	  condition.find("#logic").show()		
@@ -143,7 +145,6 @@ function recipe_save() {
 
 function recipe_restore(json) {
 
-
 	$("#conditions").append($("#condition_template").html())
 	if(json) {
 		try {
@@ -167,7 +168,9 @@ function recipe_restore(json) {
 }
 
 
-
+function show_js() {
+	$("#recipe_js").parents(".form-group").show()
+}
 $(function() {
   recipe_restore($("#recipe_wizard_json").val())
 

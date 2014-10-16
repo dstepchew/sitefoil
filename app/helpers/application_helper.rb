@@ -11,22 +11,23 @@ module ApplicationHelper
 
 	def self.triggers
 		[
-      { name: 'language', js: '(page_load || el_click) && sitefoil.language', methods: ['=="?"','!="?"'] },
-      { name: 'hours:minutes', js: '(page_load || el_click) && sitefoil.hours_minutes_int', 
+      { name: 'language', js: 'any_event && sitefoil.language', methods: ['=="?"','!="?"'] },
+      { name: 'hours:minutes', js: 'any_event && sitefoil.hours_minutes_int', 
         input_type: 'time',
         methods: ['==sitefoil.hours_minutes_to_int("?")','>=sitefoil.hours_minutes_to_int("?")','<=sitefoil.hours_minutes_to_int("?")','!=sitefoil.hours_minutes_to_int("?")'] },
-      { name: 'date', js: '(page_load || el_click) && sitefoil.date_int', 
+      { name: 'date', js: 'any_event && sitefoil.date_int', 
         input_type: 'date',
         methods: ['==sitefoil.date_to_int("?")','>=sitefoil.date_to_int("?")','<=sitefoil.date_to_int("?")','!=sitefoil.date_to_int("?")'] },
-      { name: 'page visit', js: '(page_load) && ', methods: ['true'] },
-      { name: 'page url', js: '(page_load || el_click) && location.href', methods: ['=="?"'] },
-      { name: 'element clicked id', js: '(el_click) && el_clicked_id', methods: ['=="?"']},
-			{ name: 'referrer', js: '(page_load || el_click) && document.referrer', methods: ['=="?"','!="?"']},
-	    { name: 'country', js: '(page_load || el_click) && visitor.country', methods: ['=="?"','!="?"']},
-	    { name: 'hour', js: '(page_load || el_click) && visitor.hour', methods: ['==?','>=?','<=?','!=?']},
-	    { name: 'weekday number', js: '(page_load || el_click) && vistor.weekday', methods: ['==?','>=?','<=?','!=?']},
-	    { name: 'visitor type', js: '(page_load || el_click) && visitor.state', methods: ['=="new"','=="returning"']},
-	    { name: 'platform', js: '(page_load || el_click) && visitor.platform', methods: ['=="tablet"','=="desktop"','=="mobile"']}
+      { name: 'page visit', js: 'page_load && ', methods: ['true'] },
+      { name: 'page url', js: 'any_event && location.href', methods: ['=="?"'] },
+      { name: 'element clicked id', js: 'any_event && el_clicked_id', methods: ['=="?"']},
+			{ name: 'referrer', js: 'any_event && document.referrer', methods: ['=="?"','!="?"']},
+	    { name: 'country', js: 'any_event && visitor.country', methods: ['=="?"','!="?"']},
+	    { name: 'hour', js: 'any_event && visitor.hour', methods: ['==?','>=?','<=?','!=?']},
+	    { name: 'weekday number', js: 'any_event && vistor.weekday', methods: ['==?','>=?','<=?','!=?']},
+	    { name: 'visitor type', js: 'any_event && visitor.state', methods: ['=="new"','=="returning"']},
+	    { name: 'platform', js: 'any_event && visitor.platform', methods: ['=="tablet"','=="desktop"','=="mobile"']},
+      { name: 'operating system', js: 'any_event && sitefoil.os_name', methods: ['=="?"','!="?"'], possible_values: ['unknown','Windows','MacOS','Linux','UNIX'] }
 	  ]
 	end
 

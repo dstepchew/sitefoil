@@ -45,14 +45,32 @@ select, input[type=text], input[type=date], input[type=time], #recipe {
 		<select id=condition_method style='display:none' onchange='onConditionMethodChange.apply(this)'>
 		</select>
 
-	  <input id=condition_param style='display:none' />
-
+		<span id=condition_param_wrap>
+		</span>
 
 		<select id=logic onchange='onLogicChange.apply(this)' style='display:none'>
 				<option value=''></option>
 				<option value='&&'>and</option>
 		</select>
 	</div>
+
+</div>
+
+<div style='display:none'>
+
+	<% ApplicationHelper::triggers.each do |condition| %>
+	<div class=condition_param_template data-condition-name='<%= condition[:name] %>'>
+		<% if condition[:possible_values] %>
+			<select id=condition_param>
+				<% condition[:possible_values].each do |val| %>
+					<option value='<%= val %>'><%= val %></option>
+				<% end %>
+			</select>
+		<% else %>
+			<input id=condition_param>
+		<% end %>
+	</div>
+	<% end %>
 
 </div>
 
