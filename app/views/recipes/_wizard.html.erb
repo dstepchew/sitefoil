@@ -37,7 +37,7 @@ select, input[type=text], input[type=date], input[type=time], #recipe {
 
 		<select id=condition_name onchange='onConditionChange.apply(this)' style='font-size:40px'>
 			<option value=''>-- select variable -- </option>
-			<% ApplicationHelper::triggers.each do |condition| %>
+			<% ApplicationHelper::triggers.sort_by{ |r| r[:name]}.each do |condition| %>
 			  <option value='<%= condition[:name] %>' data-js='<%= condition[:js] %>'><%= condition[:name] %></option>
 			<% end %>
 		</select>
@@ -90,7 +90,7 @@ select, input[type=text], input[type=date], input[type=time], #recipe {
 
 	<select id=action onchange='onActionChange()'>
 		<option value=''>-- select action -- </option>
-		<% ApplicationHelper::actions.each do |action| %>
+		<% ApplicationHelper::actions.sort_by{ |r| r[:name]}.each do |action| %>
 			<option data-js='<%= action[:js] %>' value='<%= action[:name] %>'><%= action[:name] %></option>
 		<% end %>
 	</select>
