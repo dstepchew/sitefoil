@@ -63,7 +63,11 @@ select, input[type=text], input[type=date], input[type=time], #recipe {
 		<% if condition[:possible_values] %>
 			<select id=condition_param>
 				<% condition[:possible_values].each do |val| %>
-					<option value='<%= val %>'><%= val %></option>
+					<% if val.class == Array %>
+						<option value='<%= val[0] %>'><%= val[1] %></option>
+					<% else %>
+						<option value='<%= val %>'><%= val %></option>
+					<% end %>
 				<% end %>
 			</select>
 		<% else %>

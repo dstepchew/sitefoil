@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141017023419) do
+ActiveRecord::Schema.define(version: 20141017031925) do
 
   create_table "actions", force: true do |t|
     t.string   "name"
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 20141017023419) do
     t.integer  "site_id"
     t.string   "device"
     t.string   "os_name"
+    t.boolean  "new_visitor"
   end
 
   add_index "hits", ["site_id"], name: "index_hits_on_site_id"

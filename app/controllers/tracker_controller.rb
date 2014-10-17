@@ -16,15 +16,15 @@ class TrackerController < ApplicationController
        throw "site with such id not found"
      end
 
+     new_visitor = false
      if cookies[:track_id]
-       Rails.logger.info "returning visitor"
        visitor = Visitor.find_by_id cookies[:track_id]
      end
 
      if !visitor
-       Rails.logger.info "new visitor"
        visitor = Visitor.create
-       cookies[:track_id] = { :value => visitor.id, :expires => 30.days.from_now }      
+       cookies[:track_id] = { :value => visitor.id, :expires => 100.years.from_now }      
+       new_visitor = true
      end
      @hit = visitor.hits.new
      #saving whole data just in case
@@ -34,6 +34,7 @@ class TrackerController < ApplicationController
      @hit.device = user_agent_to_device request.user_agent
      @hit.os_name = user_agent_to_os_name request.user_agent
      @hit.site = @site
+     @hit.new_visitor = new_visitor
      @hit.ip = request.remote_ip
      @hit.country = request.location.data["country_name"]
      @hit.state = request.location.data["region_name"]

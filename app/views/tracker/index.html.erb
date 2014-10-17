@@ -28,6 +28,13 @@ var sitefoil = {
 			text: text
 		})
 	},
+	visitor_type: function() {
+		if(this.visitor.new_visitor) {
+			return 'new'
+		} else {
+			return 'returning'
+		}
+	},
 	banner_show: function(html) {
 		console.log("banner_show")
 		sitefoil.$("body").prepend('<div class=sitefoil-banner style=z-index:99999;position:fixed;top:0px;width:100%;margin:0px;padding:0px;></div>')
