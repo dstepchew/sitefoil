@@ -16,6 +16,8 @@
 #  referrer    :string(255)
 #  tag         :text
 #  site_id     :integer
+#  device      :string(255)
+#  os_name     :string(255)
 #
 
 class Hit < ActiveRecord::Base

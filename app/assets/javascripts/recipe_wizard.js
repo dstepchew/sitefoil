@@ -168,7 +168,7 @@ function recipe_restore(json) {
 }
 
 
-function show_js() {
+function js_show() {
 	$("#recipe_js").parents(".form-group").show()
 }
 $(function() {

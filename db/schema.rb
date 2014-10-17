@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141009072736) do
+ActiveRecord::Schema.define(version: 20141017023419) do
 
   create_table "actions", force: true do |t|
     t.string   "name"
@@ -84,6 +84,8 @@ ActiveRecord::Schema.define(version: 20141009072736) do
     t.string   "referrer"
     t.text     "tag"
     t.integer  "site_id"
+    t.string   "device"
+    t.string   "os_name"
   end
 
   add_index "hits", ["site_id"], name: "index_hits_on_site_id"

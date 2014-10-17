@@ -99,20 +99,9 @@ if(save_jquery) {
 sitefoil.save_visitor_data()
 
 sitefoil.$(function() {
-	sitefoil.os_name = 'unknown'
-	if (navigator.appVersion.indexOf("Win")!=-1) {
-	  sitefoil.os_name="Windows";
-	} else if (navigator.appVersion.indexOf("Mac")!=-1) {
-	  sitefoil.os_name="MacOS";
-	} else if (navigator.appVersion.indexOf("X11")!=-1) { 
-	  sitefoil.os_name="UNIX";
-	} else if (navigator.appVersion.indexOf("Linux")!=-1) {
-	  sitefoil.os_name="Linux";
-	}
 	sitefoil.page_load = true;
 	sitefoil.recipes()
 	sitefoil.page_load = false;
-
 })
 
 

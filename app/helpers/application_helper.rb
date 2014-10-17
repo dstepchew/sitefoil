@@ -26,8 +26,8 @@ module ApplicationHelper
 	    { name: 'hour', js: 'any_event && visitor.hour', methods: ['==?','>=?','<=?','!=?']},
 	    { name: 'weekday number', js: 'any_event && vistor.weekday', methods: ['==?','>=?','<=?','!=?']},
 	    { name: 'visitor type', js: 'any_event && visitor.state', methods: ['=="new"','=="returning"']},
-	    { name: 'platform', js: 'any_event && visitor.platform', methods: ['=="tablet"','=="desktop"','=="mobile"']},
-      { name: 'operating system', js: 'any_event && sitefoil.os_name', methods: ['=="?"','!="?"'], possible_values: ['unknown','Windows','MacOS','Linux','UNIX'] }
+	    { name: 'platform', js: 'any_event && visitor.device', methods: ['=="?"','!="?"'], possible_values: ['desktop','tablet','phone']},
+      { name: 'operating system', js: 'any_event && visitor.os_name', methods: ['=="?"','!="?"'], possible_values: ['unknown','Windows','MacOS','Android','Linux','UNIX'] }
 	  ]
 	end
 

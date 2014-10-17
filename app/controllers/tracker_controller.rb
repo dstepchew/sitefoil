@@ -31,6 +31,8 @@ class TrackerController < ApplicationController
      @hit.referrer = request.referrer
      @hit.tag[:location] = request.location.data
      @hit.tag[:user_agent] = request.user_agent
+     @hit.device = user_agent_to_device request.user_agent
+     @hit.os_name = user_agent_to_os_name request.user_agent
      @hit.site = @site
      @hit.ip = request.remote_ip
      @hit.country = request.location.data["country_name"]
@@ -39,6 +41,30 @@ class TrackerController < ApplicationController
      @hit.browser = request.user_agent
      @hit.save
      render "index", :content_type => "application/javascript"
+  end
+
+  def user_agent_to_os_name user_agent
+    return "Android" if user_agent.downcase =~/android/
+    return "Windows" if user_agent =~/Win/
+    return "MacOS"   if user_agent =~ /Mac/
+    return "Linux"   if user_agent =~ /Linux/
+    return "UNIX"    if user_agent =~/X11/
+    'unknown'
+  end
+
+  def user_agent_to_device user_agent
+     if user_agent =~ /Android/
+        if user_agent =~ /Mobile/
+          return 'phone'
+        else
+          return 'tablet'
+        end
+     end
+
+     return 'phone' if user_agent =~ /(iPhone|iPod)/
+     return 'tablet' if user_agent =~ /iPad/
+
+     return 'desktop'
   end
 
   #script itself will post data to this method

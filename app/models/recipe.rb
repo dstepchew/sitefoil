@@ -16,7 +16,7 @@
 #  act_channel_id  :string(255)
 #  js              :text
 #  wizard_json     :text
-#  enabled				 :boolean
+#  enabled         :boolean          default(TRUE)
 #
 
 class Recipe < ActiveRecord::Base
