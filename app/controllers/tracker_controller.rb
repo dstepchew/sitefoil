@@ -41,6 +41,8 @@ class TrackerController < ApplicationController
      @hit.city = request.location.data["city"]
      @hit.browser = request.user_agent
      @hit.save
+
+     @site_hash = {order_count: @site.order_count}
      render "index", :content_type => "application/javascript"
   end
 

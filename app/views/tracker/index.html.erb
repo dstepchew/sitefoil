@@ -18,6 +18,7 @@ if(k&&j[k]&&(e||j[k].data)||void 0!==d||"string"!=typeof b)return k||(k=i?a[h]=c
 var sitefoil = {
 	language: (window.navigator.userLanguage || window.navigator.language),
 	visitor: JSON.parse('<%= @hit.to_json.html_safe %>'),
+	site: JSON.parse('<%= @site_hash.to_json.html_safe %>'),
 	page_load: false,
 	el_click: false,
 	el_clicked_id: "",
@@ -63,6 +64,7 @@ var sitefoil = {
 		var el_click = this.el_click;
 		var el_clicked_id = this.el_clicked_id;
 		var visitor = this.visitor;
+		var site = this.site;
 		var any_event = (page_load || el_click)
 		console.log("el_click",el_click)
 		console.log("el_clicked_id",el_clicked_id)
