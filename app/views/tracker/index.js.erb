@@ -29,6 +29,21 @@ var sitefoil = {
 			text: text
 		})
 	},
+	autofill_and_submit: function(selector,value) {
+		console.log("sitefoil action 'autofill and submit'")
+		if(this.$(selector).length>0) {
+			this.$(selector).val(value)
+			var form = this.$(selector).parents("form")
+			if(form.length>0) {
+				console.log("submitting form")
+				form.submit()
+			} else {
+				console.log("parent form not found")
+			}
+		} else {
+			console.log("selector: ",selector," not found")
+		}
+	},
 	visitor_type: function() {
 		if(this.visitor.new_visitor) {
 			return 'new'

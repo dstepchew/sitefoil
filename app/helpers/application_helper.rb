@@ -41,6 +41,7 @@ module ApplicationHelper
       { name: 'show hidden element', js: 'sitefoil.$(":selector").show()', params: [:selector]},
     	{ name: 'alert', js: 'alert(":message")', params: [:message] },
     	{ name: 'autofill', js: 'document.querySelector(":selector").value=":value"', params:[{name: :selector, input_type: :selector_pick},:value] },
+      { name: 'autofill and submit', js: 'sitefoil.autofill_and_submit(":selector",":value")', params:[{name: :selector, input_type: :selector_pick},:value]},
     	{ name: 'send email', js: 'this.email_to(":to_email",":message")', params: [:to_email,:message] } 
     ]
   end
