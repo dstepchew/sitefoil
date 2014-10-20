@@ -9,7 +9,9 @@ modal dialog will autoopen on .selector_pick control mouse click
         <h4 class="modal-title" id="myModalLabel">Enter page url and pick selector</h4>
       </div>
       <div class="modal-body">
-				enter site url: <input name=url style='width:100%;'><br>
+				enter page url: <br>
+				<input name=url style='width:calc(100% - 80px);'>
+				<input style='margin-left:10px' type="button" class="btn" value="scan" onclick='scanSelectors()'><br>
 				<div id=error style='color:red;height:20px;'></div><br>
 				<div id=selectors_section style='display:none' ondblclick='selector_pick_ok()'>
 					found selectors: <br>
@@ -37,12 +39,11 @@ function selector_pick_ok() {
 	 $('#selector_pick_modal').modal('toggle');
 	 selector_pick_callback($("#selector_pick_modal #selectors").val())
 }
-$(function() {
-	$("#selector_pick_modal input[name=url]").keydown(function(e) {
-		if(e.keyCode==13) {
+
+function scanSelectors() {
 			$("#selector_pick_modal #selectors").html("")
 			$("#selector_pick_modal #error").html("please wait...")
-			$.getJSON("/api/page_selectors_scan",{url: $(this).val()},function(resp) {
+			$.getJSON("/api/page_selectors_scan",{url: $("#selector_pick_modal input[name=url]").val()},function(resp) {
 				$("#selector_pick_modal #error").html("")
 				if(resp.error_message) {
 					$("#selector_pick_modal #error").html(resp.error_message)
@@ -54,6 +55,12 @@ $(function() {
 				}
 
 			})
+}
+
+$(function() {
+	$("#selector_pick_modal input[name=url]").keydown(function(e) {
+		if(e.keyCode==13) {
+			scanSelectors()
 		}
 	})
 
