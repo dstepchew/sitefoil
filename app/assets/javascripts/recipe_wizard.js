@@ -2,8 +2,8 @@ function onConditionChange() {
 	var condition = $(this).parents(".condition")
 	var condition_name = condition.find("#condition_name").val()
 	console.log(condition_name)
-	condition.find("#condition_param_wrap").html($(".condition_param_template[data-condition-name='"+condition_name+"']").html())
-	condition.find("#condition_param").hide().val("")
+	condition.find("#condition_param_wrap").html($(".condition_param_template[data-condition-name='"+condition_name+"']").html()).hide()
+	condition.find("#condition_param").val("")
 	if(condition_name) {
 	  condition.find("#logic").show()		
 	  var condition_method_template = $(".condition_methods[data-condition-name='"+condition_name+"']")
@@ -22,13 +22,9 @@ function onConditionMethodChange() {
 	var condition = $(this).parents(".condition")	
 	var condition_method = condition.find("#condition_method").val()
 	if(condition_method && _.str.contains(condition_method,"?")) {
-		condition.find("#condition_param").removeAttr("type").show().val("")
-		var input_type = condition.find("#condition_method").attr("data-input-type")
-		if(input_type) {
-			condition.find("#condition_param").attr("type",input_type)
-		}
+		condition.find("#condition_param_wrap").show().find("#condition_param").val("")
 	} else {
-		condition.find("#condition_param").hide()
+		condition.find("#condition_param_wrap").hide()
 	}
 }
 

@@ -22,7 +22,7 @@ select, input[type=text], input[type=date], input[type=time], #recipe {
 
 
 <% ApplicationHelper::triggers.each do |condition| %>
-	<div class='condition_methods' data-input-type='<%= condition[:input_type] %>' data-condition-name='<%= condition[:name] %>' style='display:none'>
+	<div class='condition_methods' data-condition-name='<%= condition[:name] %>' style='display:none'>
 	  <option value=''>-- select method -- </option>
 		<% condition[:methods].each do |method| %>
 		  <option value='<%= method %>'><%= ApplicationHelper::human_method(method) %></option>
@@ -71,7 +71,16 @@ select, input[type=text], input[type=date], input[type=time], #recipe {
 				<% end %>
 			</select>
 		<% else %>
-			<input id=condition_param>
+			<% if condition[:input_type] == :selector_pick %>
+				<input id=condition_param>
+				<input type=button value='...' style='margin-left:-35px' 	class='selector_pick'>
+			<% else %>
+				<input id=condition_param
+					<% if condition[:input_type] %>
+					type=<%= condition[:input_type].to_s %>
+					<% end %>
+				>
+			<% end %>
 		<% end %>
 	</div>
 	<% end %>

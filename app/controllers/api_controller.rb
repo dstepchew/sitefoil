@@ -15,7 +15,7 @@ class ApiController < ApplicationController
     end
   	doc = Nokogiri::HTML(html)
 
-  	doc.css("input").each do |el|
+  	doc.css("*").each do |el|
   		ret[:selectors] << "#"+el["id"] if el["id"]
   	end
 
