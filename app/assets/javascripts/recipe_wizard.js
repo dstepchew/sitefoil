@@ -102,7 +102,7 @@ function buildRecipe() {
   	var name = $(this).attr("name")
   	var val = $(this).val()
   	console.log("action_param input: ", name, val)
-  	action_js = action_js.replace('":'+name+'"', "decodeURIComponent('"+encodeURIComponent(val)+"')")
+  	action_js = action_js.replace('":'+name+'"', 'decodeURIComponent("'+encodeURIComponent(val)+'")')
   	action_js = action_js.replace(':'+name, val)
   })
 

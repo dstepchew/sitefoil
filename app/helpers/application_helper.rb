@@ -39,6 +39,7 @@ module ApplicationHelper
     [
       { name: 'custom site footer', js: 'sitefoil.footer_show(":html")', params: [{name: :html, input_type: :textarea }] },
       { name: 'custom site banner', js: 'sitefoil.banner_show(":html")', params: [{name: :html, input_type: :textarea }] },
+      { name: 'custom site popup', js: 'sitefoil.popup_show(":html")', params: [{name: :html, input_type: :textarea }] },
       { name: 'show hidden element', js: 'sitefoil.$(":selector").show()', params: [:selector]},
     	{ name: 'alert', js: 'alert(":message")', params: [:message] },
     	{ name: 'autofill', js: 'document.querySelector(":selector").value=":value"', params:[{name: :selector, input_type: :selector_pick},:value] },
