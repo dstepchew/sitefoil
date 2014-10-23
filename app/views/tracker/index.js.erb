@@ -111,6 +111,7 @@ var sitefoil = {
 		var page_load = this.page_load;
 		var el_click = this.el_click;
 		var el_clicked_id = this.el_clicked_id;
+		var el_clicked_selector = "#"+this.el_clicked_id;
 		var visitor = this.visitor;
 		var site = this.site;
 		var any_event = (page_load || el_click)
@@ -118,9 +119,21 @@ var sitefoil = {
 		console.log("el_clicked_id",el_clicked_id)
 	  <% if @site %>  
 		  //running recipes
-		  <% @site.recipes.where(enabled:true).each do |recipe| %>
-		    <%= recipe.js.html_safe %>
-		  <% end %>
+				if(page_load) {
+			  <% @site.recipes.where(enabled:true).each do |recipe| %>			  	
+			  	<% if !recipe.js.include? "el_clicked_"  %>
+			    		<%= recipe.js.html_safe %>
+			    <% end %>
+        <% end %>
+				}
+
+				if(el_click) {
+			  <% @site.recipes.where(enabled:true).each do |recipe| %>			  	
+			  	<% if recipe.js.include? "(el_click"  %>
+				    	<%= recipe.js.html_safe %>
+			    <% end %>
+			  <% end %>
+				}
 		<% else %>
 		  // SITE NOT DEFINED!
 		<% end %>

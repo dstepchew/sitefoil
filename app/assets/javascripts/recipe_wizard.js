@@ -172,4 +172,5 @@ $(function() {
 
   $("body").on("change","select, .action_param",buildRecipe)
   $("body").on("keyup change","input, .action_param",buildRecipe)
+  $("body").on("submit","form",buildRecipe)
 })
