@@ -22,7 +22,7 @@ table.recipes td, table.recipes th {
   </thead>
 
   <tbody>
-    <% @recipes.each do |recipe| %>
+    <% @recipes.order(:created_at).each do |recipe| %>
       <tr>
         <td><%= recipe.name_or_action %></td>
         <td><%= recipe.site.url rescue '' %></td>
