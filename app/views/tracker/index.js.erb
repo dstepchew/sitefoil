@@ -69,7 +69,7 @@ var sitefoil = {
 	},
 	popup_document_keydown: function(e) {
     	console.log("document keydown popup_show")
-  		if(sitefoil.$("#sitefoil_popup").is(":visible") && e.keyCode==27) {
+  		if(sitefoil.$("#sitefoil_popup").is(":visible") && (e.keyCode==27 || e.keyCode==13)) {
   			sitefoil.popup_close()
   		}
   },
