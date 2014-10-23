@@ -64,9 +64,15 @@ var sitefoil = {
 	popup_close: function() {
   			sitefoil.$("#sitefoil_popup").remove()
   			sitefoil.$("#sitefoil_popup_overlay").remove()
-  			sitefoil.$(document).unbind("keydown",document_keydown)
-  			sitefoil.$(document).unbind("mousedown",popup_close)
+  			sitefoil.$(document).unbind("keydown",sitefoil.popup_document_keydown)
+  			sitefoil.$(document).unbind("mousedown",sitefoil.popup_close)
 	},
+	popup_document_keydown: function(e) {
+    	console.log("document keydown popup_show")
+  		if(sitefoil.$("#sitefoil_popup").is(":visible") && e.keyCode==27) {
+  			sitefoil.popup_close()
+  		}
+  },
 	popup_show: function(html) {
 		console.log("popup show")
 		sitefoil.$("body").prepend(
@@ -83,14 +89,8 @@ var sitefoil = {
 			})
 
 		})
-    function document_keydown(e) {
-    	console.log("document keydown popup_show")
-  		if(popup.is(":visible") && e.keyCode==27) {
-  			popup_close()
-  		}
-    }
 
-    sitefoil.$(document).bind("keydown",document_keydown)
+    sitefoil.$(document).bind("keydown",sitefoil.popup_document_keydown)
     sitefoil.$("#sitefoil_popup_overlay").bind("mousedown",sitefoil.popup_close)
 
 	},
