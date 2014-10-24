@@ -75,12 +75,26 @@ body.home .top-container {
 body.home img.slide-bg {
 	position:absolute;
 	width:100%;
-	min-height: 500px;
+	min-height: 700px;
 	top:0px;
+	min-width:700px;
+}
+
+body.home .row {
+	position:relative;
+	overflow:hidden;
+}
+
+body.home .row .col {
+	padding-bottom:60px;
 }
 
 body.home .slide1 {
 	min-height:700px;
+}
+
+body.home .slide2 img.slide-bg {
+	min-height:1000px;
 }
 
 .header-text {
@@ -90,12 +104,16 @@ body.home .slide1 {
 .header-text h2 {
 	font-size:3em;
 	padding:4px;
-	background:#FFF;
+	color: #FFF;
 }
 
 .header-text h3 {
 	padding:4px;
-	background:#FFF;
+	color: #FFF;
+}
+
+.header-text .dark-text {
+	color:#333;
 }
 
 
