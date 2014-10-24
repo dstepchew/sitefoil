@@ -1,0 +1,6 @@
+<h1>Site Recipes</h1>
+<% @site.recipes.each do |recipe| %>
+	<p>
+		<%= recipe.name_or_action %> <a href=<%= edit_recipe_path(recipe)%>>edit</a>
+	</p>
+<% end %>

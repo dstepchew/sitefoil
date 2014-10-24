@@ -1,7 +1,10 @@
 class SitesController < ApplicationController
-  before_action :set_site, only: [:show, :edit, :update, :destroy]
+  before_action :set_site, only: [:show, :edit, :update, :destroy,:stats,:recipes]
   before_action :authenticate_user!
   before_action :correct_user, only: [:edit, :update, :destroy]
+
+  def stats
+  end
 
   def index
     @sites = Site.all
@@ -28,7 +31,7 @@ class SitesController < ApplicationController
 
   def update
     if @site.update(site_params)
-      redirect_to @site, notice: 'Site was successfully updated.'
+      redirect_to sites_url, notice: 'Site was successfully updated.'
     else
       render action: 'edit'
     end
@@ -52,7 +55,7 @@ class SitesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def site_params
-      params.require(:site).permit(:name,:url,:coupon_url, :coupon_id, :checkout_url, :confirmation_url, :total_id,
+      params.require(:site).permit(:name,:url,:order_url,:coupon_url, :coupon_selector, :checkout_url, :confirmation_url, :total_selector,
         recipe_attributes: [
                  :id, :name, :description
               ])

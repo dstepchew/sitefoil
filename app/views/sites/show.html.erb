@@ -3,7 +3,7 @@
 
 
 
-  <h1><%= @site.name %></h1>
+<h1><%= @site.name %></h1>
 
 
 <p>
@@ -11,48 +11,27 @@
   <%= @site.url %>
 </p>
 
-<p>
-  <strong>Location of Coupon Code Field:</strong>
-  <%= @site.coupon_url %>, <strong>ID of field</strong>: <%= @site.coupon_id %>
-</p>
-
-<p>
-  <strong>Location of Confirmation and Order Total:</strong>
-  <%= @site.confirmation_url %>, <strong>ID of field</strong>: <%= @site.total_id %>
-</p>
-
 
 <div class="jumbotron center">
-<h2>Copy and paste the following code just before the "&lt;/html&gt;" tag on <strong> all pages</strong> of your website:</h2>
-<textarea class="form-control" id="siteTextarea" readonly >
-   <script src=<%= @site.tracker_url(request.host_with_port) %> />
-</textarea>
-</div>
+  <h2>Copy and paste the following code just before the "&lt;/html&gt;" tag on <strong> all pages</strong> of your website:</h2>
+  <textarea class="form-control" id="siteTextarea" readonly >
+   <script src=<%= @site.tracker_url(request.host_with_port) %>></script>
+ </textarea>
 
-<div class="jumbotron center">
-<h2>Copy and paste the following code just before the "&lt;/html&gt;" tag on <strong> your order confirmation page</strong> of your website:</h2>
-<textarea class="form-control" id="siteTextarea" readonly >
-   <script src=http://<%= request.host_with_port %>/tracker/order_confirmation.js />
-</textarea>
+<a href="#" class="btn btn-primary" onclick='testSite(<%= @site.id %>);return false;'>Test Code Presence</a>
 
-<div class="jumbotron">
-<h3>Test Status</h3>
+ <div class="jumbotron">
 
-<table class="table table-responsive" style="text-align:left;">
-<tr><th>Code</th><th>Status</th></tr>
-<tr><td>Sitewide Code</td><td id='site_test_status'>
-  </td></tr>
-<tr><td>Confirmation Code</td><td>run test, found, not found, found but missing order totals</td></tr>
-
-</table>
-
-
-</table>
-
-<a href="#" class="btn btn-primary" onclick='testSite(<%= @site.id %>);return false;'>Run All Tests</a>
-
+  <table class="table table-responsive" style="text-align:left;">
+    <tr>
+      <th>Code</th>
+      <th>Status</th></tr>
+    <tr>
+      <td>Sitewide Code</td>
+      <td id='site_test_script_installed'></td>
+    </tr>
+  </table>
 </div>
 
 
-<%= link_to 'Edit', edit_site_path(@site) %> |
-<%= link_to 'Back', sites_path %>
+<%= link_to 'Edit', edit_site_path(@site) %>

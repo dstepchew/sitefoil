@@ -15,9 +15,12 @@
     <% @sites.each do |site| %>
      <% if site.user == current_user %>
       <tr>
-        <td><%= link_to site.name, site %></td>
+        <td><%= link_to site.name, edit_site_path(site) %></td>
         <td><%= site.url %></td>
         <td></td>
+        <td><%= link_to 'Script setup', site_path(site) %></td>
+        <td><%= link_to 'View Statistics', stats_site_path(site) %></td>
+        <td><%= link_to 'Recipes', recipes_site_path(site) %></td>
         <td><%= link_to 'Edit', edit_site_path(site) %></td>
         <td><%= link_to 'Delete', site, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

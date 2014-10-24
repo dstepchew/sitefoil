@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140807035621) do
+ActiveRecord::Schema.define(version: 20141017031925) do
 
   create_table "actions", force: true do |t|
     t.string   "name"
@@ -82,7 +82,14 @@ ActiveRecord::Schema.define(version: 20140807035621) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "referrer"
+    t.text     "tag"
+    t.integer  "site_id"
+    t.string   "device"
+    t.string   "os_name"
+    t.boolean  "new_visitor"
   end
+
+  add_index "hits", ["site_id"], name: "index_hits_on_site_id"
 
   create_table "ingredients", force: true do |t|
     t.string   "name"
@@ -98,11 +105,14 @@ ActiveRecord::Schema.define(version: 20140807035621) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "site_id"
     t.string   "trigger_id"
     t.string   "act_id"
     t.string   "trig_channel_id"
     t.string   "act_channel_id"
+    t.integer  "site_id"
+    t.text     "js"
+    t.text     "wizard_json"
+    t.boolean  "enabled",         default: true
   end
 
   create_table "sites", force: true do |t|
@@ -112,11 +122,13 @@ ActiveRecord::Schema.define(version: 20140807035621) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.string   "coupon_url"
-    t.string   "coupon_id"
+    t.string   "coupon_selector"
     t.string   "status"
     t.string   "checkout_url"
-    t.string   "total_id"
+    t.string   "total_selector"
     t.string   "confirmation_url"
+    t.text     "tag"
+    t.string   "order_url"
   end
 
   add_index "sites", ["user_id"], name: "index_sites_on_user_id"

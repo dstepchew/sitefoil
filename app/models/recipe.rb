@@ -9,18 +9,28 @@
 #  description     :text
 #  created_at      :datetime
 #  updated_at      :datetime
-#  site_id         :string(255)
+#  site_id         :integer
 #  trigger_id      :string(255)
 #  act_id          :string(255)
 #  trig_channel_id :string(255)
 #  act_channel_id  :string(255)
+#  js              :text
+#  wizard_json     :text
+#  enabled         :boolean          default(TRUE)
 #
 
 class Recipe < ActiveRecord::Base
+	attr_protected []
 
-	 has_one :trigger
+	has_one :trigger
 	# has_one :channels, through :trigger
-	 has_one :act
+	has_one :act
 
-	 belongs_to :site
+	belongs_to :site
+
+	def name_or_action
+		return self['name'] if !self['name'].blank?
+		JSON::parse(self.wizard_json)['action']['name'] + ' "' +
+		ActionController::Base.helpers.truncate(URI.unescape(JSON::parse(self.wizard_json)['action']['params'][0]['val']),length:30,omission:'...')+'"'
+	end
 end

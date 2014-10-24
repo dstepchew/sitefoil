@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.0'
+ruby '2.1.3'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.1'
 
@@ -64,3 +64,10 @@ end
 gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'annotate'
 gem 'nokogiri'
+
+gem 'protected_attributes'
+
+gem 'geocoder'
+gem 'better_errors', :group => [:test, :development, :production]
+gem 'binding_of_caller', :group => [:test, :development]
+gem "haml"

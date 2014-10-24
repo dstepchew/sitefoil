@@ -1,0 +1,75 @@
+<%# include this partial in top of page
+modal dialog will autoopen on .selector_pick control mouse click
+%>
+<div class="modal fade" id="selector_pick_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Enter page url and pick selector</h4>
+      </div>
+      <div class="modal-body">
+				enter page url: <br>
+				<input name=url style='width:calc(100% - 80px);'>
+				<input style='margin-left:10px' type="button" class="btn" value="scan" onclick='scanSelectors()'><br>
+				<div id=error style='color:red;height:20px;'></div><br>
+				<div id=selectors_section style='display:none' ondblclick='selector_pick_ok()'>
+					found selectors: <br>
+					<select id=selectors size="2" style="width: 155px; height: 200px;" >
+					</select>	
+				</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" onclick='selector_pick_ok()'>OK</button>
+        <button type="button" class="btn " data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var selector_pick_callback;
+
+function selector_pick_show(callback) {
+	selector_pick_callback = callback;
+	$("#selector_pick_modal").modal()
+}
+
+function selector_pick_ok() {
+	 $('#selector_pick_modal').modal('toggle');
+	 selector_pick_callback($("#selector_pick_modal #selectors").val())
+}
+
+function scanSelectors() {
+			$("#selector_pick_modal #selectors").html("")
+			$("#selector_pick_modal #error").html("please wait...")
+			$.getJSON("/api/page_selectors_scan",{url: $("#selector_pick_modal input[name=url]").val()},function(resp) {
+				$("#selector_pick_modal #error").html("")
+				if(resp.error_message) {
+					$("#selector_pick_modal #error").html(resp.error_message)
+					return;
+				}
+				for(var i=0;i<resp.selectors.length;i++) {
+					$("#selector_pick_modal #selectors").append("<option value='"+resp.selectors[i]+"'>"+resp.selectors[i]+"</option>")
+					$("#selector_pick_modal #selectors_section").show()
+				}
+
+			})
+}
+
+$(function() {
+	$("#selector_pick_modal input[name=url]").keydown(function(e) {
+		if(e.keyCode==13) {
+			scanSelectors()
+		}
+	})
+
+	$(document).on("click",".selector_pick",function() {
+		var control = $(this).prev()
+
+		selector_pick_show(function(pick) {
+			control.val(pick)
+		})
+	})
+})
+</script>

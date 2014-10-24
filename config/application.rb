@@ -22,5 +22,15 @@ module Sitefoil
 
     #Required For Heroku
     config.assets.initialize_on_precompile = false
+
+    ActionMailer::Base.smtp_settings = {
+        :address              => "smtp.mandrillapp.com",
+        :port                 => 587,
+        :user_name            => ENV['SITEFOIL_MANDRILL_USER'],
+        :password             => ENV['SITEFOIL_MANDRILL_KEY']
+    }
+
+    ActionMailer::Base.delivery_method = :smtp
+
   end
 end

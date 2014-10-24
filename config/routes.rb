@@ -1,6 +1,8 @@
 Sitefoil::Application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+  get '/recipes/wizard' => "recipes#wizard"
+  get '/recipes/selector_pick' => "recipes#selector_pick"
 
   resources :recipes
 
@@ -14,16 +16,23 @@ Sitefoil::Application.routes.draw do
 
   resources :ingredients
 
-  resources :sites
+  resources :sites do
+    member do
+      get 'stats'
+      get 'recipes'
+    end
+  end
 
   devise_for :users
-  root "recipes#index"
+
+  root "pages#home"
+
   get "about" => "pages#about"
   get "privacy" => "pages#privacy"
   get "terms" => "pages#terms"
 
   match '/contacts',     to: 'contacts#new',             via: 'get'
-resources "contacts", only: [:new, :create]
+  resources "contacts", only: [:new, :create]
 
 
 resources :users
