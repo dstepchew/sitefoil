@@ -71,3 +71,4 @@ gem 'geocoder'
 gem 'better_errors', :group => [:test, :development, :production]
 gem 'binding_of_caller', :group => [:test, :development]
 gem "haml"
+gem "font-awesome-rails"

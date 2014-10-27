@@ -2,13 +2,14 @@
 
 $body-bg:                                                   #ecf0f1;
 $font-family-sans-serif:                'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$navbar-height:                                        45px;
+$navbar-height:                                        50px;
 $navbar-default-bg:                          white;
 $navbar-default-brand-color:      #f96145;
 $brand-primary:                                    #f96145;
 $jumbotron-bg:                                         white;
 
 @import 'bootstrap';
+@import "font-awesome";
 
 #wrap
 {
@@ -38,12 +39,19 @@ padding-bottom:240px; /* this needs to be bigger than footer height*/
 .navbar-brand {
      font-weight: bold;
 }
+.navbar-header img {
+	width:50px; 
+}
 
 .sf-home {
 
 	background-image: url(https://s3-us-west-2.amazonaws.com/sitefoil/images/home1.jpg);
 	background-position: center top;
 	background-size: cover;
+}
+
+body.home {
+	background-color:#FFF;
 }
 
 body.home .navbar {
@@ -75,8 +83,8 @@ body.home .top-container {
 body.home img.slide-bg {
 	position:absolute;
 	width:100%;
-	min-height: 700px;
-	top:0px;
+	min-height: 500px;
+	top:-100px;
 	min-width:700px;
 }
 
@@ -90,11 +98,15 @@ body.home .row .col {
 }
 
 body.home .slide1 {
-	min-height:700px;
+	min-height:800px;
 }
 
 body.home .slide2 img.slide-bg {
 	min-height:1000px;
+}
+
+body.home .slide3 {
+	background:#eee;
 }
 
 .header-text {
@@ -104,12 +116,12 @@ body.home .slide2 img.slide-bg {
 .header-text h2 {
 	font-size:3em;
 	padding:4px;
-	color: #FFF;
+	color: #777;
 }
 
 .header-text h3 {
 	padding:4px;
-	color: #FFF;
+	color: #333;
 }
 
 .header-text .dark-text {
@@ -265,7 +277,7 @@ body.main-form .hero .glyphicon {
         display: block;
         width: 160px;
         text-align: center;
-        background-color: #fff;
+        /*background-color: #fff; */
     }
     .navbar>.container .navbar-brand-centered, 
     .navbar>.container-fluid .navbar-brand-centered {
