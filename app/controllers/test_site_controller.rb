@@ -1,0 +1,2 @@
+class TestSiteController < ApplicationController
+end
