@@ -29,6 +29,7 @@ class ApiController < ApplicationController
 
     recipe = Recipe.find(params[:id])
     recipe.hits = recipe.hits.to_i + 1
+    recipe.hit_last_time = Time.now
     recipe.save
 
     render nothing: true

@@ -18,6 +18,7 @@
 #  site_id     :integer
 #  device      :string(255)
 #  os_name     :string(255)
+#  new_visitor :boolean
 #
 
 class Hit < ActiveRecord::Base

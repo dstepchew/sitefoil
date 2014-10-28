@@ -17,6 +17,7 @@
 #  js              :text
 #  wizard_json     :text
 #  enabled         :boolean          default(TRUE)
+#  hit_last_time   :datetime
 #
 
 class Recipe < ActiveRecord::Base

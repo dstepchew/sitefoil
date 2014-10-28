@@ -57,6 +57,7 @@ $(function() {
       <th>site</th>
       <th>on/off</th>
       <th>hits</th>
+      <th>last time</th>
       <th></th>
       <th></th>
       <th></th>
@@ -69,7 +70,8 @@ $(function() {
         <td><%= recipe.name_or_action %></td>
         <td><%= recipe.site.url rescue '' %></td>
         <td><%= recipe.enabled ? "on" : "" %></td>
-        <td><%= recipe.hits %></td>
+        <td><%= recipe.hits %>
+        <td> <%= recipe.hit_last_time %>
         <td><%= link_to 'Edit', edit_recipe_path(recipe), data: { no_turbolink: true } %>
             <a href="/recipes/<%= recipe.id %>/edit?rebuild" style='display:none' class='rebuild' target=_blank>Rebuild</a>
         </td>
