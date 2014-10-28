@@ -14,9 +14,31 @@ function devhere() {
 }
 
 function rebuildAll() {
+  var hrefs = []
+
   $(".rebuild").each(function() {
-    window.open($(this).attr("href"),"_blank")
+    hrefs.push($(this).attr("href"))
   })
+
+  var i =0;
+  var windows = []
+  var interval = setInterval(function() {
+
+    windows.push(window.open(hrefs[i],"_blank"))
+    i++
+
+    if(i==hrefs.length) {
+      clearInterval(interval)
+    }
+
+  },1000)
+
+  setTimeout(function() {
+    for(var i=0;i<windows.length;i++) {
+      windows[i].close()
+    }
+  },hrefs.length*1000+3000)
+
 }
 
 $(function() {
@@ -49,7 +71,7 @@ $(function() {
         <td><%= recipe.enabled ? "on" : "" %></td>
         <td><%= recipe.hits %></td>
         <td><%= link_to 'Edit', edit_recipe_path(recipe), data: { no_turbolink: true } %>
-            <a href="/recipes/<%= recipe.id %>/edit?rebuild=true" style='display:none' class='rebuild' target=_blank>Rebuild</a>
+            <a href="/recipes/<%= recipe.id %>/edit?rebuild" style='display:none' class='rebuild' target=_blank>Rebuild</a>
         </td>
         <td><%= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

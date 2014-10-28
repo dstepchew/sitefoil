@@ -27,14 +27,13 @@ select, input[type=text], input[type=date], input[type=time], #recipe {
 <script>
 
 $(function() {
-	if(location.href.indexOf("rebuild=true")>0) {
+	if(location.href.indexOf("rebuild")>0) {
 	  console.log("rebuilding and saving and closing")
 	  js_show()
 	  buildRecipe()
 	  $("form").submit(function(e) {
 			e.preventDefault(); // don't submit multiple times
     	this.submit(); // use the native submit method of the form element
-    	window.close()
 	  }).submit()
 
 	}
