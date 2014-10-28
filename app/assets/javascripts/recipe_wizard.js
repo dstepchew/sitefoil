@@ -104,6 +104,8 @@ function buildRecipe() {
   	console.log("action_param input: ", name, val)
   	action_js = action_js.replace('":'+name+'"', 'decodeURIComponent("'+encodeURIComponent(val)+'")')
   	action_js = action_js.replace(':'+name, val)
+
+  	action_js = "sitefoil.report_recipe_hit("+RECIPE_ID+")\n"+action_js
   })
 
 	js = "if("+condition_js+") { "+action_js+" }";

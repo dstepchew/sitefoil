@@ -1,4 +1,5 @@
 class ApiController < ApplicationController
+
   
 
   def page_selectors_scan
@@ -23,4 +24,25 @@ class ApiController < ApplicationController
   	render text: ret.to_json
 
   end
+
+  def report_recipe_hit
+
+    recipe = Recipe.find(params[:id])
+    recipe.hits = recipe.hits.to_i + 1
+    recipe.save
+
+    render nothing: true
+
+  end
+
+  before_action :set_headers
+  private
+  def set_headers
+     response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+     response.headers["Pragma"] = "no-cache"
+     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+     response.headers['Access-Control-Allow-Origin'] = '*'
+     response.headers['Access-Control-Request-Method'] = '*'
+  end
+
 end

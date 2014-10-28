@@ -1,5 +1,8 @@
 <script src=/bower_components/underscore/underscore-min.js></script>
 <script src=/bower_components/underscore.string/dist/underscore.string.min.js></script>
+<script>
+var RECIPE_ID = <%= @recipe.id %>
+</script>
 <%= javascript_include_tag "recipe_wizard" %>
 <style>
 #recipe_wizard, #recipe_wizard input, #recipe_wizard select {
@@ -21,6 +24,23 @@ select, input[type=text], input[type=date], input[type=time], #recipe {
 </style>
 
 
+<script>
+
+$(function() {
+	if(location.href.indexOf("rebuild=true")>0) {
+	  console.log("rebuilding and saving and closing")
+	  js_show()
+	  buildRecipe()
+	  $("form").submit(function(e) {
+			e.preventDefault(); // don't submit multiple times
+    	this.submit(); // use the native submit method of the form element
+    	window.close()
+	  }).submit()
+
+	}
+});
+
+</script>
 <% ApplicationHelper::triggers.each do |condition| %>
 	<div class='condition_methods' data-condition-name='<%= condition[:name] %>' style='display:none'>
 	  <option value=''>-- select method -- </option>
