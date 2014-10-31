@@ -160,7 +160,7 @@ var sitefoil = {
 				if(page_load) {
 			  <% @site.recipes.where(enabled:true).each do |recipe| %>			  	
 			  	<% if !recipe.js.include? "el_clicked_"  %>
-			  	if(!(only_recipe_id && only_recipe_id!=<%= recipe.id %>)) {
+			  	if(!only_recipe_id || only_recipe_id==<%= recipe.id %>) {
 			  		<%= recipe.js.html_safe %>
 			  	}
 			    <% end %>
@@ -170,7 +170,7 @@ var sitefoil = {
 				if(el_click) {
 			  <% @site.recipes.where(enabled:true).each do |recipe| %>			  	
 			  	<% if recipe.js.include? "(el_click"  %>
-			  		if(!(only_recipe_id && only_recipe_id!=<%= recipe.id %>)) {
+			  	if(!only_recipe_id || only_recipe_id==<%= recipe.id %>) {
 				    	<%= recipe.js.html_safe %>
 				    }
 			    <% end %>
