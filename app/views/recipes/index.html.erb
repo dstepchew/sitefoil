@@ -7,6 +7,47 @@ table.recipes td, table.recipes th {
 }
 </style>
 
+<script>
+function devhere() {
+  console.log("welcome dude")
+  $(".rebuild").show()
+}
+
+function rebuildAll() {
+  var hrefs = []
+
+  $(".rebuild").each(function() {
+    hrefs.push($(this).attr("href"))
+  })
+
+  var i =0;
+  var windows = []
+  var interval = setInterval(function() {
+
+    windows.push(window.open(hrefs[i],"_blank"))
+    i++
+
+    if(i==hrefs.length) {
+      clearInterval(interval)
+    }
+
+  },2000)
+
+  setTimeout(function() {
+    for(var i=0;i<windows.length;i++) {
+      windows[i].close()
+    }
+  },hrefs.length*2000+4000)
+
+}
+
+$(function() {
+  if(location.href.indexOf("?rebuild")>0) {
+    rebuildAll()
+  }
+
+})
+</script>
 <h1>Recipes</h1>
 
 <table class='recipes'>
@@ -16,6 +57,8 @@ table.recipes td, table.recipes th {
       <th>site</th>
       <th>on/off</th>
       <th>hits</th>
+      <th>last time</th>
+      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -28,8 +71,12 @@ table.recipes td, table.recipes th {
         <td><%= recipe.name_or_action %></td>
         <td><%= recipe.site.url rescue '' %></td>
         <td><%= recipe.enabled ? "on" : "" %></td>
-        <td><%= recipe.hits %></td>
-        <td><%= link_to 'Edit', edit_recipe_path(recipe), data: { no_turbolink: true } %></td>
+        <td><%= recipe.hits %>
+        <td> <%= recipe.hit_last_time %>
+        <td><%= link_to 'Edit', edit_recipe_path(recipe), data: { no_turbolink: true } %>
+            <a href="/recipes/<%= recipe.id %>/edit?rebuild" style='display:none' class='rebuild' target=_blank>Rebuild</a>
+        </td>
+        <td><%= link_to 'Preview', recipe.preview_url, target: "_blank", data: { no_turbolink: true } %>
         <td><%= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

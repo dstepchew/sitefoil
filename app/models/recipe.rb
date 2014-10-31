@@ -17,6 +17,7 @@
 #  js              :text
 #  wizard_json     :text
 #  enabled         :boolean          default(TRUE)
+#  hit_last_time   :datetime
 #
 
 class Recipe < ActiveRecord::Base
@@ -36,5 +37,10 @@ class Recipe < ActiveRecord::Base
 		rescue
 			'undefined'
 		end
+	end
+
+	def preview_url
+		return '' if !(self.site.url rescue false)
+		"#{self.site.url}?sitefoil_only_recipe_id=#{self.id}"
 	end
 end

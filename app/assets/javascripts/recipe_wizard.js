@@ -1,48 +1,48 @@
-function onConditionChange() {
-	var condition = $(this).parents(".condition")
-	var condition_name = condition.find("#condition_name").val()
-	console.log(condition_name)
-	condition.find("#condition_param_wrap").html($(".condition_param_template[data-condition-name='"+condition_name+"']").html()).hide()
-	condition.find("#condition_param").val("")
-	if(condition_name) {
-	  condition.find("#logic").show()		
-	  var condition_method_template = $(".condition_methods[data-condition-name='"+condition_name+"']")
-		condition.find("#condition_method").show()
-		  .html(condition_method_template.html())
-		condition.find("#condition_method").attr("data-input-type",condition_method_template.attr("data-input-type"))
+function onTriggerChange() {
+	var trigger = $(this).parents(".trigger")
+	var trigger_name = trigger.find("#trigger_name").val()
+	console.log(trigger_name)
+	trigger.find("#trigger_param_wrap").html($(".trigger_param_template[data-trigger-name='"+trigger_name+"']").html()).hide()
+	trigger.find("#trigger_param").val("")
+	if(trigger_name) {
+	  trigger.find("#logic").show()		
+	  var trigger_method_template = $(".trigger_methods[data-trigger-name='"+trigger_name+"']")
+		trigger.find("#trigger_method").show()
+		  .html(trigger_method_template.html())
+		trigger.find("#trigger_method").attr("data-input-type",trigger_method_template.attr("data-input-type"))
 	} else {
-		condition.find("#condition_method").hide()
-	  condition.find("#logic").val("").trigger("change")
-	  condition.find("#logic").hide()		
+		trigger.find("#trigger_method").hide()
+	  trigger.find("#logic").val("").trigger("change")
+	  trigger.find("#logic").hide()		
 	}
 
 }
 
-function onConditionMethodChange() {
-	var condition = $(this).parents(".condition")	
-	var condition_method = condition.find("#condition_method").val()
-	if(condition_method && _.str.contains(condition_method,"?")) {
-		condition.find("#condition_param_wrap").show().find("#condition_param").val("")
+function onTriggerMethodChange() {
+	var trigger = $(this).parents(".trigger")	
+	var trigger_method = trigger.find("#trigger_method").val()
+	if(trigger_method && _.str.contains(trigger_method,"?")) {
+		trigger.find("#trigger_param_wrap").show().find("#trigger_param").val("")
 	} else {
-		condition.find("#condition_param_wrap").hide()
+		trigger.find("#trigger_param_wrap").hide()
 	}
 }
 
 function onLogicChange() {
-	var condition = $(this).parents(".condition")	
-	var logic = condition.find("#logic").val()
+	var trigger = $(this).parents(".trigger")	
+	var logic = trigger.find("#logic").val()
 	if(logic) {
-		if(!condition.next().hasClass("condition")) {
-			condition.after($("#condition_template").html())
+		if(!trigger.next().hasClass("trigger")) {
+			trigger.after($("#trigger_template").html())
 		}
 	} else {
-		//remove all later conditions
+		//remove all later triggers
 		var remove = false;
-		$("#conditions .condition").each(function() {
+		$("#triggers .trigger").each(function() {
 			if(remove) {
 				$(this).remove()
 			}
-			if(condition.is(this)) {
+			if(trigger.is(this)) {
 				console.log('removing')
 				remove = true;
 			}
@@ -64,31 +64,31 @@ function onActionChange() {
 function buildRecipe() {
 	console.log("build recipe")
 	var js = "";
-	var condition_js = ""
+	var trigger_js = ""
 
-	$("#conditions .condition").each(function() {
-		var condition_name = $(this).find("#condition_name").val()
-		console.log(condition_name)
-		var condition_name_js = $(this).find("#condition_name option[value='"+condition_name+"']").attr('data-js')
-		console.log(condition_name_js)
-		var method_js = $(this).find("#condition_method").val()
+	$("#triggers .trigger").each(function() {
+		var trigger_name = $(this).find("#trigger_name").val()
+		console.log(trigger_name)
+		var trigger_name_js = $(this).find("#trigger_name option[value='"+trigger_name+"']").attr('data-js')
+		console.log(trigger_name_js)
+		var method_js = $(this).find("#trigger_method").val()
 		console.log("method_js",method_js)
-		var value_js = $(this).find("#condition_param").val()
+		var value_js = $(this).find("#trigger_param").val()
 
-		var this_condition_js;
+		var this_trigger_js;
 
 
 		if(method_js && _.str.contains(method_js,"?")) {
-	    this_condition_js = condition_name_js+method_js.replace("?",value_js)
+	    this_trigger_js = trigger_name_js+method_js.replace("?",value_js)
 		} else {
-			this_condition_js = condition_name_js+method_js
+			this_trigger_js = trigger_name_js+method_js
 		}
 
-		condition_js = condition_js + "("+this_condition_js+") "
+		trigger_js = trigger_js + "("+this_trigger_js+") "
 
 		var logic = $(this).find("#logic").val()
 		if(logic) {
-			condition_js = condition_js + " "+logic+" "
+			trigger_js = trigger_js + " "+logic+" "
 		}
   })
 
@@ -104,9 +104,11 @@ function buildRecipe() {
   	console.log("action_param input: ", name, val)
   	action_js = action_js.replace('":'+name+'"', 'decodeURIComponent("'+encodeURIComponent(val)+'")')
   	action_js = action_js.replace(':'+name, val)
+
+  	action_js = "sitefoil.report_recipe_hit("+RECIPE_ID+")\n"+action_js
   })
 
-	js = "if("+condition_js+") { "+action_js+" }";
+	js = "if("+trigger_js+") { "+action_js+" }";
 
 	$("#recipe_js").val(js)
 
@@ -115,14 +117,14 @@ function buildRecipe() {
 }
 
 function recipe_save() {
-	var recipe = {conditions:[],action:{}}
-  $("#recipe_wizard .condition").each(function() {
-     var condition = {
-     	name: $(this).find("#condition_name").val(),
-     	method: $(this).find("#condition_method").val(),
-      param: $(this).find("#condition_param").val(),
+	var recipe = {triggers:[],action:{}}
+  $("#recipe_wizard .trigger").each(function() {
+     var trigger = {
+     	name: $(this).find("#trigger_name").val(),
+     	method: $(this).find("#trigger_method").val(),
+      param: $(this).find("#trigger_param").val(),
       logic: $(this).find("#logic").val()}
-     recipe.conditions.push(condition)
+     recipe.triggers.push(trigger)
   })
 
   recipe.action = {
@@ -141,19 +143,22 @@ function recipe_save() {
 
 function recipe_restore(json) {
 
-	$("#conditions").append($("#condition_template").html())
+	$("#triggers").append($("#trigger_template").html())
 	if(json) {
 		try {
 		  var recipe = JSON.parse(json)
+
+		  recipe.triggers = recipe.triggers || recipe.conditions
+
 	  } catch(err) {
 	  	alert("bad recipe data")
 	  	return;
 	  }
-		_.each(recipe.conditions,function(condition) {
-			$(".condition").last().find("#condition_name").val(condition.name).trigger("change")
-			$(".condition").last().find("#condition_method").val(condition.method).trigger("change")
-			$(".condition").last().find("#condition_param").val(condition.param).trigger("change")
-			$(".condition").last().find("#logic").val(condition.logic).trigger("change")
+		_.each(recipe.triggers,function(trigger) {
+			$(".trigger").last().find("#trigger_name").val(trigger.name).trigger("change")
+			$(".trigger").last().find("#trigger_method").val(trigger.method).trigger("change")
+			$(".trigger").last().find("#trigger_param").val(trigger.param).trigger("change")
+			$(".trigger").last().find("#logic").val(trigger.logic).trigger("change")
 		})
 
 		$("#action").val(recipe.action.name).trigger("change")
