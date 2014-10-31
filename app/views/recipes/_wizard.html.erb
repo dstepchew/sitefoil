@@ -54,12 +54,10 @@ $(function() {
 	
 		if 
 
-
-		<select id=condition_name onchange='onConditionChange.apply(this)' style='font-size:40px'>
-			<option value=''>-- select a trigger -- </option>
-			<% ApplicationHelper::triggers.sort_by{ |r| r[:name]}.each do |condition| %>
-			  <option value='<%= condition[:name] %>' data-js='<%= condition[:js] %>'><%= condition[:name] %></option>
-
+		<select id=trigger_name onchange='onTriggerChange.apply(this)' style='font-size:40px'>
+			<option value=''>-- select variable -- </option>
+			<% ApplicationHelper::triggers.sort_by{ |r| r[:name]}.each do |trigger| %>
+			  <option value='<%= trigger[:name] %>' data-js='<%= trigger[:js] %>'><%= trigger[:name] %></option>
 			<% end %>
 		</select>
 
@@ -119,7 +117,7 @@ $(function() {
 	then
 
 	<select id=action onchange='onActionChange()'>
-		<option value=''>-- select an action -- </option>
+		<option value=''>-- select action -- </option>
 		<% ApplicationHelper::actions.sort_by{ |r| r[:name]}.each do |action| %>
 			<option data-js='<%= action[:js] %>' value='<%= action[:name] %>'><%= action[:name] %></option>
 		<% end %>

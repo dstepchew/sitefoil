@@ -13,7 +13,7 @@
             %li= msg
     - if !current_user
       #sign_up.form-inline
-        %h1 Step 1: Create An Account
+        %h1 Create An Account
         .form-group
           %label Email:
           %input.form-control{:name => "new_user[email]", :placeholder => "email", :type => "email"}/
@@ -24,7 +24,7 @@
         %br/
         %a.btn.form-btn{:href => "javascript:$(\"#sign_up\").hide();$(\"#sign_in\").show();"} Already Have An Account? Click Here
       #sign_in.form-inline{:style => "display:none"}
-        %h1 Step 1: Sign In
+        %h1 Sign In
         .form-group
           %label Email:
           %input.form-control{:name => "user[email]", :placeholder => "email", :type => "email"}/
@@ -37,7 +37,7 @@
     #recipe-slide-1
       .container1
         %h1.form-section-header
-          Step 2: Specify A Web Address
+          Specify A Web Address
         %p.form-section-description
           Use a full web address where you would like to add SiteFoil functionality. Each new recipe may only belong to one website of your choice:
         .box
@@ -55,13 +55,13 @@
     #recipe-slide-11
       .container2
         %h1.form-section-header
-          Step 3: Name Your Recipe
+          Name Your Recipe
         .row
           .col-xs-12.col-sm-12.col-md-12
             .form-group
               = f.text_field :name, :placeholder => "enter a name", class: "form-control"
         %h1.form-section-header
-          Step 4: Create Your Recipe
+          Create Your Recipe
         .row
           .col-xs-12.col-sm-12.col-md-12    
             .form-group
