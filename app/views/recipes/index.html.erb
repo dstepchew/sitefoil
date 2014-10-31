@@ -48,41 +48,53 @@ $(function() {
 
 })
 </script>
-<h1>Recipes</h1>
+<h1>Your Recipes</h1>
+ <% @recipes.order(:created_at).each do |recipe| %>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+              <div class="col-md-12">
+                <h3 class="panel-title"><%= recipe.name_or_action %></h3>
+              </div>
+             
+            </div>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
 
-<table class='recipes'>
-  <thead>
-    <tr>
-      <th>name</th>
-      <th>site</th>
-      <th>on/off</th>
-      <th>hits</th>
-      <th>last time</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+                <h4><strong>Site:</strong> <%= recipe.site.url rescue '' %></h4>
+                <h4><strong>Status:</strong> <%= recipe.enabled ? "running" : "disabled" %></h4>
+                <h4><strong>Times Ran:</strong> <%= recipe.hits %></h4>
+                <h4><strong>Last Run:</strong> <%= recipe.hit_last_time %></h4>
+                <a href="/recipes/<%= recipe.id %>/edit?rebuild" style='display:none' class='rebuild' target=_blank>Rebuild</a>
+                
+            </div>
+            <div class="col-md-6 col-sm-12">
+              
+           
+              
+                  <p>
+                   
 
-  <tbody>
-    <% @recipes.order(:created_at).each do |recipe| %>
-      <tr>
-        <td><%= recipe.name_or_action %></td>
-        <td><%= recipe.site.url rescue '' %></td>
-        <td><%= recipe.enabled ? "on" : "" %></td>
-        <td><%= recipe.hits %>
-        <td> <%= recipe.hit_last_time %>
-        <td><%= link_to 'Edit', edit_recipe_path(recipe), data: { no_turbolink: true } %>
-            <a href="/recipes/<%= recipe.id %>/edit?rebuild" style='display:none' class='rebuild' target=_blank>Rebuild</a>
-        </td>
-        <td><%= link_to 'Preview', recipe.preview_url, target: "_blank", data: { no_turbolink: true } %>
-        <td><%= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+                
+                   <%= link_to 'Preview', recipe.preview_url, class:"btn btn-info btn-xs", target: "_blank", data: { no_turbolink: true } %>  </p>
+                   <p>
 
-<br>
+                   <%= link_to 'Edit Recipe', edit_recipe_path(recipe), class: "btn btn-primary btn-xs", data: { no_turbolink: true } %></p>
+                   <p>
 
-<%= link_to 'New Recipe', new_recipe_path %>
+                    <%= link_to 'Delete',recipe, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: 'Are you sure?' } %></p>
+                    
+                 </p>
+               
+            </div>
+          </div>
+        </div>
+    </div>
+
+<% end %>
+
+
+
+<%= link_to 'New Recipe', new_recipe_path, class: "btn btn-primary" %>

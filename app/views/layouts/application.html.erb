@@ -9,7 +9,8 @@
 	<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 	<%= csrf_meta_tags %>
 </head>
-<body class="<%= yield (:body_class) %>"><div id="wrap">
+<body class="<%= yield (:body_class) %>">
+<div id="wrap">
   <%= javascript_include_tag params[:controller] %>
 	<%= render 'layouts/header' %>
 
@@ -20,7 +21,9 @@
 			<% end %>
 			<%= yield %>
 		</div>
-	</div></div>
+	</div>
+	<div class="push"></div>
+</div>	
 	<%= render 'layouts/footer' %>
 </body>
 </html>
