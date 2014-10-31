@@ -1,5 +1,8 @@
 <script src=/bower_components/underscore/underscore-min.js></script>
 <script src=/bower_components/underscore.string/dist/underscore.string.min.js></script>
+<script>
+var RECIPE_ID = <%= @recipe.id %>
+</script>
 <%= javascript_include_tag "recipe_wizard" %>
 <style>
 #recipe_wizard, #recipe_wizard input, #recipe_wizard select {
@@ -21,31 +24,47 @@ select, input[type=text], input[type=date], input[type=time], #recipe {
 </style>
 
 
-<% ApplicationHelper::triggers.each do |condition| %>
-	<div class='condition_methods' data-condition-name='<%= condition[:name] %>' style='display:none'>
+<script>
+
+$(function() {
+	if(location.href.indexOf("rebuild")>0) {
+	  console.log("rebuilding and saving and closing")
+	  js_show()
+	  buildRecipe()
+	  $("form").submit(function(e) {
+			e.preventDefault(); // don't submit multiple times
+    	this.submit(); // use the native submit method of the form element
+	  }).submit()
+
+	}
+});
+
+</script>
+<% ApplicationHelper::triggers.each do |trigger| %>
+	<div class='trigger_methods' data-trigger-name='<%= trigger[:name] %>' style='display:none'>
 	  <option value=''>-- select method -- </option>
-		<% condition[:methods].each do |method| %>
+		<% trigger[:methods].each do |method| %>
 		  <option value='<%= method %>'><%= ApplicationHelper::human_method(method) %></option>
 		<% end %>
 	</div>
 <% end %>
 
-<div id=condition_template style='display:none'>
-  <div class=condition>
+<div id=trigger_template style='display:none'>
+  <div class=trigger>
 	
 		if 
 
-		<select id=condition_name onchange='onConditionChange.apply(this)' style='font-size:40px'>
+		<select id=trigger_name onchange='onTriggerChange.apply(this)' style='font-size:40px'>
 			<option value=''>-- select variable -- </option>
-			<% ApplicationHelper::triggers.sort_by{ |r| r[:name]}.each do |condition| %>
-			  <option value='<%= condition[:name] %>' data-js='<%= condition[:js] %>'><%= condition[:name] %></option>
+			<% ApplicationHelper::triggers.sort_by{ |r| r[:name]}.each do |trigger| %>
+			  <option value='<%= trigger[:name] %>' data-js='<%= trigger[:js] %>'><%= trigger[:name] %></option>
 			<% end %>
 		</select>
 
-		<select id=condition_method style='display:none' onchange='onConditionMethodChange.apply(this)'>
+		<select id=trigger_method style='display:none' onchange='onTriggerMethodChange.apply(this)'>
 		</select>
 
-		<span id=condition_param_wrap>
+		<span id=trigger_param_wrap>
 		</span>
 
 		<select id=logic onchange='onLogicChange.apply(this)' style='display:none'>
@@ -58,11 +77,11 @@ select, input[type=text], input[type=date], input[type=time], #recipe {
 
 <div style='display:none'>
 
-	<% ApplicationHelper::triggers.each do |condition| %>
-	<div class=condition_param_template data-condition-name='<%= condition[:name] %>'>
-		<% if condition[:possible_values] %>
-			<select id=condition_param>
-				<% condition[:possible_values].each do |val| %>
+	<% ApplicationHelper::triggers.each do |trigger| %>
+	<div class=trigger_param_template data-trigger-name='<%= trigger[:name] %>'>
+		<% if trigger[:possible_values] %>
+			<select id=trigger_param>
+				<% trigger[:possible_values].each do |val| %>
 					<% if val.class == Array %>
 						<option value='<%= val[0] %>'><%= val[1] %></option>
 					<% else %>
@@ -71,13 +90,13 @@ select, input[type=text], input[type=date], input[type=time], #recipe {
 				<% end %>
 			</select>
 		<% else %>
-			<% if condition[:input_type] == :selector_pick %>
-				<input id=condition_param>
+			<% if trigger[:input_type] == :selector_pick %>
+				<input id=trigger_param>
 				<input type=button value='...' style='margin-left:-35px' 	class='selector_pick'>
 			<% else %>
-				<input id=condition_param
-					<% if condition[:input_type] %>
-					type=<%= condition[:input_type].to_s %>
+				<input id=trigger_param
+					<% if trigger[:input_type] %>
+					type=<%= trigger[:input_type].to_s %>
 					<% end %>
 				>
 			<% end %>
@@ -91,7 +110,7 @@ select, input[type=text], input[type=date], input[type=time], #recipe {
 <div id=recipe_wizard style='font-size:40px'>
 
 
-	<div id=conditions>
+	<div id=triggers>
 
 	</div>
 

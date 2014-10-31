@@ -32,6 +32,15 @@ var sitefoil = {
 			text: text
 		})
 	},
+	//TODO: not secure at all, anyone can trigger it
+	report_recipe_hit: function(recipe_id) {
+		console.log("reporting recipe hit")
+		
+		sitefoil.$.get("http://<%= request.host_with_port%>/api/report_recipe_hit",{id:recipe_id},function() {
+			console.log("recipe hit reported")
+		});
+
+	},
 	autofill_and_submit: function(selector,value) {
 		console.log("sitefoil action 'autofill and submit'")
 		var submit_data = JSON.stringify({url:window.location.href,selector:selector,value:value})
@@ -118,6 +127,18 @@ var sitefoil = {
 			console.log(err.message)
 		}
 	},
+	getUrlParameter: function(sParam) {
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++) 
+    {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam) 
+        {
+            return sParameterName[1];
+        }
+    }
+	},
 	recipes: function() {
 		var page_load = this.page_load;
 		var el_click = this.el_click;
@@ -126,14 +147,22 @@ var sitefoil = {
 		var visitor = this.visitor;
 		var site = this.site;
 		var any_event = (page_load || el_click)
+		var only_recipe_id = this.getUrlParameter("sitefoil_only_recipe_id") || sitefoil.$.cookie("sitefoil_recipe_id");
+		if(only_recipe_id) {
+			console.log("only recipe id:",only_recipe_id)
+			sitefoil.$.cookie("sitefoil_recipe_id",only_recipe_id)
+		}
 		console.log("el_click",el_click)
 		console.log("el_clicked_id",el_clicked_id)
 	  <% if @site %>  
+
 		  //running recipes
 				if(page_load) {
 			  <% @site.recipes.where(enabled:true).each do |recipe| %>			  	
 			  	<% if !recipe.js.include? "el_clicked_"  %>
-			    		<%= recipe.js.html_safe %>
+			  	if(!only_recipe_id || only_recipe_id==<%= recipe.id %>) {
+			  		<%= recipe.js.html_safe %>
+			  	}
 			    <% end %>
         <% end %>
 				}
@@ -141,10 +170,13 @@ var sitefoil = {
 				if(el_click) {
 			  <% @site.recipes.where(enabled:true).each do |recipe| %>			  	
 			  	<% if recipe.js.include? "(el_click"  %>
+			  	if(!only_recipe_id || only_recipe_id==<%= recipe.id %>) {
 				    	<%= recipe.js.html_safe %>
+				    }
 			    <% end %>
 			  <% end %>
 				}
+
 		<% else %>
 		  // SITE NOT DEFINED!
 		<% end %>
