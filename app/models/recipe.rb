@@ -38,4 +38,9 @@ class Recipe < ActiveRecord::Base
 			'undefined'
 		end
 	end
+
+	def preview_url
+		return '' if !(self.site.url rescue false)
+		"#{self.site.url}?sitefoil_only_recipe_id=#{self.id}"
+	end
 end
