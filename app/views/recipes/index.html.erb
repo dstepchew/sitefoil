@@ -76,8 +76,8 @@ $(function() {
         <td><%= link_to 'Edit', edit_recipe_path(recipe), data: { no_turbolink: true } %>
             <a href="/recipes/<%= recipe.id %>/edit?rebuild" style='display:none' class='rebuild' target=_blank>Rebuild</a>
         </td>
-        <td><%= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <td><%= link_to 'Preview', recipe.preview_url, data: { no_turbolink: true } %>
+        <td><%= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
