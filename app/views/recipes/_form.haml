@@ -13,7 +13,7 @@
             %li= msg
     - if !current_user
       #sign_up.form-inline
-        %h1 Sign Up
+        %h1 Step 1: Create An Account
         .form-group
           %label Email:
           %input.form-control{:name => "new_user[email]", :placeholder => "email", :type => "email"}/
@@ -21,9 +21,10 @@
           %label Password:
           %input.form-control{:name => "new_user[password]", :placeholder => "password", :type => "password"}/
         %br/
-        %a{:href => "javascript:$(\"#sign_up\").hide();$(\"#sign_in\").show();"} Already Signed Up
+        %br/
+        %a.btn.form-btn{:href => "javascript:$(\"#sign_up\").hide();$(\"#sign_in\").show();"} Already Have An Account? Click Here
       #sign_in.form-inline{:style => "display:none"}
-        %h1 Sign In
+        %h1 Step 1: Sign In
         .form-group
           %label Email:
           %input.form-control{:name => "user[email]", :placeholder => "email", :type => "email"}/
@@ -31,13 +32,14 @@
           %label Password:
           %input.form-control{:name => "user[password]", :placeholder => "password", :type => "password"}/
         %br/
-        %a{:href => "javascript:$(\"#sign_in\").hide();$(\"#sign_up\").show();"} Don't have account
+        %br/
+        %a.btn.form-btn{:href => "javascript:$(\"#sign_in\").hide();$(\"#sign_up\").show();"} I don't have an account
     #recipe-slide-1
-      .container
-        %h2.form-section-header
-          Specify A Website
+      .container1
+        %h1.form-section-header
+          Step 2: Specify A Web Address
         %p.form-section-description
-          Each recipe can only belong to one website of your choice:
+          Use a full web address where you would like to add SiteFoil functionality. Each new recipe may only belong to one website of your choice:
         .box
           .form-group
             - if current_user
@@ -50,28 +52,31 @@
             - else
               %label Site url:
               %input.form-control{:name => "new_site_url", :placeholder => "url"}
-    #recipe-slide-11.jumbotron{style: 'background:#eee;padding:0 10px;'}
-      .container
+    #recipe-slide-11
+      .container2
+        %h1.form-section-header
+          Step 3: Name Your Recipe
         .row
           .col-xs-12.col-sm-12.col-md-12
-            %br/
-          .form-group
-            = f.label :name, "Name Your Recipe"
-            %br/
-            = f.text_field :name, class: "form-control"
-          .form-group
-            = f.check_box :enabled
-            = f.label :enabled, "Enabled"
-          .form-group
-            = render "recipes/wizard"
-          .form-group{ style: 'display:none' }
-            = f.label :name, "JSON"
-            %br/
-            = f.text_area :wizard_json, rows: 3, class: "form-control"
-          .form-group{ style: 'display:none' }
-            = f.label :name, "JS"
-            %br/
-            = f.text_area :js, rows: 3, class: "form-control"
+            .form-group
+              = f.text_field :name, :placeholder => "enter a name", class: "form-control"
+        %h1.form-section-header
+          Step 4: Create Your Recipe
+        .row
+          .col-xs-12.col-sm-12.col-md-12    
+            .form-group
+              = render "recipes/wizard"
+            .form-group
+              = f.check_box :enabled
+              = f.label :enabled, "Enable This Recipe Now? Leave unchecked to save for later"
+            .form-group{ style: 'display:none' }
+              = f.label :name, "JSON"
+              %br/
+              = f.text_area :wizard_json, rows: 3, class: "form-control"
+            .form-group{ style: 'display:none' }
+              = f.label :name, "JS"
+              %br/
+              = f.text_area :js, rows: 3, class: "form-control"
         .row
           .col-xs-12.col-sm-4.col-md-4.text-center
           .col-xs-12.col-sm-4.col-md-4.text-center
