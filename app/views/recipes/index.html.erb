@@ -1,5 +1,5 @@
 <%= render 'pages/home' unless user_signed_in? %>
-
+ <% if user_signed_in? %>
 
 <style>
 table.recipes td, table.recipes th {
@@ -48,7 +48,10 @@ $(function() {
 
 })
 </script>
+
+ 
 <h1>Your Recipes</h1>
+<hr>
  <% @recipes.order(:created_at).each do |recipe| %>
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -95,6 +98,8 @@ $(function() {
 
 <% end %>
 
-
-
 <%= link_to 'New Recipe', new_recipe_path, class: "btn btn-primary" %>
+<% end %>
+
+
+
