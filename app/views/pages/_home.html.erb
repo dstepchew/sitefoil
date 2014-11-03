@@ -1,223 +1,223 @@
     <% @title = 'Site Automation With Sitefoil' %>
-<% @description = 'Automate Your Site' %>
+    <% @description = 'Automate Your Site' %>
 
     <% if user_signed_in? %>
 
-<div class="container">
-<h2>My SiteFoil Dashboard</h2>
-    <div class="jumbotron center">
-     <h3>Welcome to my app!</h3>
- 
-        
-   
-      
-  
+    <div class="container">
+        <h2>My SiteFoil Dashboard</h2>
+        <div class="jumbotron center">
+         <h3>Welcome to my app!</h3>
+
+
+
+
+
+     </div>
+ </div>
+ <% else %>
+
+
+
+
+
+
+ <div class="row slide1">
+     <img src="https://s3-us-west-2.amazonaws.com/sitefoil/images/grey-wall-background.jpg" alt="First slide" class="slide-bg">
+
+
+     <!-- Static Header -->
+     <div class="header-text">
+        <div class="col-md-12 text-center">
+            <h2>
+                <span><strong>AUTOMATE WITH SITEFOIL</strong></span>
+            </h2>
+            <br>
+            <h3>
+
+                <span>Keep your webstore fresh while you do other important stuff.</span>
+            </h3>
+            <br>
+            <div class="">
+             <%= link_to "Start using it now for free", new_recipe_path, class: "btn btn-primary btn-lg active" %>
+
+         </div>
+     </div>
+     <div class="clearfix"></div>
+ </div><!-- /header-text -->
+
+
+
+
+
+
+
 </div>
+
+
+<div class="clearfix"></div>
+<div class="row slide2">
+
+
+    <!-- Static Header -->
+    <div class="header-text">
+        <div class="col col-md-12 col-sm-12 text-center">
+            <h2>
+                <span><strong>A Simple Website Add-On</strong></span>
+            </h2>
+            <br>
+            <h3>
+                <span>Add a snippet of code to your site and schedule new promotions right away.</span>
+            </h3>
+            <br>
+            <div class="">
+                <%= link_to "Got it - Let's add it to my site", new_recipe_path, class: "btn btn-primary btn-lg active" %>
+
+
+
+            </div>
+        </div>
+
+
+        <div class="clearfix"></div>
+    </div><!-- /header-text -->
+
+
+
+
+
+
 </div>
-  <% else %>
-  
 
+<div class="row slide3">
 
-
-
-
-	<div class="row slide1">
-	<img src="https://s3-us-west-2.amazonaws.com/sitefoil/images/grey-wall-background.jpg" alt="First slide" class="slide-bg">
-
-
-<!-- Static Header -->
-                    <div class="header-text">
-                        <div class="col-md-12 text-center">
-                            <h2>
-                                <span><strong>AUTOMATE WITH SITEFOIL</strong></span>
-                            </h2>
-                            <br>
-                            <h3>
-
-                            	<span>Keep your webstore fresh while you do other important stuff.</span>
-                            </h3>
-                            <br>
-                            <div class="">
-                            	<%= link_to "Start using it now for free", new_recipe_path, class: "btn btn-primary btn-lg active" %>
-
-                                </div>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div><!-- /header-text -->
-
-
-
-
-
-
-		
-	</div>
-
-   
-    <div class="clearfix"></div>
-    <div class="row slide2">
-  
-
-<!-- Static Header -->
-                    <div class="header-text">
-                        <div class="col col-md-12 col-sm-12 text-center">
-                            <h2>
-                                <span><strong>A Simple Website Add-On</strong></span>
-                            </h2>
-                            <br>
-                            <h3>
-                                <span>Add a snippet of code to your site and schedule new promotions right away.</span>
-                            </h3>
-                            <br>
-                            <div class="">
-                                <%= link_to "Got it - Let's add it to my site", new_recipe_path, class: "btn btn-primary btn-lg active" %>
-                                 
-  
-
-                                </div>
-                        </div>
-
-                        
-                        <div class="clearfix"></div>
-                    </div><!-- /header-text -->
-
-
-
-
-
-        
-    </div>
-
-    <div class="row slide3">
-
-                    <div class="header-text text-center">
-                    <div class="col col-md-12">
-                    <h2 class="text-center"><strong>Things You Can Do With SiteFoil</strong></h2>
-                    </div>
-                    <div class="container">
-                    <div class="row">
-                    <div class="col col-md-2 col-sm-12"></div>
-                    <div class="col col-md-4 text-center">
+    <div class="header-text text-center">
+        <div class="col col-md-12">
+            <h2 class="text-center"><strong>Things You Can Do With SiteFoil</strong></h2>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col col-md-2 col-sm-12"></div>
+                <div class="col col-md-4 text-center">
                     <span class="glyphicon glyphicon-fire big-glyphicon text-center" style="margin:auto;"></span>
                     <h3 class="dark-text">Light Up Slow Periods</h3>
-                        <p>Automatically target new visitors with promotions until your target conversion rate is reached.</p>
-                    </div>
+                    <p>Automatically target new visitors with promotions until your target conversion rate is reached.</p>
+                </div>
 
-                    <div class="col col-md-4">
+                <div class="col col-md-4">
                     <span class="glyphicon glyphicon-flash big-glyphicon text-center" style="margin:auto;"></span>
                     <h3 class="dark-text">Grow Referrals Quickly</h3>
-                        <p>Schedule referral promotions for returning visitors and track new referrals in real time.</p>
-                    </div>
-                    <div class="col col-md-2 col-sm-12"></div>
-                    </div>
-                    <div class="row">
-                    <div class="col col-md-2 col-sm-12"></div>
-                    <div class="col col-md-4 text-center">
+                    <p>Schedule referral promotions for returning visitors and track new referrals in real time.</p>
+                </div>
+                <div class="col col-md-2 col-sm-12"></div>
+            </div>
+            <div class="row">
+                <div class="col col-md-2 col-sm-12"></div>
+                <div class="col col-md-4 text-center">
                     <span class="glyphicon glyphicon-signal big-glyphicon text-center" style="margin:auto;"></span>
                     <h3 class="dark-text">Encourage Larger Orders</h3>
-                        <p>Automatically let customers know when they're a few bucks short of a better deal.</p>
-                    </div>
+                    <p>Automatically let customers know when they're a few bucks short of a better deal.</p>
+                </div>
 
-                    <div class="col col-md-4">
+                <div class="col col-md-4">
                     <span class="glyphicon glyphicon-user big-glyphicon text-center" style="margin:auto;"></span>
                     <h3 class="dark-text">Do It Yourself, Finally</h3>
-                        <p>No coding, no technial knowledge, and no need to learn how to program.</p>
-                    </div>
-                    <div class="col col-md-2 col-sm-12"></div>
-                    </div></div>
-                     <div class="col col-md-12 text-center">
-                   <%= link_to "Try it now for Free", new_recipe_path, class: "btn btn-primary btn-lg active" %>
-                    </div>
+                    <p>No coding, no technial knowledge, and no need to learn how to program.</p>
+                </div>
+                <div class="col col-md-2 col-sm-12"></div>
+            </div></div>
+            <div class="col col-md-12 text-center">
+               <%= link_to "Try it now for Free", new_recipe_path, class: "btn btn-primary btn-lg active" %>
+           </div>
 
 
-                    </div>
+       </div>
 
+   </div>
+
+   <div class="row slide4" style="background:#fff;">
+
+
+    <!-- Static Header -->
+    <div class="header-text">
+
+
+
+        <div class="col col-md-12 col-sm-12 text-center" style="background:#FFF;">
+            <h2 class="dark-text">
+                <span><strong>Sample SiteFoil Recipes</strong></span>
+            </h2>
+            <br/>
+
+            <div class="container">
+                <div class="row>">
+                    <div class="col col-md-2"></div>
+                    <div class="col col-md-4">
+                        <span class="glyphicon fa fa-users big-glyphicon text-center" style="margin:auto;"></span>
+                        &nbsp;&nbsp;&nbsp;
+                        <span class="glyphicon fa fa-money big-glyphicon text-center" style="margin:auto;"></span>
+                        <h4>Site Visitors <i class="fa fa-arrow-right"></i> Promotion</h4>
+                        <p>If a site visitor is from Facebook, apply and submit FACEBOOK coupon code in cart</p>
+                    </div>
+                    <div class="col col-md-4">
+                        <span class="glyphicon fa fa-shopping-cart big-glyphicon text-center" style="margin:auto;"></span>
+                        &nbsp;&nbsp;&nbsp; <span class="glyphicon fa fa-users big-glyphicon text-center" style="margin:auto;"></span>
+                        &nbsp;&nbsp;&nbsp;
+                        <span class="glyphicon fa fa-money big-glyphicon text-center" style="margin:auto;"></span>
+                        <h4>E-Commerce <i class="fa fa-arrow-right"></i> Site Visitors <i class="fa fa-arrow-right"></i> Promotion</h4>
+                        <p>If the site's conversion rate is below 3% and a site visitor is new, pop-up a custom alert.</p>
+                    </div>
+                </div>
+            </div>
+            <h3 class="dark-text">
+                <span>Build your first "recipe" and run it forever for free.  </span>
+            </h3>
+            <div class="">
+                <%= link_to "I can handle that, sign me up", new_recipe_path, class: "btn btn-primary btn-lg active" %>
+
+
+
+            </div>
+        </div>        
     </div>
 
-     <div class="row slide4" style="background:#fff;">
-    
-
-<!-- Static Header -->
-                    <div class="header-text">
-                        
-                        
-
-                        <div class="col col-md-12 col-sm-12 text-center" style="background:#FFF;">
-                            <h2 class="dark-text">
-                                <span><strong>Sample SiteFoil Recipes</strong></span>
-                            </h2>
-                            <br/>
-                           
-                            <div class="container">
-                            <div class="row>">
-                            <div class="col col-md-2"></div>
-                            <div class="col col-md-4">
-                            <span class="glyphicon fa fa-users big-glyphicon text-center" style="margin:auto;"></span>
-                             &nbsp;&nbsp;&nbsp;
-                            <span class="glyphicon fa fa-money big-glyphicon text-center" style="margin:auto;"></span>
-                            <h4>Site Visitors <i class="fa fa-arrow-right"></i> Promotion</h4>
-                            <p>If a site visitor is from Facebook, apply and submit FACEBOOK coupon code in cart</p>
-                            </div>
-                            <div class="col col-md-4">
-                            <span class="glyphicon fa fa-shopping-cart big-glyphicon text-center" style="margin:auto;"></span>
-                             &nbsp;&nbsp;&nbsp; <span class="glyphicon fa fa-users big-glyphicon text-center" style="margin:auto;"></span>
-                             &nbsp;&nbsp;&nbsp;
-                            <span class="glyphicon fa fa-money big-glyphicon text-center" style="margin:auto;"></span>
-                            <h4>E-Commerce <i class="fa fa-arrow-right"></i> Site Visitors <i class="fa fa-arrow-right"></i> Promotion</h4>
-                            <p>If the site's conversion rate is below 3% and a site visitor is new, pop-up a custom alert.</p>
-                            </div>
-                            </div>
-                            </div>
-                             <h3 class="dark-text">
-                                <span>Build your first "recipe" and run it forever for free.  </span>
-                            </h3>
-                            <div class="">
-                                <%= link_to "I can handle that, sign me up", new_recipe_path, class: "btn btn-primary btn-lg active" %>
-                                 
-  
-
-                                </div>
-                        </div>        
-                        </div>
-
-                        <div class="clearfix"></div>
-                    </div><!-- /header-text -->
+    <div class="clearfix"></div>
+</div><!-- /header-text -->
 
 <div class="row slide5">
 
-                    <div class="header-text text-center">
-                    <div class="col col-md-12">
-                    <h2 class="text-center dark-text"><strong>If You Have Scrolled Down This Far</strong></h2>
-                    </div>
-                    
-                    <h3 class="dark-text">You're probably still not sure how this works. Here goes:</h3>
-                    <div class="col-md-3 col-xs-12"></div>
-                    <div class="col col-md-6 col-xs-12 text-left">
-                    
-                    <P><strong>STEP ONE: </strong>We'll give you some code that you or your website person needs to paste on your website; it's the same way that Google Analytics works.</p>
-                    <p><strong>STEP TWO:</strong> Once verified, we'll walk you through how to quickly set up available automation channels that let you do things on your website like show pop ups, add auto discounts, display hidden text, and other awesome stuff.</p>
-                    <p><strong>STEP THREE:</strong> Create your first recipe for free. Smile because it's so damn easy and free.</p>
-                    <p><strong>STEP FOUR:</strong> Sit back and watch, continue to experiment, or do whatever it is that you enjoy doing. </p>
-                  
-                    </div>
-                    <div class="col-md-3 col-xs-12"></div>
+    <div class="header-text text-center">
+        <div class="col col-md-12">
+            <h2 class="text-center dark-text"><strong>If You Have Scrolled Down This Far</strong></h2>
+        </div>
+
+        <h3 class="dark-text">You're probably still not sure how this works. Here goes:</h3>
+        <div class="col-md-3 col-xs-12"></div>
+        <div class="col col-md-6 col-xs-12 text-left">
+
+            <P><strong>STEP ONE: </strong>We'll give you some code that you or your website person needs to paste on your website; it's the same way that Google Analytics works.</p>
+                <p><strong>STEP TWO:</strong> Once verified, we'll walk you through how to quickly set up available automation channels that let you do things on your website like show pop ups, add auto discounts, display hidden text, and other awesome stuff.</p>
+                <p><strong>STEP THREE:</strong> Create your first recipe for free. Smile because it's so damn easy and free.</p>
+                <p><strong>STEP FOUR:</strong> Sit back and watch, continue to experiment, or do whatever it is that you enjoy doing. </p>
+
+            </div>
+            <div class="col-md-3 col-xs-12"></div>
 
 
-                     <div class="col col-md-12 text-center">
-                   <%= link_to "OK I think I get it now, let's try this", new_recipe_path, class: "btn btn-primary btn-lg active" %>
-                    </div>
+            <div class="col col-md-12 text-center">
+               <%= link_to "OK I think I get it now, let's try this", new_recipe_path, class: "btn btn-primary btn-lg active" %>
+           </div>
 
 
-                    </div>
+       </div>
 
-    </div>
-
-
-
-        
-    </div>
+   </div>
 
 
 
-  <% end %>  
+
+</div>
+
+
+<% end %>  
+
 <% content_for :body_class, "home" %>
