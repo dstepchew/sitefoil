@@ -22,7 +22,7 @@ class Site < ActiveRecord::Base
 
   attr_protected []
 
-	validates_presence_of :user_id, :name, :url
+	validates_presence_of :user_id, :url
   	 
 	belongs_to :user
 	has_many :recipes
@@ -47,22 +47,22 @@ class Site < ActiveRecord::Base
     100 * self.unique_visitors_made_order_count.to_f / self.unique_visitors_count.to_f
   end
 
-  def test_script_installed
+  def test_script_installed opt
   	require 'open-uri'
   	url = Site::fix_url self.url
   	Rails.logger.info("reading: #{url}")
     begin
-  	  html = open(url).read 
-    rescue 
-      return "can't open #{url}"
+  	  html = open(url,"r",read_timeout: 4).read 
+    rescue Exception=>e
+      return "Can't open #{url}. #{e.message}"
     end
 
     Rails.logger.info("html: #{html.length} bytes")
   	doc = Nokogiri::HTML(html)
-  	Rails.logger.info("looking for: "+self.tracker_url($HOST_WITH_PORT))
+  	Rails.logger.info("looking for: "+self.tracker_url(opt[:host]))
   	doc.search("script").each do |script|
   		Rails.logger.info(script.attr("src").to_s)
-  		if script.attr("src").to_s == self.tracker_url($HOST_WITH_PORT)
+  		if script.attr("src").to_s == self.tracker_url(opt[:host])
   			return "script installed"
   		end
   	end
@@ -92,6 +92,12 @@ class Site < ActiveRecord::Base
     else
       "http://#{url}"
     end
+  end
+
+  def name_or_url
+    return self.url if self.name.blank? 
+    self.name
+
   end
 
 end

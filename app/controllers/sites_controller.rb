@@ -7,7 +7,7 @@ class SitesController < ApplicationController
   end
 
   def index
-    @sites = Site.all
+    @sites = current_user.sites
   end
 
   def show
