@@ -1,3 +1,12 @@
+<script>
+  $(function() {
+    if(location.href.indexOf("focus_on_order_url")>-1) {
+      $("input[name='site[order_url]'").focus()
+    }
+  })
+</script>
+
+
 <%= form_for(@site) do |f| %>
   <% if @site.errors.any? %>
     <div id="error_explanation">
