@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141028215307) do
+ActiveRecord::Schema.define(version: 20141103060252) do
 
   create_table "actions", force: true do |t|
     t.string   "name"
@@ -105,14 +105,14 @@ ActiveRecord::Schema.define(version: 20141028215307) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "site_id",         limit: 255
     t.string   "trigger_id"
     t.string   "act_id"
     t.string   "trig_channel_id"
     t.string   "act_channel_id"
-    t.integer  "site_id"
     t.text     "js"
     t.text     "wizard_json"
-    t.boolean  "enabled",         default: true
+    t.boolean  "enabled",                     default: true
     t.datetime "hit_last_time"
   end
 
@@ -122,8 +122,6 @@ ActiveRecord::Schema.define(version: 20141028215307) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.string   "coupon_url"
-    t.string   "coupon_selector"
     t.string   "status"
     t.string   "checkout_url"
     t.string   "total_selector"

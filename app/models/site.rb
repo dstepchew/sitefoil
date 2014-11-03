@@ -8,8 +8,6 @@
 #  created_at       :datetime
 #  updated_at       :datetime
 #  user_id          :integer
-#  coupon_url       :string(255)
-#  coupon_selector  :string(255)
 #  status           :string(255)
 #  checkout_url     :string(255)
 #  total_selector   :string(255)
@@ -54,7 +52,7 @@ class Site < ActiveRecord::Base
     begin
   	  html = open(url,"r",read_timeout: 4).read 
     rescue Exception=>e
-      return "Can't open #{url}. #{e.message}"
+      return "<span class=error>error: can't open #{url}. #{e.message}</span>"
     end
 
     Rails.logger.info("html: #{html.length} bytes")
@@ -63,10 +61,10 @@ class Site < ActiveRecord::Base
   	doc.search("script").each do |script|
   		Rails.logger.info(script.attr("src").to_s)
   		if script.attr("src").to_s == self.tracker_url(opt[:host])
-  			return "script installed"
+  			return "<span class=success>script installed<span>"
   		end
   	end
-  	return "link to tracking script not found"
+  	return "<span class=error>link to tracking script not found</span>"
   end
 
   def tracker_url host_with_port
@@ -97,7 +95,6 @@ class Site < ActiveRecord::Base
   def name_or_url
     return self.url if self.name.blank? 
     self.name
-
   end
 
 end

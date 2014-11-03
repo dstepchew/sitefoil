@@ -9,4 +9,3 @@ window.testSite = (site_id) ->
 		$("#testsite_wait").remove()
 		resp = JSON.parse(resp)
 		$("#site_test_script_installed").html(resp.script_installed)
-		$("#site_test_coupon_field").html(resp.coupon_field)
