@@ -1,3 +1,12 @@
+<script>
+  $(function() {
+    if(location.href.indexOf("focus_on_order_url")>-1) {
+      $("input[name='site[order_url]'").focus()
+    }
+  })
+</script>
+
+
 <%= form_for(@site) do |f| %>
   <% if @site.errors.any? %>
     <div id="error_explanation">
@@ -36,13 +45,8 @@
                 <%= f.text_field :order_url, class: "form-control" %>
               </div>
 
-            
-         <div class="form-group hidden">
-    <%= f.label :coupon_url, "Coupon Field Location" %><br>
-    <%= f.text_field :coupon_url, class: "form-control" %>
-  </div>
-
-                   <button class="btn btn-default full-width"><span class="glyphicon glyphicon-ok"></span></button>
+          
+              <button class="btn btn-default full-width"><span class="glyphicon glyphicon-ok"></span></button>
              
          
     </div>

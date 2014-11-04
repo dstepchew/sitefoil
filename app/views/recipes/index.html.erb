@@ -1,5 +1,7 @@
+
 <%= render 'pages/home' unless user_signed_in? %>
  <% if user_signed_in? %>
+
 
 <style>
 table.recipes td, table.recipes th {
@@ -8,8 +10,7 @@ table.recipes td, table.recipes th {
 </style>
 
 <script>
-function devhere() {
-  console.log("welcome dude")
+function show_rebuild_buttons() {
   $(".rebuild").show()
 }
 
@@ -51,8 +52,10 @@ $(function() {
 
  
 <h1>Your Recipes</h1>
+
 <hr>
  <% @recipes.order(:created_at).each do |recipe| %>
+
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="row">

@@ -1,6 +1,12 @@
 class ApiController < ApplicationController
 
-  
+
+  def test_site
+    site = current_user.sites.find(params[:site_id])
+    render text:{
+      script_installed: site.test_script_installed(host: request.host_with_port)
+    }.to_json
+  end
 
   def page_selectors_scan
     sleep 1.5

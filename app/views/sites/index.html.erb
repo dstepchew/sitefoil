@@ -3,55 +3,54 @@
 <hr>
 
 <% @sites.each do |site| %>
-  <% if site.user == current_user %>
 
-    <div class="panel panel-default">
+<div class="panel panel-default">
   <div class="panel-heading">
     <div class="row">
       <div class="col-lg-10 col-md-8 col-sm-8 col-xs-6">
-        <h3 class="panel-title"><%= link_to site.name, edit_site_path(site) %></h3>
+        <h3 class="panel-title"><%= link_to site.name_or_url, edit_site_path(site) %></h3>
       </div>
       <div class="col-lg-1 col-md-2 col-sm-2 col-xs-3 text-right">
         <%= link_to 'Edit Site', edit_site_path(site), class: "btn btn-primary" %><br/>
       </div>
       <div class="col-lg-1 col-md-2 col-sm-2 col-xs-3 text-right">
-      <%= link_to 'Delete', site, class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+        <%= link_to 'Delete', site, class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
       </div>
     </div>
   </div>
+  
   <div class="panel-body">
     <div class="row">
-    <div class="col-md-6 col-sm-12">
+      <div class="col-md-6 col-sm-12">
 
         <h4><%= site.url %></h4>
-    
+
         <ul><li><%= link_to 'Retrieve & Test the Script Snippet', site_path(site) %></li>
-        <li><%= link_to 'View Site Statistics', stats_site_path(site) %></li>
+          <li><%= link_to 'View Site Statistics', stats_site_path(site) %></li>
         </ul>
-    </div>
-    <div class="col-md-6 col-sm-12">
+      </div>
+      <div class="col-md-6 col-sm-12">
         <h4>Current Recipes</h4>
-   
+
         <% site.recipes.each do |recipe| %>
-          <p>
-           
+        <p>
 
-            <%= link_to recipe.name_or_action, recipe_path(recipe) %>
-            <%= link_to 'Preview', recipe.preview_url, class: "btn btn-default btn-xs", target: "_blank", data: { no_turbolink: true } %>
-             <a class="btn btn-default btn-xs" href=<%= edit_recipe_path(recipe)%>>edit</a> 
-         </p>
+
+          <%= link_to recipe.name_or_action, recipe_path(recipe) %>
+          <%= link_to 'Preview', recipe.preview_url, class: "btn btn-default btn-xs", target: "_blank", data: { no_turbolink: true } %>
+          <a class="btn btn-default btn-xs" href=<%= edit_recipe_path(recipe)%>>edit</a> 
+        </p>
         <% end %>
-        </ul>
+      </ul>
 
-        
-    </div>
 
     </div>
+
   </div>
+</div>
 </div>
 
 
-  <% end %>
 <% end %>
 
 

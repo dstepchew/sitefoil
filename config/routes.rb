@@ -25,7 +25,10 @@ Sitefoil::Application.routes.draw do
 
   devise_for :users
 
-   root "recipes#index"
+  root_url = "pages#home"
+  authenticated :user do root_url = "recipes#index" end
+  root to: root_url
+
 
   get "about" => "pages#about"
   get "privacy" => "pages#privacy"

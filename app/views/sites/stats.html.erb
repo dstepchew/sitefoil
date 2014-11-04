@@ -1,4 +1,4 @@
-<h1><%= @site.name %> - site statistics</h1>
+<h1><%= @site.name_or_url %> - site statistics</h1>
 
 <h3>Visitors</h3>
 <p>
@@ -10,6 +10,8 @@
 </p>
 
 <h3>E-commerce</h3>
+
+<% if !@site.order_url.blank? %>
 
 <p>
 	Unique visitors made order: <%= @site.unique_visitors_made_order_count %>
@@ -23,4 +25,9 @@
 	Conversion rate: <%= @site.conversion_rate.round(2) %> %
 </p>
 
+<% else %>
 
+E-commerce statistics not available, please <%= link_to "add order url", "/sites/#{@site.id}/edit?focus_on_order_url", target: "_blank" %>
+
+
+<% end %>
