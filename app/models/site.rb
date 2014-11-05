@@ -23,7 +23,7 @@ class Site < ActiveRecord::Base
 	validates_presence_of :user_id, :url
   	 
 	belongs_to :user
-	has_many :recipes, dependent: :destroy
+	has_many :recipes
   has_many :hits, dependent: :destroy
 	has_many :channels
   serialize :tag, Hash
