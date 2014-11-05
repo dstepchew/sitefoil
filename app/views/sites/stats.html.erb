@@ -2,7 +2,7 @@
 
 <h3>Visitors</h3>
 <p>
-	Total unique visitors: <%= @site.unique_visitors_count %>
+	Total unique visitors: <%= @site.unique_visitor_hits.count.count %>
 </p>
 
 <p>
@@ -12,18 +12,37 @@
 <h3>E-commerce</h3>
 
 <% if !@site.order_url.blank? %>
+	<h4>All time</h4>
+	<p>
+		Unique visitors made order: <%= @site.unique_visitors_orders.count.count %>
+	</p>
 
-<p>
-	Unique visitors made order: <%= @site.unique_visitors_made_order_count %>
-</p>
+	<p>
+		Total orders: <%= @site.orders.count %>
+	</p>
 
-<p>
-	Total orders: <%= @site.order_count %>
-</p>
+	<p>
+		Conversion rate: <%= @site.conversion_rate.round(2) %> %
+	</p>
 
-<p>
-	Conversion rate: <%= @site.conversion_rate.round(2) %> %
-</p>
+<br>
+	<h4>Last 24 hours</h4>
+
+	<p>
+		Unique visitors: <%= @site.unique_visitor_hits.where("created_at>?",24.hours.ago).count.count %>
+	</p>
+
+	<p>
+		Unique visitors made order: <%= @site.unique_visitors_orders.where("created_at>?",24.hours.ago).count.count %>
+	</p>
+
+	<p>
+		Total orders: <%= @site.orders.where("created_at>?",24.hours.ago).count %>	
+	</p>
+
+	<p>
+		Conversion rate: <%= (100.0 * @site.unique_visitors_orders.where("created_at>?",24.hours.ago).count.count.to_f / @site.unique_visitor_hits.where("created_at>?",24.hours.ago).count.count.to_f).round(2) %> %
+	</p>
 
 <% else %>
 

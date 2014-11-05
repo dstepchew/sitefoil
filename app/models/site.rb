@@ -29,20 +29,20 @@ class Site < ActiveRecord::Base
   serialize :tag, Hash
 
 
-  def order_count
-    self.hits.where(referrer: self.order_url).count
+  def orders
+    self.hits.where(referrer: self.order_url)
   end
 
-  def unique_visitors_count
-    self.hits.group(:visitor).count.count
+  def unique_visitor_hits
+    self.hits.group(:visitor)
   end
 
-  def unique_visitors_made_order_count
-    self.hits.where(referrer: self.order_url).group(:visitor).count.count
+  def unique_visitors_orders
+    self.hits.where(referrer: self.order_url).group(:visitor)
   end
 
   def conversion_rate
-    100 * self.unique_visitors_made_order_count.to_f / self.unique_visitors_count.to_f
+    100 * self.unique_visitors_orders.count.count.to_f / self.unique_visitor_hits.count.count.to_f
   end
 
   def test_script_installed opt
