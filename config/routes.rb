@@ -33,7 +33,9 @@ Sitefoil::Application.routes.draw do
       root to: "pages#home", as: "unauthenticated"
   end  
 
+
   root "pages#home"
+
 
 
   get "about" => "pages#about"
