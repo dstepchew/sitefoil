@@ -45,6 +45,10 @@ class Site < ActiveRecord::Base
     100 * self.unique_visitors_orders.count.count.to_f / self.unique_visitor_hits.count.count.to_f
   end
 
+  def conversion_rate_24_hours
+    100.0 * self.unique_visitors_orders.where("created_at>?",24.hours.ago).count.count.to_f / self.unique_visitor_hits.where("created_at>?",24.hours.ago).count.count.to_f
+  end
+
   def test_script_installed opt
   	require 'open-uri'
   	url = Site::fix_url self.url

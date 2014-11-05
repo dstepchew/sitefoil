@@ -41,7 +41,7 @@
 	</p>
 
 	<p>
-		Conversion rate: <%= (100.0 * @site.unique_visitors_orders.where("created_at>?",24.hours.ago).count.count.to_f / @site.unique_visitor_hits.where("created_at>?",24.hours.ago).count.count.to_f).round(2) %> %
+		Conversion rate: <%=  @site.conversion_rate_24_hours.round(2) %> %
 	</p>
 
 <% else %>
