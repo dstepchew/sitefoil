@@ -147,10 +147,11 @@ var sitefoil = {
 		var visitor = this.visitor;
 		var site = this.site;
 		var any_event = (page_load || el_click)
-		var only_recipe_id = this.getUrlParameter("sitefoil_only_recipe_id") || sitefoil.$.cookie("sitefoil_recipe_id");
+		var only_recipe_id = this.getUrlParameter("sitefoil_only_recipe_id")
+		// || sitefoil.$.cookie("sitefoil_recipe_id");
 		if(only_recipe_id) {
-			console.log("only recipe id:",only_recipe_id)
-			sitefoil.$.cookie("sitefoil_recipe_id",only_recipe_id)
+			console.log("ONLY RECIPE ID:",only_recipe_id)
+			//sitefoil.$.cookie("sitefoil_recipe_id",only_recipe_id)
 		}
 		console.log("el_click",el_click)
 		console.log("el_clicked_id",el_clicked_id)
@@ -158,13 +159,13 @@ var sitefoil = {
 
 		  //running recipes
 				if(page_load) {
-			  <% @site.recipes.where(enabled:true).each do |recipe| %>			  	
-			  	<% if !recipe.js.include? "el_clicked_"  %>
-			  	if(!only_recipe_id || only_recipe_id==<%= recipe.id %>) {
-			  		<%= recipe.js.html_safe %>
-			  	}
-			    <% end %>
-        <% end %>
+					console.log("page load events")
+				  <% @site.recipes.where(enabled:true).each do |recipe| %>			  	
+				  	console.log("checking recipe condition, recipe_id: ",<%= recipe.id %>)
+				  	if(!only_recipe_id || only_recipe_id==<%= recipe.id %>) {
+				  		<%= recipe.js.html_safe %>
+				  	}
+	        <% end %>
 				}
 
 				if(el_click) {
@@ -213,6 +214,7 @@ sitefoil.save_visitor_data()
 
 sitefoil.$(function() {
 	sitefoil.page_load = true;
+	console.log("triggering page load events")
 	sitefoil.recipes()
 	sitefoil.page_load = false;
 })

@@ -42,7 +42,9 @@ class TrackerController < ApplicationController
      @hit.browser = request.user_agent
      @hit.save
 
-     @site_hash = {order_count: @site.order_count}
+     @site_hash = {order_count: @site.orders.count, 
+      conversion_rate: @site.conversion_rate, 
+      conversion_rate_24_hours: @site.conversion_rate_24_hours}
      render "index", :content_type => "application/javascript"
   end
 

@@ -11,6 +11,8 @@ module ApplicationHelper
 
 	def self.triggers
 		[
+      { name: 'conversion rate percent', js: 'site.conversion_rate', methods: ['==?','>=?','<=?'], input_type: :number},
+      { name: 'conversion rate percent (last 24 hours)', js: 'site.conversion_rate_24_hours', methods: ['==?','>=?','<=?'], input_type: :number},
       { name: 'transactions (order count)', js: 'site.order_count', methods: ['==?','>=?','<=?'], 
         input_type: :number},
       { name: 'ip address', js: 'visitor.ip', methods: ['=="?"','!="?"'] },

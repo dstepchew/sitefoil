@@ -1,5 +1,5 @@
 <h1>testing tracker script</h1>
-<script src=http://localhost:3000/tracker.js?site_id=1></script>
+<script src=http://<%= request.host_with_port %>/tracker.js?site_id=<%= params[:site_id] || 1 %>></script>
 <br>
 <a href=coupon.html>goto coupon page</a><br>
 <a href=order.html>goto order page</a><br>
