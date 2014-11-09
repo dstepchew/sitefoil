@@ -42,6 +42,7 @@ Sitefoil::Application.routes.draw do
   get "about" => "pages#about"
   get "privacy" => "pages#privacy"
   get "terms" => "pages#terms"
+  get "signup" => "pages#subscribe"
 
   match '/contacts',     to: 'contacts#new',             via: 'get'
   resources "contacts", only: [:new, :create]

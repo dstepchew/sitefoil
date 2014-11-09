@@ -22,7 +22,7 @@
 
 
     <div class="row slide1">
-    <img src="https://s3-us-west-2.amazonaws.com/sitefoil/images/grey-wall-background.jpg" alt="First slide" class="slide-bg">
+    <img src="https://s3-us-west-2.amazonaws.com/sitefoil/images/grey-wall-background.jpg" alt="First slide" class="slide-bg hidden-xs">
 
 
 <!-- Static Header -->
@@ -31,13 +31,27 @@
                             <h2>
                                 <span><strong>AUTOMATE WITH SITEFOIL</strong></span>
                             </h2>
-                            <br>
                             <h3>
-
-                                <span>Keep your webstore fresh while you do other important stuff.</span>
+                               <strong> Keep your webstore fresh,</strong><br />
+                                <span> while you do other important stuff.</span>
                             </h3>
+                            <div class="container hidden-xs">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-2 col-xs-12"></div>
+                                    <div class="col-md-6 col-sm-8 col-xs-12" style="background-image:url(https://s3-us-west-2.amazonaws.com/sitefoil/images/wizard-sample.jpg); background-size:cover; border-radius:14px;min-height:400px;display:block; border:15px solid #000; background-position: center top; background-repeat:no-repeat;">    
+                                      
+                                        
+                                    </div>
+                                    <div class="col-md-3 col-sm-2 col-xs-12"></div>    
+                                </div>
+                            </div>
                             <br>
-                            <div class="">
+
+                             <div class="">
+                                <%= link_to "Sign Up For Beta", signup_path, class: "btn btn-primary btn-lg active" %>
+
+                                </div>
+                            <div style="display:none;">
                                 <%= link_to "Start now for free", new_recipe_path, class: "btn btn-primary btn-lg active" %>
 
                                 </div>
@@ -62,7 +76,7 @@
                     <div class="header-text">
                         <div class="col col-md-12 col-sm-12 text-center">
                             <h2>
-                                <span><strong>A Simple Website Add-On</strong></span>
+                                <span><strong>Sitefoil Is A Simple Website Add-On</strong></span>
                             </h2>
                             <br>
                             <h3>
