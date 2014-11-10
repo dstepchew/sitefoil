@@ -246,6 +246,30 @@ a.btn.form-btn {
 	color:#fff;
 }
 
+.rounded-box {
+	padding:22px;
+	margin:4px;
+	background:#ccc;
+	border-radius:14px;
+	display:inline-block;
+	background: #eeeeee; /* Old browsers */
+background: -moz-linear-gradient(top, #eeeeee 0%, #cccccc 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#cccccc)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #eeeeee 0%,#cccccc 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #eeeeee 0%,#cccccc 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #eeeeee 0%,#cccccc 100%); /* IE10+ */
+background: linear-gradient(to bottom, #eeeeee 0%,#cccccc 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+}
+
+.rounded-box .big-glyphicon {
+	font-size: 6rem; color:#2f2f61;
+}
+
+.fa-arrow-right {
+	color:#CCC;
+}
+
 /*
 body.small-form .full-width,  body.main-form .full-width {
 	background-color: #8eb5e2;
