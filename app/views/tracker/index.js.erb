@@ -25,6 +25,11 @@ var sitefoil = {
 	page_load: false,
 	el_click: false,
 	el_clicked_id: "",
+	page_url_match: function(pattern) {
+		pattern = "^"+pattern.replace(/\*/g,".*")+"$"
+		console.log(location.href, " - checking url match to: ", pattern)
+		return location.href.match(new RegExp("^"+pattern+"$"))!=null;
+	},
 	email_to: function(to_email,text) {
 		console.log("sending email message")
 		this.$.post("http://<%= request.host_with_port%>/tracker/email_action",{
