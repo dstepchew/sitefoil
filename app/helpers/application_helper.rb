@@ -24,7 +24,7 @@ module ApplicationHelper
         input_type: :date,
         methods: ['==sitefoil.date_to_int("?")','>=sitefoil.date_to_int("?")','<=sitefoil.date_to_int("?")','!=sitefoil.date_to_int("?")'] },
       { name: 'page visit', js: '', methods: ['true'] },
-      { name: 'page url', js: 'true', methods: ['==sitefoil.page_url_match("?")'] },
+      { name: 'page url', js: 'true', methods: ['==sitefoil.page_url_match("?")', '!=sitefoil.page_url_match("?")'] },
       { name: 'element clicked id', js: 'el_clicked_selector', methods: ['=="?"'],
         input_type: :selector_pick },
 			{ name: 'referrer', js: 'document.referrer', methods: ['=="?"','!="?"']},
