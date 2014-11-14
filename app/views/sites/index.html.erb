@@ -9,6 +9,7 @@
     <div class="row">
       <div class="col-lg-10 col-md-8 col-sm-8 col-xs-6">
         <h3 class="panel-title"><%= link_to site.name_or_url, edit_site_path(site) %></h3>
+         <h4><%= site.url %></h4>
       </div>
       <div class="col-lg-1 col-md-2 col-sm-2 col-xs-3 text-right">
         <%= link_to 'Edit Site', edit_site_path(site), class: "btn btn-primary" %><br/>
@@ -21,15 +22,86 @@
   
   <div class="panel-body">
     <div class="row">
-      <div class="col-md-6 col-sm-12">
+      <div class="col-md-8 col-sm-8">
+            
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-2 col-sm-2 col-xs-6 text-center">
 
-        <h4><%= site.url %></h4>
+                     <h2> <%= site.unique_visitor_hits.count.count %></h2>
+                        <p>
+                          Unique Sessions
+                        </p>
 
-        <ul><li><%= link_to 'Retrieve & Test the Script Snippet', site_path(site) %></li>
-          <li><%= link_to 'View Site Statistics', stats_site_path(site) %></li>
-        </ul>
+                  </div>
+                  <div class="col-md-2 col-sm-2 col-xs-6 text-center">
+
+                     <h2> <%= site.hits.count %></h2>
+                        <p>
+                          Site Sessions
+                        </p>
+
+                  </div>
+                  <div class="col-md-2 col-sm-2 col-xs-6 text-center">
+
+
+                  </div>
+              </div>
+              <% if !site.order_url.blank? %>
+              <div class="row">
+                  <div class="col-md-2 col-sm-2 col-xs-4 text-center">
+
+                     <h2> <%= site.unique_visitors_orders.count.count %></h2>
+                        <p>
+                          Total Customers
+                        </p>
+
+                  </div>
+                  <div class="col-md-2 col-sm-2 col-xs-4 text-center">
+
+                     <h2> <%= site.orders.count %></h2>
+                        <p>
+                          Total Conversions
+                        </p>
+
+                  </div>
+                  <div class="col-md-2 col-sm-2 col-xs-4 text-center">
+
+                     <h2> <%= site.conversion_rate.round(2) %></h2>
+                        <p>
+                          Conversion Rate
+                        </p>
+
+                  </div>
+              </div>
+
+              <% else %>
+                <div class="row">
+                   <div class="col-md-6 col-sm-6 text-center">
+                   <hr>
+                  Conversion statistics are not available, please <%= link_to "add a confirmation page URL", "/sites/#{site.id}/edit?focus_on_order_url" %>
+                    </div>
+                </div>
+              <% end %>
+          </div>
+
+
+          
+
+           
+
+
+
+
+
       </div>
-      <div class="col-md-6 col-sm-12">
+      <div class="col-md-4 col-sm-4">
+      <h4>Site Settings</h4>
+
+       <ul><li><%= link_to 'Retrieve & Test the Script Snippet', site_path(site) %></li>
+          <li><%= link_to 'View Full Site Statistics', stats_site_path(site) %></li>
+        </ul>
+
         <h4>Current Recipes</h4>
 
         <% site.recipes.each do |recipe| %>
@@ -37,7 +109,7 @@
 
 
           <%= link_to recipe.name_or_action, recipe_path(recipe) %>
-          <%= link_to 'Preview', recipe.preview_url, class: "btn btn-default btn-xs", target: "_blank", data: { no_turbolink: true } %>
+         
           <a class="btn btn-default btn-xs" href=<%= edit_recipe_path(recipe)%>>edit</a> 
         </p>
         <% end %>
@@ -59,3 +131,5 @@
 <br>
 
 <%= link_to 'Add A New Site', new_site_path, class: "btn btn-primary" %>
+
+<% content_for :body_class, "sites" %>
