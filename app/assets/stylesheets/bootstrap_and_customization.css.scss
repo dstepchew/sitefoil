@@ -65,6 +65,14 @@ padding-bottom:240px; /* this needs to be bigger than footer height*/
 	background-size: cover;
 }
 
+.logotext {
+	font-family: 'Josefin Slab', serif;
+	letter-spacing: 5px;
+	text-transform: uppercase;
+	color: purple;
+	font-weight: bold;
+}
+
 body.home {
 	background-color:#FFF;
 }
