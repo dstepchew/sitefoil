@@ -1,0 +1,100 @@
+<style>
+#recipe_animated {
+	font-size: 80px;
+}
+
+a {
+	cursor: pointer;
+}
+.step {
+	border-top: 1px solid black;
+}
+
+.wizard-progress {
+	font-size: 14px;
+	text-align: right;
+}
+
+.trigger, .action {
+	cursor: pointer;
+}
+</style>
+
+<script>
+
+function toStep(step_num) {
+	$(".step").css({opacity: 0.5})
+	$(".step."+step_num).show()
+		.animate({opacity: 1}, 500);
+
+  $('html, body').animate({
+      scrollTop: $(".step."+step_num).offset().top
+  }, 500);
+
+}
+
+
+function back() {
+  $(this).parents(".step").hide();
+  $(this).parents(".step").prev().show().animate({opacity: 1}, 500);
+
+  $('html, body').animate({
+      scrollTop: $(this).parents(".step").prev().offset().top
+  }, 500);
+}
+
+</script>
+
+<div id=recipe_animated>
+
+	<div class='step zero' style='border-top:none;'>
+		if<a onclick='toStep("one")'>this</a> then that
+	</div>
+
+	<div class='step one' style='opacity:0;display:none'>
+		<div class='wizard-progress'>step 1 of 3 <a onclick='back.apply(this)'>back</a> </div>
+
+
+		Choose Trigger
+
+
+		<div style='font-size:20px'>
+			<% ApplicationHelper::triggers.each do |trigger| %>
+
+			<div class=trigger onclick='toStep("two")'><%= trigger[:name] %></div>
+
+			<% end %>
+		</div>
+	</div>
+
+
+	<div class='step two' style='opacity:0;display:none'>
+		<div class='wizard-progress'>step 2 of 3 <a onclick='back.apply(this)'>back</a> 	</div>
+
+
+
+		Choose Action
+
+
+		<div style='font-size:20px'>
+			<% ApplicationHelper::actions.each do |action| %>
+
+			<div class=action onclick='toStep("three")'><%= action[:name] %></div>
+
+			<% end %>
+		</div>
+	</div>
+
+
+	<div class='step three' style='opacity:0;display:none'>
+		<div class='wizard-progress'>step 3 of 3 <a onclick='back.apply(this)'>back</a> </div>
+
+		Action Parameters
+
+	</div>
+
+
+	<div class='place holder' style='height:1000px'>
+	</div>
+
+</div>

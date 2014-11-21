@@ -4,6 +4,7 @@ Sitefoil::Application.routes.draw do
   ActiveAdmin.routes(self)
   get '/recipes/wizard' => "recipes#wizard"
   get '/recipes/selector_pick' => "recipes#selector_pick"
+  get '/recipes/new_animated' => "recipes#new_animated"
 
   resources :recipes
 

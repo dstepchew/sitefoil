@@ -19,6 +19,10 @@ class RecipesController < ApplicationController
     @recipe = current_user.recipes.new
   end
 
+  def new_animated
+    @recipe = current_user.recipes.new
+  end
+
   # GET /recipes/1/edit
   def edit
   end
