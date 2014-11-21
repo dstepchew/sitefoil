@@ -17,7 +17,7 @@ set :branch, 'nazar'
 
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
 # They will be linked in the 'deploy:link_shared_paths' step.
-set :shared_paths, ['log']
+set :shared_paths, ['log','db']
 
 # Optional settings:
 set :rvm_path, '/usr/local/rvm/scripts/rvm'
@@ -44,6 +44,9 @@ task :setup => :environment do
 
   queue! %[mkdir -p "#{deploy_to}/shared/config"]
   queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/config"]
+
+#  queue! %[mkdir -p "#{deploy_to}/shared/db"]
+#   queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/db"]
 
 #  queue! %[touch "#{deploy_to}/shared/config/database.yml"]
 #  queue  %[echo "-----> Be sure to edit 'shared/config/database.yml'."]

@@ -11,7 +11,7 @@ development:
 
 digitalocean_production:
   adapter: sqlite3
-  database: db/digitalocean_production.sqlite3
+  database: ../db/digitalocean_production.sqlite3
   pool: 5
   timeout: 5000
 
