@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   before_filter :configure_devise_params, if: :devise_controller?
 
 
+APP_DOMAIN = 'www.sitefoil.com'
+
 def require_admin
     unless current_user && current_user.role == 'ADMIN'
       flash[:error] = "You are not an admin"
