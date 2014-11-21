@@ -81,7 +81,7 @@ task :push do
   comment = ARGV[1] || "-"
   system 'git add .'
   system "git commit -am '#{comment}'"
-  system 'git push origin #{branch}'
+  system 'git push bb #{branch}'
   system 'mina deploy'
 end
 
