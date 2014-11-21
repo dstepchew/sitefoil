@@ -17,7 +17,7 @@ set :branch, 'nazar'
 
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
 # They will be linked in the 'deploy:link_shared_paths' step.
-set :shared_paths, ['log','db']
+set :shared_paths, ['log']
 
 # Optional settings:
 set :rvm_path, '/usr/local/rvm/scripts/rvm'
