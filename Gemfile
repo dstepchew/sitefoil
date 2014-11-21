@@ -52,7 +52,7 @@ gem 'mail_form'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-group :development, :test do
+group :development, :test, :digitalocean_production do
      gem 'sqlite3'
 end
 
