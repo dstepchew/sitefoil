@@ -12,7 +12,7 @@ require 'mina/rvm'    # for rvm support. (http://rvm.io)
 
 set :domain, '104.131.77.51'
 set :deploy_to, '/var/www/sitefoil'
-set :repository, 'git@bitbucket.org:nkcode/sitefoil.git'
+set :repository, 'git@github.com:dstepchew/sitefoil.git'
 set :branch, 'nazar'
 
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
@@ -81,7 +81,7 @@ task :push do
   comment = ARGV[1] || "-"
   system 'git add .'
   system "git commit -am '#{comment}'"
-  system 'git push bb #{branch}'
+  system 'git push origin #{branch}'
   system 'mina deploy'
 end
 
