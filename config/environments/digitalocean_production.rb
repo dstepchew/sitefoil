@@ -1,1 +1,1 @@
-require 'production.rb'
+load 'config/environments/production.rb'
