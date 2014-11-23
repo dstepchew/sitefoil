@@ -10,6 +10,7 @@ $navbar-default-brand-color:      #f96145;
 $brand-primary:                                    #f96145;
 $jumbotron-bg:                                         white;
 
+
 @import 'bootstrap';
 @import "font-awesome";
 
@@ -49,11 +50,25 @@ padding-bottom:240px; /* this needs to be bigger than footer height*/
 
 .hidden { display: none; }
 
+.white {color:#FFF;}
+
 .navbar-brand {
      font-weight: bold;
 }
 .navbar-header img {
 	width:50px; 
+}
+
+.navbar-dark {
+	background: #2f2f61;
+}
+
+.navbar-dark .logotext, .navbar-dark .navbar-nav > li > a {
+	color:#FFF;
+}
+
+.navbar-dark .navbar-nav > li > a:hover {
+	color:#EEE;
 }
 
 .btn-primary {text-transform:uppercase;}
@@ -69,7 +84,7 @@ padding-bottom:240px; /* this needs to be bigger than footer height*/
 	font-family: 'Josefin Slab', serif;
 	letter-spacing: 5px;
 	text-transform: uppercase;
-	color: purple;
+	color: #2f2f61;
 	font-weight: bold;
 }
 
@@ -261,7 +276,7 @@ body.small-form h2, body.main-form h2 {
 
 */
 
-body.small-form .btn, body.main-form .btn {
+body.small-form .btn, body.main-form .btn-default {
 	border-radius: 0.2rem;
 	background-color: #8eb5e2;
 }
