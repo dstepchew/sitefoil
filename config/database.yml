@@ -9,11 +9,13 @@ development:
   pool: 5
   timeout: 5000
 
-digitalocean_production:
-  adapter: sqlite3
-  database: ../db/digitalocean_production.sqlite3
+digitalocean_production:                      
+  adapter: postgresql                         
+  encoding: unicode      
+  database: sitefoil     
+  username: sitefoil_user     
+  password: sitefoil123   
   pool: 5
-  timeout: 5000
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
