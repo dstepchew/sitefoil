@@ -72,7 +72,7 @@ class Site < ActiveRecord::Base
   end
 
   def tracker_url host_with_port
-    "http://#{host_with_port}/tracker.js?site_id=#{self.id}"
+    "https://#{host_with_port}/tracker.js?site_id=#{self.id}"
   end
 
   def self.selector_exists html, selector
