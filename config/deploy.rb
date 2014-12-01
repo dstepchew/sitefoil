@@ -12,7 +12,7 @@ require 'mina/rvm'    # for rvm support. (http://rvm.io)
 
 set :domain, 'www.sitefoil.com'
 set :deploy_to, '/var/www/sitefoil'
-set :repository, 'git@bitbucket.org:nkcode/sitefoil.git'
+set :repository, 'git@github.com:dstepchew/sitefoil.git'
 set :branch, 'nazar'
 
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
@@ -45,6 +45,9 @@ task :setup => :environment do
   queue! %[mkdir -p "#{deploy_to}/shared/config"]
   queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/config"]
 
+#  queue! %[mkdir -p "#{deploy_to}/shared/db"]
+#   queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/db"]
+
 #  queue! %[touch "#{deploy_to}/shared/config/database.yml"]
 #  queue  %[echo "-----> Be sure to edit 'shared/config/database.yml'."]
 end
@@ -62,8 +65,8 @@ task :deploy => :environment do
     invoke :'rails:assets_precompile'
 
     to :launch do
-      #queue "ps ax | grep 80 | grep -v grep | awk '{print $1}' | xargs kill || true"
       queue "cd #{deploy_to}/current && RAILS_ENV=digitalocean_production thin start -p 8080 -d"    
+      invoke :'deploy:cleanup'      
     end
   end
 end
@@ -87,7 +90,7 @@ task :push do
   comment = ARGV[1] || "-"
   system 'git add .'
   system "git commit -am '#{comment}'"
-  system 'git push bb #{branch}'
+  system 'git push origin #{branch}'
   system 'mina deploy'
 end
 

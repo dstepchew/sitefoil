@@ -1,0 +1,138 @@
+<style>
+
+#site option {
+	font-size: 14px;
+}
+#recipe_animated {
+	font-size: 80px;
+}
+
+a {
+	cursor: pointer;
+}
+.step {
+	border-top: 1px solid black;
+}
+
+.wizard-progress {
+	font-size: 14px;
+	text-align: right;
+}
+
+.trigger, .action {
+	cursor: pointer;
+}
+</style>
+
+<script>
+
+function toStep(step_name) {
+
+	console && console.log("to step: "+step_name)
+	$(".step").css({opacity: 0.5})
+	$(".step."+step_name).show()
+		.animate({opacity: 1}, 500);
+
+  $('html, body').animate({
+      scrollTop: $(".step."+step_name).offset().top
+  }, 500);
+
+}
+
+
+function back() {
+  $(this).parents(".step").hide();
+  $(this).parents(".step").prev().show().animate({opacity: 1}, 500);
+
+  $('html, body').animate({
+      scrollTop: $(this).parents(".step").prev().offset().top
+  }, 500);
+}
+
+var trigger_num = 1;
+
+function anotherTrigger() {
+	trigger_num++;
+	$(this).parents(".step").after($(".step.action_or_another_trigger")[0].outerHTML)
+	$(this).parents(".step").after($(".step.trigger_params")[0].outerHTML)
+	$(this).parents(".step").after($(".step.trigger")[0].outerHTML)
+
+	$(".step.trigger").last().hide().removeClass("trigger").addClass("trigger_"+trigger_num)
+	$(".step.trigger_params").last().hide().removeClass("trigger_params").addClass("trigger_params_"+trigger_num)
+	$(".step.action_or_another_trigger").last().hide().removeClass("action_or_another_trigger").addClass("action_or_another_trigger_"+trigger_num)
+
+	$(".step.trigger_"+trigger_num+" .trigger").attr("onclick",'toStep("trigger_params_'+trigger_num+'")')
+	$(".step.trigger_params_"+trigger_num+" .done").attr("onclick",'toStep("action_or_another_trigger_'+trigger_num+'")')
+
+	toStep("trigger_"+trigger_num)
+
+}
+
+</script>
+
+<div id=recipe_animated>
+
+	<div class='step site' style='border-top:none;font-size:40px;'>
+		Select site:
+		<select id=site onChange='toStep("start")'>
+			<% current_user.sites.each do |site| %>
+				<option value=''>--select site--</option>
+				<option value=<%= site.id%>><%= site.name_or_url %></option>
+			<% end %>
+		</select>
+		or <a href=#>add site</a>
+	</div>
+
+	<div class='step start' style='opacity:0;display:none'>
+		<div class='wizard-progress'><a onclick='$("#site").val("");back.apply(this)'>back</a> </div>
+		if<a onclick='toStep("trigger")'>this</a> then that
+	</div>
+
+	<div class='step trigger' style='opacity:0;display:none'>
+		<div class='wizard-progress'><a onclick='back.apply(this)'>back</a> </div>
+		Choose Trigger
+		<div style='font-size:20px'>
+			<% ApplicationHelper::triggers.each do |trigger| %>
+			<div class=trigger onclick='toStep("trigger_params")'><%= trigger[:name] %></div>
+			<% end %>
+		</div>
+	</div>
+
+	<div class='step trigger_params' style='opacity:0;display:none'>
+		<div class='wizard-progress'><a onclick='back.apply(this)'>back</a> </div>
+		Trigger params
+		<a class='done' onclick='toStep("action_or_another_trigger")'>done</a>
+	</div>
+
+
+	<div class='step action_or_another_trigger' style='opacity:0;display:none'>
+		<a onclick='anotherTrigger.apply(this)'>add another trigger</a> or <a onclick='toStep("action")'>set action</a>
+	</div>
+
+
+
+	<div class='step action' style='opacity:0;display:none'>
+		<div class='wizard-progress'><a onclick='back.apply(this)'>back</a> 	</div>
+		Choose Action
+		<div style='font-size:20px'>
+			<% ApplicationHelper::actions.each do |action| %>
+
+			<div class=action onclick='toStep("action_params")'><%= action[:name] %></div>
+
+			<% end %>
+		</div>
+	</div>
+
+
+	<div class='step action_params' style='opacity:0;display:none'>
+		<div class='wizard-progress'><a onclick='back.apply(this)'>back</a> </div>
+
+		Action Parameters
+
+	</div>
+
+
+	<div class='place holder' style='height:1000px'>
+	</div>
+
+</div>
