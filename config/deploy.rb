@@ -58,13 +58,19 @@ task :deploy => :environment do
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
+    invoke :shutdown #to free memory for assets precomple
     invoke :'rails:assets_precompile'
 
     to :launch do
-      queue "ps ax | grep 80 | grep -v grep | awk '{print $1}' | xargs kill || true"
+      #queue "ps ax | grep 80 | grep -v grep | awk '{print $1}' | xargs kill || true"
       queue "cd #{deploy_to}/current && RAILS_ENV=digitalocean_production thin start -p 80 -d"    
     end
   end
+end
+
+
+task :shutdown do
+    queue "ps ax | grep 80 | grep -v grep | awk '{print $1}' | xargs kill || true"  
 end
 
 task :shell do
