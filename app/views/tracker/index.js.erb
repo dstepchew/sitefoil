@@ -191,7 +191,7 @@ var sitefoil = {
 	save_visitor_data: function() {
 		var hit_id = "<%= @hit.id %>"
 		var xhr = new XMLHttpRequest()
-		var url = "http://<%= request.host_with_port%>/tracker/data_from_script?hit_id="+hit_id+
+		var url = "<%= request.protocol %><%= request.host_with_port%>/tracker/data_from_script?hit_id="+hit_id+
 		          "&hit[referrer]="+encodeURIComponent(document.referrer)
 		xhr.open('GET', url);
 		xhr.onreadystatechange = function (data) {
