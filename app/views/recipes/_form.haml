@@ -1,4 +1,13 @@
 = render "recipes/selector_pick"
+:erb
+  <script>
+  $(function() {
+    //autoselect one site if there is only one
+    if($("select#recipe_site_id option").length==2) {
+      $("select#recipe_site_id option:eq(1)").attr("selected","selected")
+    }
+  })
+  </script>
 :css
   .slide {display:none}
 .container
@@ -44,7 +53,7 @@
           .form-group
             - if current_user
               #site_select
-                = collection_select(:recipe, :site_id, current_user.sites, :id, :name_or_url, {:prompt=> "select a site"}, {:class => "form-control"} )
+                = collection_select(:recipe, :site_id, current_user.sites, :id, :name_or_url, {prompt: "select a site"}, {:class => "form-control"} )
                 %a{:href => "javascript:$(\"#site_select\").hide();$(\"#site_create\").show();"} create new site
               #site_create{style:'display:none'}
                 %input.form-control{:name => "new_site_url", :placeholder => "url"}
