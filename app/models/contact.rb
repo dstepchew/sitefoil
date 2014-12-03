@@ -8,8 +8,8 @@ class Contact < MailForm::Base
   # in ActionMailer accepts.
   def headers
     {
-      :subject => "My Contact Form",
-      :to => "your_email@example.org",
+      :subject => "SiteFoil Contact Form Inquiry",
+      :to => "dan@sitefoil.com",
       :from => %("#{name}" <#{email}>)
     }
   end
