@@ -14,6 +14,7 @@ set :domain, 'www.sitefoil.com'
 set :deploy_to, '/var/www/sitefoil'
 set :repository, 'git@github.com:dstepchew/sitefoil.git'
 set :branch, 'nazar'
+set :rails_env, 'digitalocean_production'
 
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
 # They will be linked in the 'deploy:link_shared_paths' step.
