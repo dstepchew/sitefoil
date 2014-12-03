@@ -29,8 +29,16 @@ class Site < ActiveRecord::Base
   serialize :tag, Hash
 
 
+  def order_url_sql_wildcard
+    if self.order_url.blank?
+      return ""
+    else
+      self.order_url.gsub("*","%") + "%"
+    end
+  end
+
   def orders
-    self.hits.where(referrer: self.order_url)
+    self.hits.where("url like ?",self.order_url_sql_wildcard)
   end
 
   def unique_visitor_hits
@@ -38,7 +46,7 @@ class Site < ActiveRecord::Base
   end
 
   def unique_visitors_orders
-    self.hits.where(referrer: self.order_url).group(:visitor)
+    self.hits.where("url like ?",self.order_url_sql_wildcard).group(:visitor)
   end
 
   def conversion_rate

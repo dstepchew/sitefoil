@@ -43,6 +43,7 @@
               <div class="form-group">
                 <%= f.label :order_url, "Order page url (for conversion rate calculation)" %><br>
                 <%= f.text_field :order_url, class: "form-control" %>
+                <p><small style='font-size:12px;line-height:90%;'>* - all visited urls starting with this value will be considered orders<br>* - wildcards with * symbol allowed (example: http://mysite.com/*/order)</small></p>
               </div>
 
           

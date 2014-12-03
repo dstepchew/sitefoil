@@ -19,12 +19,14 @@
 #  device      :string(255)
 #  os_name     :string(255)
 #  new_visitor :boolean
+#  url         :string(255)
 #
 
 class Hit < ActiveRecord::Base
 	belongs_to :visitor, touch: true
 	belongs_to :site
 	serialize :tag, Hash
+  attr_protected []
 	
 	after_create :after_create
 	def after_create
