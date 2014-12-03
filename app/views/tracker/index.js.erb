@@ -168,6 +168,7 @@ var sitefoil = {
 				  <% @site.recipes.where(enabled:true).each do |recipe| %>			  	
 				  	console.log("checking recipe condition, recipe_id: ",<%= recipe.id %>)
 				  	if(!only_recipe_id || only_recipe_id==<%= recipe.id %>) {
+				  		var recipe_id = <%= recipe.id %>
 				  		<%= recipe.js.html_safe %>
 				  	}
 	        <% end %>
@@ -177,6 +178,7 @@ var sitefoil = {
 			  <% @site.recipes.where(enabled:true).each do |recipe| %>			  	
 			  	<% if recipe.js.include? "(el_click"  %>
 			  	if(!only_recipe_id || only_recipe_id==<%= recipe.id %>) {
+			  			var recipe_id = <%= recipe.id %>
 				    	<%= recipe.js.html_safe %>
 				    }
 			    <% end %>
