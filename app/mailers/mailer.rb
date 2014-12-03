@@ -11,4 +11,5 @@ class Mailer < ActionMailer::Base
 
     mail(to: opts[:to_email], subject: opts[:subject])
   end
+
 end
