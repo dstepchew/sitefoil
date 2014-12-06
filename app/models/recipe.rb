@@ -27,6 +27,7 @@ class Recipe < ActiveRecord::Base
 	has_one :act
 
 	belongs_to :site
+	validates :site_id, presence: true
 
 	def name_or_action
 		return self['name'] if !self['name'].blank?

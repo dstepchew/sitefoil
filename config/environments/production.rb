@@ -79,16 +79,16 @@ Sitefoil::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
-  config.action_mailer.default_url_options = { :host => 'https://www.sitefoil.com/' }
+  config.action_mailer.default_url_options = { :host => 'sitefoil.com' }
 
  config.action_mailer.smtp_settings = {
     :address   => "smtp.mandrillapp.com",
-    :port      => 587, # ports 587 and 2525 are also supported with STARTTLS
+    :port      => 25, #587, # ports 587 and 2525 are also supported with STARTTLS
     :enable_starttls_auto => true, # detects and uses STARTTLS
     :user_name => "dan@sitefoil.com",
     :password  => "g_1v7MHENGuoXl35OzJOOA", # SMTP password is any valid API key
     :authentication => 'login', # Mandrill supports 'plain' or 'login'
-    :domain => 'sitefoil.com', # your domain to identify your server when connecting
+    :domain => 'www.sitefoil.com', # your domain to identify your server when connecting
   }
 
 
