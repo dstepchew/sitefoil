@@ -28,7 +28,8 @@
               <div class="row">
                   <div class="col-md-2 col-sm-2 col-xs-6 text-center">
 
-                     <h2> <%= site.unique_visitor_hits.count.count %></h2>
+                     <h2><%= number_to_human(site.unique_visitor_hits.count.count, :format => '%n%u', :units => { :thousand => 'K' }) %>
+                     </h2>
                         <p>
                           Unique Sessions
                         </p>
@@ -36,7 +37,7 @@
                   </div>
                   <div class="col-md-2 col-sm-2 col-xs-6 text-center">
 
-                     <h2> <%= site.hits.count %></h2>
+                     <h2><%= number_to_human(site.hits.count, :format => '%n%u', :units => { :thousand => 'K' }) %></h2>
                         <p>
                           Site Sessions
                         </p>
@@ -51,7 +52,7 @@
               <div class="row">
                   <div class="col-md-2 col-sm-2 col-xs-4 text-center">
 
-                     <h2> <%= site.unique_visitors_orders.count.count %></h2>
+                     <h2><%= number_to_human(site.unique_visitors_orders.count.count, :format => '%n%u', :units => { :thousand => 'K' }) %></h2>
                         <p>
                           Total Customers
                         </p>
@@ -59,7 +60,7 @@
                   </div>
                   <div class="col-md-2 col-sm-2 col-xs-4 text-center">
 
-                     <h2> <%= site.orders.count %></h2>
+                     <h2><%= number_to_human(site.orders.count, :format => '%n%u', :units => { :thousand => 'K' }) %></h2>
                         <p>
                           Total Conversions
                         </p>
@@ -69,7 +70,7 @@
 
                      <h2> <%= site.conversion_rate.round(2) %></h2>
                         <p>
-                          Conversion Rate
+                          Conversion Rate (%)
                         </p>
 
                   </div>
