@@ -1,5 +1,4 @@
 <h1>testing tracker script</h1>
-<script src=<%= PROTOCOL %><%= request.host_with_port %>/tracker.js?site_id=<%= params[:site_id] || 1 %>></script>
 <br>
 <a href=coupon.html>goto coupon page</a><br>
 <a href=order.html>goto order page</a><br>
@@ -19,3 +18,6 @@
 	<input id='form_field' name='form_field2'>
 	<input type=submit value=submit>
 </form>
+<% protocol = @use_protocol || PROTOCOL %>
+<% host = @host || request.host_with_port %>
+<script src=<%= protocol %><%= host %>/tracker.js?site_id=<%= params[:site_id] || 1 %>></script>

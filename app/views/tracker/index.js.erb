@@ -32,7 +32,7 @@ var sitefoil = {
 	},
 	email_to: function(to_email,text) {
 		console.log("sending email message")
-		this.$.post("http://<%= request.host_with_port%>/tracker/email_action",{
+		this.$.post("<%= request.protocol %><%= request.host_with_port%>/tracker/email_action",{
 			to_email: to_email,
 			text: text
 		})
@@ -41,7 +41,7 @@ var sitefoil = {
 	report_recipe_hit: function(recipe_id) {
 		console.log("reporting recipe hit")
 		
-		sitefoil.$.get("//<%= request.host_with_port%>/api/report_recipe_hit",{id:recipe_id},function() {
+		sitefoil.$.get("<%= request.protocol %><%= request.host_with_port%>/api/report_recipe_hit",{id:recipe_id},function() {
 			console.log("recipe hit reported")
 		});
 
