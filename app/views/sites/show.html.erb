@@ -23,7 +23,7 @@
 
 <div class="jumbotron center">
   <h2>Copy and paste the following code just before the "&lt;/html&gt;" tag on <strong> all pages</strong> of your website:</h2>
-  <textarea class="form-control" id="siteTextarea" readonly >
+  <textarea class="form-control" style='cursor:text' id="siteTextarea" readonly >
    <script src=<%= @site.tracker_url(request.host_with_port) %>></script>
  </textarea>
 

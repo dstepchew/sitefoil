@@ -6,7 +6,11 @@ Sitefoil::Application.routes.draw do
   get '/recipes/selector_pick' => "recipes#selector_pick"
   get '/recipes/new_animated' => "recipes#new_animated"
 
-  resources :recipes
+  resources :recipes do
+    member {
+      get 'duplicate'
+    }
+  end
 
   resources :channels
 
@@ -19,10 +23,10 @@ Sitefoil::Application.routes.draw do
   resources :ingredients
 
   resources :sites do
-    member do
+    member {
       get 'stats'
       get 'recipes'
-    end
+    }
   end
 
   devise_for :users
