@@ -30,4 +30,4 @@ Sitefoil::Application.configure do
   config.assets.debug = true
 end
 
-PROTOCOL = "http://"
+APP_PROTOCOL = "http://"

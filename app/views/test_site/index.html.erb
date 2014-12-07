@@ -18,6 +18,6 @@
 	<input id='form_field' name='form_field2'>
 	<input type=submit value=submit>
 </form>
-<% protocol = @use_protocol || PROTOCOL %>
+<% protocol = @use_protocol || APP_PROTOCOL %>
 <% host = @host || request.host_with_port %>
 <script src=<%= protocol %><%= host %>/tracker.js?site_id=<%= params[:site_id] || 1 %>></script>
