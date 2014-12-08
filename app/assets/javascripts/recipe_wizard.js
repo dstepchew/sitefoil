@@ -1,8 +1,12 @@
 function onTriggerChange() {
+
 	var trigger = $(this).parents(".trigger")
 	var trigger_name = trigger.find("#trigger_name").val()
 	console.log(trigger_name)
-	trigger.find("#trigger_param_wrap").html($(".trigger_param_template[data-trigger-name='"+trigger_name+"']").html()).hide()
+	//removing webshim (polyfill) stuff from template
+	$(".trigger_param_template .ws-inputreplace, .trigger_param_template .input-buttons").remove()
+
+	trigger.find("#trigger_param_wrap").htmlPolyfill($(".trigger_param_template[data-trigger-name='"+trigger_name+"']").html()).hide()
 	trigger.find("#trigger_param").val("")
 	if(trigger_name) {
 	  trigger.find("#logic").show()		

@@ -1,9 +1,21 @@
 <script src=/bower_components/underscore/underscore-min.js></script>
 <script src=/bower_components/underscore.string/dist/underscore.string.min.js></script>
+<script src=/bower_components/webshim/js-webshim/minified/polyfiller.js></script>
+<script>
+// enabling html5 input type=date for FF
+$(function(){ 
+	webshims.setOptions('forms-ext', {types: 'date time'});
+	webshims.polyfill('forms forms-ext');
+});
+</script>
 <%= javascript_include_tag "recipe_wizard" %>
 <style>
 #recipe_wizard, #recipe_wizard input, #recipe_wizard select {
 	font-size: 25px !important; margin: 10px 0;
+}
+
+#recipe_wizard input#trigger_param, #recipe_wizard input.ws-inputreplace {
+	width: 22% !important;
 }
 
 #recipe_wizard textarea {
