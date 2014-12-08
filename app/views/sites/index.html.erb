@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-lg-10 col-md-8 col-sm-8 col-xs-6">
         <h3 class="panel-title"><%= link_to site.name_or_url, edit_site_path(site) %></h3>
-         <h4><%= site.url %></h4>
+         <h4><%= site.url %> <small style="color:#666;">- created <%= site.created_at.strftime("%b %d, %Y") %></small></h4> 
       </div>
       <div class="col-lg-1 col-md-2 col-sm-2 col-xs-3 text-right">
         <%= link_to 'Edit Site', edit_site_path(site), class: "btn btn-primary" %><br/>
@@ -28,7 +28,8 @@
               <div class="row">
                   <div class="col-md-2 col-sm-2 col-xs-6 text-center">
 
-                     <h2> <%= site.unique_visitor_hits.count.count %></h2>
+                     <h2><%= number_to_human(site.unique_visitor_hits.count.count, :format => '%n%u', :units => { :thousand => 'K' }) %>
+                     </h2>
                         <p>
                           Unique Sessions
                         </p>
@@ -36,7 +37,7 @@
                   </div>
                   <div class="col-md-2 col-sm-2 col-xs-6 text-center">
 
-                     <h2> <%= site.hits.count %></h2>
+                     <h2><%= number_to_human(site.hits.count, :format => '%n%u', :units => { :thousand => 'K' }) %></h2>
                         <p>
                           Site Sessions
                         </p>
@@ -51,7 +52,7 @@
               <div class="row">
                   <div class="col-md-2 col-sm-2 col-xs-4 text-center">
 
-                     <h2> <%= site.unique_visitors_orders.count.count %></h2>
+                     <h2><%= number_to_human(site.unique_visitors_orders.count.count, :format => '%n%u', :units => { :thousand => 'K' }) %></h2>
                         <p>
                           Total Customers
                         </p>
@@ -59,7 +60,7 @@
                   </div>
                   <div class="col-md-2 col-sm-2 col-xs-4 text-center">
 
-                     <h2> <%= site.orders.count %></h2>
+                     <h2><%= number_to_human(site.orders.count, :format => '%n%u', :units => { :thousand => 'K' }) %></h2>
                         <p>
                           Total Conversions
                         </p>
@@ -69,7 +70,7 @@
 
                      <h2> <%= site.conversion_rate.round(2) %></h2>
                         <p>
-                          Conversion Rate
+                          Conversion Rate (%)
                         </p>
 
                   </div>

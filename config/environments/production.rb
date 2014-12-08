@@ -95,5 +95,5 @@ Sitefoil::Application.configure do
 
 end
 
-PROTOCOL = "https://"
+APP_PROTOCOL = "https://"
 

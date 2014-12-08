@@ -1,5 +1,8 @@
 <h1><%= @site.name_or_url %> - site statistics</h1>
 
+<h2>From: <%= @site.created_at.strftime("%b %d, %Y") %></h2>
+
+
 <h3>Visitors</h3>
 <p>
 	Total unique visitors: <%= @site.unique_visitor_hits.count.count %>
@@ -43,6 +46,8 @@
 	<p>
 		Conversion rate: <%=  @site.conversion_rate_24_hours.round(2) %> %
 	</p>
+
+
 
 <% else %>
 

@@ -1,20 +1,25 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:show, :edit, :update, :destroy]
+  before_action :set_recipe, only: [:show, :edit, :update, :destroy, :duplicate]
   before_action :authenticate_user!
 
 
-  # GET /recipes
-  # GET /recipes.json
+  def duplicate
+    new_recipe = @recipe.dup
+    new_recipe.enabled = false
+    new_recipe.save
+
+    session[:highlight_recipe_id] = new_recipe.id
+    redirect_to "/recipes", notice: "Disabled copy of the recipe created"
+
+  end
+
   def index
     @recipes = current_user.recipes.order(:created_at) if current_user
   end
 
-  # GET /recipes/1
-  # GET /recipes/1.json
   def show
   end
 
-  # GET /recipes/new
   def new
     @recipe = current_user.recipes.new
   end
@@ -23,12 +28,9 @@ class RecipesController < ApplicationController
     @recipe = current_user.recipes.new
   end
 
-  # GET /recipes/1/edit
   def edit
   end
 
-  # POST /recipes
-  # POST /recipes.json
   def create
     @recipe = current_user.recipes.new(recipe_params)
 
@@ -43,8 +45,6 @@ class RecipesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /recipes/1
-  # PATCH/PUT /recipes/1.json
   def update
     respond_to do |format|
       if @recipe.update(recipe_params)
