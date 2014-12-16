@@ -15,6 +15,7 @@ set :deploy_to, '/var/www/sitefoil'
 set :repository, 'git@github.com:dstepchew/sitefoil.git'
 set :branch, 'nazar'
 set :rails_env, 'digitalocean_production'
+set :launch_cmd, "cd #{deploy_to}/current && RAILS_ENV=digitalocean_production thin start -p 8080 -d" 
 
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
 # They will be linked in the 'deploy:link_shared_paths' step.
@@ -66,12 +67,16 @@ task :deploy => :environment do
     invoke :'rails:assets_precompile'
 
     to :launch do
-      queue "cd #{deploy_to}/current && RAILS_ENV=digitalocean_production thin start -p 8080 -d"    
+      queue launch_cmd     
       invoke :'deploy:cleanup'      
     end
   end
 end
 
+
+task :launch_locally do
+  system launch_cmd
+end
 
 task :shutdown do
     queue "ps ax | grep 80 | grep -v grep | awk '{print $1}' | xargs kill || true"  
