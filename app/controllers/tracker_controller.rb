@@ -31,7 +31,9 @@ class TrackerController < ApplicationController
      @hit = visitor.hits.new
      #saving whole data just in case
      @hit.url = request.referrer #url that calls script
-     @hit.tag[:location] = request.location.data
+     if request.location
+       @hit.tag[:location] = request.location.data
+     end
      @hit.tag[:user_agent] = request.user_agent
      @hit.device = user_agent_to_device request.user_agent
      @hit.os_name = user_agent_to_os_name request.user_agent
