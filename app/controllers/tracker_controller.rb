@@ -33,6 +33,9 @@ class TrackerController < ApplicationController
      @hit.url = request.referrer #url that calls script
      if request.location
        @hit.tag[:location] = request.location.data
+       @hit.country = request.location.data["country_name"]
+       @hit.state = request.location.data["region_name"]
+       @hit.city = request.location.data["city"]
      end
      @hit.tag[:user_agent] = request.user_agent
      @hit.device = user_agent_to_device request.user_agent
@@ -40,9 +43,6 @@ class TrackerController < ApplicationController
      @hit.site = @site
      @hit.new_visitor = new_visitor
      @hit.ip = request.remote_ip
-     @hit.country = request.location.data["country_name"]
-     @hit.state = request.location.data["region_name"]
-     @hit.city = request.location.data["city"]
      @hit.browser = request.user_agent
      @hit.save
 
