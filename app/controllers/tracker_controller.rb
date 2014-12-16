@@ -7,13 +7,15 @@ class TrackerController < ApplicationController
   def index
 
      if !params[:site_id]
-        throw "site_id parameter not specified"
+        render text:"site_id parameter not specified", status: 400
+        return
      end
  
      @site = Site.find_by_id params[:site_id]
 
      if !@site
-       throw "site with such id not found"
+       render text: "site with such id not found", status: 400
+       return
      end
 
      new_visitor = false
