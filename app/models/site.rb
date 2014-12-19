@@ -14,6 +14,7 @@
 #  confirmation_url :string(255)
 #  tag              :text
 #  order_url        :string(255)
+#  timezone         :float
 #
 
 class Site < ActiveRecord::Base

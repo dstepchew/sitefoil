@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141203005008) do
+ActiveRecord::Schema.define(version: 20141219135235) do
 
   create_table "actions", force: true do |t|
     t.string   "name"
@@ -129,6 +129,7 @@ ActiveRecord::Schema.define(version: 20141203005008) do
     t.string   "confirmation_url"
     t.text     "tag"
     t.string   "order_url"
+    t.float    "timezone"
   end
 
   add_index "sites", ["user_id"], name: "index_sites_on_user_id"
