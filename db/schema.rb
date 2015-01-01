@@ -129,7 +129,7 @@ ActiveRecord::Schema.define(version: 20141219135235) do
     t.string   "confirmation_url"
     t.text     "tag"
     t.string   "order_url"
-    t.float    "timezone"
+    t.integer  "timezone_minutes", default: 0
   end
 
   add_index "sites", ["user_id"], name: "index_sites_on_user_id"

@@ -1,5 +1,10 @@
 module ApplicationHelper
 
+
+  def self.timezones
+    ActiveSupport::TimeZone.zones_map.values.collect{|z| [z.name + format(" %+03d:%02d", z.utc_offset/3600, z.utc_offset/60%60),z.utc_offset/60] }
+  end
+
 	def self.trigger_channels
 		['referrer']
 	end

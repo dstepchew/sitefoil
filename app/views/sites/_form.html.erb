@@ -40,6 +40,12 @@
                 <%= f.text_field :url, class: "form-control" %>
               </div>
 
+
+              <div class="form-group">
+                <%= f.label :timezone_minutes, "Timezone" %><br>
+                <%= f.select :timezone_minutes, ApplicationHelper::timezones %>
+              </div>
+
               <div class="form-group">
                 <%= f.label :order_url, "Order page url (for conversion rate calculation)" %><br>
                 <%= f.text_field :order_url, class: "form-control" %>

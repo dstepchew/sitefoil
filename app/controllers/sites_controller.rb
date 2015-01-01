@@ -55,7 +55,7 @@ class SitesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def site_params
-      params.require(:site).permit(:name,:url,:order_url,:coupon_url, :coupon_selector, :checkout_url, :confirmation_url, :total_selector,
+      params.require(:site).permit(:timezone_minutes,:name,:url,:order_url,:coupon_url, :coupon_selector, :checkout_url, :confirmation_url, :total_selector,
         recipe_attributes: [
                  :id, :name, :description
               ])
