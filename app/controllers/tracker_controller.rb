@@ -48,7 +48,8 @@ class TrackerController < ApplicationController
 
      @site_hash = {order_count: @site.orders.count, 
       conversion_rate: @site.conversion_rate, 
-      conversion_rate_24_hours: @site.conversion_rate_24_hours}
+      conversion_rate_24_hours: @site.conversion_rate_24_hours,
+      timezone_string: @site.timezone_string}
      render "index", :content_type => "application/javascript"
   end
 

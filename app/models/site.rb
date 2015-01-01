@@ -111,4 +111,8 @@ class Site < ActiveRecord::Base
     self.name
   end
 
+  def timezone_string
+    format("%+03d%02d", self.timezone_minutes/60,self.timezone_minutes%60)
+  end
+
 end

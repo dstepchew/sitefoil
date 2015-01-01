@@ -119,9 +119,9 @@ var sitefoil = {
     sitefoil.$("#sitefoil_popup_overlay").bind("mousedown",sitefoil.popup_close)
 
 	},
-	date_int: new Date('<%= Time.now.to_s%>'),
+	date_int: (new Date('<%= "#{DateTime.now.to_date.to_s} 00:00:00 "+format("%+03d%02d",Time.now.utc_offset/3600,(Time.now.utc_offset/60)%60) %>')).valueOf(),
 	date_to_int: function(date_string) {
-		return (new Date(date_string));
+		return (new Date(date_string+" 00:00:00"+sitefoil.site.timezone_string)).valueOf();
 	},
 	hours_minutes_int: <%= Time.now.hour %>*60+<%= Time.now.min %>,
 	hours_minutes_to_int: function(s) {
