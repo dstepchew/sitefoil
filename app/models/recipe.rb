@@ -43,4 +43,9 @@ class Recipe < ActiveRecord::Base
 		return '' if !(self.site.url rescue false)
 		"#{self.site.url}?sitefoil_only_recipe_id=#{self.id}"
 	end
+
+	def hit_last_time_human
+		return '' if self.hit_last_time.blank?
+		(self.hit_last_time.in_time_zone ActiveSupport::TimeZone[self.site.timezone_minutes/60]).to_formatted_s(:rfc822) 
+	end
 end

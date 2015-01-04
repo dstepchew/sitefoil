@@ -123,7 +123,7 @@ var sitefoil = {
 	date_to_int: function(date_string) {
 		return (new Date(date_string+" 00:00:00"+sitefoil.site.timezone_string)).valueOf();
 	},
-	hours_minutes_int: <%= Time.now.hour %>*60+<%= Time.now.min %>,
+	hours_minutes_int: <%= @site.time.hour%>*60+<%= @site.time.min %>,
 	hours_minutes_to_int: function(s) {
 		try {
 		  var parts = s.split(":")

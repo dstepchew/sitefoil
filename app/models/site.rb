@@ -115,4 +115,8 @@ class Site < ActiveRecord::Base
     format("%+03d%02d", self.timezone_minutes/60,self.timezone_minutes%60)
   end
 
+  def time
+     Time.now.in_time_zone ActiveSupport::TimeZone[self.timezone_minutes/60]
+  end
+
 end
