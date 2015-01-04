@@ -316,6 +316,17 @@ a.btn.form-btn {
 	color:#CCC;
 }
 
+.rounded-box.box-btn {
+	width:100%;
+	height:100%;
+	text-align:center;
+	text-transform: uppercase;
+}
+
+a.box-btn:hover {
+	text-decoration:none;
+}
+
 body.features ul {
 	list-style-type:none;
 	margin:0px;
