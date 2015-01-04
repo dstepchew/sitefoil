@@ -8,7 +8,9 @@ module ApplicationHelper
       if !zones[z.utc_offset]
         zones[z.utc_offset] = [z.name]
       else
-        zones[z.utc_offset] << z.name
+        if zones[z.utc_offset].count<8
+          zones[z.utc_offset] << z.name
+        end
       end
     end
 
