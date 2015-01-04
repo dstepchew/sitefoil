@@ -53,6 +53,30 @@ function onLogicChange() {
 		})
 	}
 
+	adjustRemoveRecipeButtons();
+
+}
+
+
+function adjustRemoveRecipeButtons() {
+	if( $("#recipe_wizard .trigger:last").is("#recipe_wizard .trigger:first") ) {
+		$("#recipe_wizard .remove").hide();
+	} else {		
+		$("#recipe_wizard .remove").show();
+	}
+}
+
+function onConditionDelete() {
+	var trigger = $(this).parents(".trigger")	
+
+	if($("#recipe_wizard .trigger:last").is(trigger) && $("#recipe_wizard .trigger").length>1) {
+		$("#recipe_wizard .trigger:last").prev().find("#logic").val("");
+		onLogicChange.apply($("#recipe_wizard .trigger:last").prev().find("#logic"));
+	} else {
+		$(trigger).remove();
+	}
+	adjustRemoveRecipeButtons();
+	buildRecipe();
 }
 
 function onActionChange() {
@@ -178,6 +202,7 @@ function js_show() {
 }
 $(function() {
   recipe_restore($("#recipe_wizard_json").val())
+  adjustRemoveRecipeButtons();
 
   $("body").on("change","select, .action_param",buildRecipe)
   $("body").on("keyup change","input, .action_param",buildRecipe)

@@ -14,6 +14,18 @@ $(function(){
 	font-size: 25px !important; margin: 10px 0;
 }
 
+#recipe_wizard .trigger .remove {
+	position:absolute;
+	margin-left:-55px;
+	margin-top:8px;
+	cursor: pointer;
+}
+
+#recipe_wizard .trigger .remove .glyphicon {
+	font-size: 18px !important;
+}
+
+
 #recipe_wizard input#trigger_param, #recipe_wizard input.ws-inputreplace {
 	width: 22% !important;
 }
@@ -60,6 +72,10 @@ $(function() {
 
 <div id=trigger_template style='display:none'>
   <div class=trigger>
+  	<div class='remove' onclick='onConditionDelete.apply(this)'>
+  		<button type="button" class="btn btn-danger btn-circle">
+  		<i class="glyphicon fa fa-trash"></i></button>
+  	</div>
 	
 		if 
 
@@ -117,7 +133,6 @@ $(function() {
 
 
 <div id=recipe_wizard style='font-size:40px'>
-
 
 	<div id=triggers>
 
