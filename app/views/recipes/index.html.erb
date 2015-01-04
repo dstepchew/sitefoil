@@ -75,7 +75,7 @@ if session[:highlight_recipe_id]==recipe.id
 end
 %>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-8">
         <div class="panel panel-default <%=add_class%>" id="recipe_<%= recipe.id %>">
           <div class="panel-heading">
             <div class="row">
@@ -101,22 +101,28 @@ end
         </div>
         </div>
       </div>
-       <div class="col-md-6">
+       <div class="col-md-4" style="margin-bottom:20px;">
             <div class="row">
-              <div class="col-md-3">
+              <div class="col-md-3" style="display:none;">
                 <%= link_to 'Preview', recipe.preview_url, class:"btn btn-info btn-xs hidden", target: "_blank", data: { no_turbolink: true } %>  
               </div>
 
-              <div class="col-md-3">
-               <%= link_to 'Edit Recipe', edit_recipe_path(recipe), class: "btn btn-primary btn-xs", data: { no_turbolink: true } %>
+              <div class="col-md-4 col-sm-4 col-xs-4">
+               <%= link_to edit_recipe_path(recipe), class: "rounded-box box-btn", data: { no_turbolink: true } do %>
+                  <i class="glyphicon big-glyphicon fa fa-pencil-square"></i><br />Edit 
+               <% end %>
              </div>
              
-             <div class="col-md-3">
-              <%= link_to 'Delete',recipe, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: 'Are you sure?' } %>
+             <div class="col-md-4 col-sm-4 col-xs-4">
+              <%= link_to recipe, class: "rounded-box box-btn", method: :delete, data: { confirm: 'Are you sure?' } do %>
+               <i class="glyphicon big-glyphicon fa fa-trash"></i><br />Delete 
+               <% end %>
             </div>
 
-            <div class="col-md-3">
-              <%= link_to 'Duplicate', duplicate_recipe_path(recipe), class: "btn btn-xs btn-info" %>
+            <div class="col-md-4 col-sm-4 col-xs-4">
+              <%= link_to duplicate_recipe_path(recipe), class: "rounded-box box-btn" do %>
+              <i class="glyphicon big-glyphicon fa fa-plus-square"></i><br />Duplicate 
+               <% end %>
             </div>
             </div>
         </div>
