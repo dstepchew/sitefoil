@@ -74,51 +74,53 @@ if session[:highlight_recipe_id]==recipe.id
   add_class='highlighted' 
 end
 %>
-
-<div class="panel panel-default <%=add_class%>" id="recipe_<%= recipe.id %>">
-  <div class="panel-heading">
     <div class="row">
-      <div class="col-md-12">
-        <h3 class="panel-title"><%= recipe.name_or_action %></h3>
+      <div class="col-md-6">
+        <div class="panel panel-default <%=add_class%>" id="recipe_<%= recipe.id %>">
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-md-12">
+                <h3 class="panel-title"><%= recipe.name_or_action %></h3>
+              </div>
+
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-12 col-sm-12">
+
+                <h4><strong>Site:</strong> <%= recipe.site.url rescue '' %></h4>
+                <h4><strong>Status:</strong> <%= recipe.enabled ? "running" : "disabled" %></h4>
+                <h4><strong>Times Ran:</strong> <%= recipe.hits %></h4>
+                <h4><strong>Last Run:</strong> <%= recipe.hit_last_time %></h4>
+                <a href="/recipes/<%= recipe.id %>/edit?rebuild" style='display:none' class='rebuild' target=_blank>Rebuild</a>
+
+              </div>
+            
+          </div>
+        </div>
+        </div>
       </div>
+       <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-3">
+                <%= link_to 'Preview', recipe.preview_url, class:"btn btn-info btn-xs hidden", target: "_blank", data: { no_turbolink: true } %>  
+              </div>
 
+              <div class="col-md-3">
+               <%= link_to 'Edit Recipe', edit_recipe_path(recipe), class: "btn btn-primary btn-xs", data: { no_turbolink: true } %>
+             </div>
+             
+             <div class="col-md-3">
+              <%= link_to 'Delete',recipe, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: 'Are you sure?' } %>
+            </div>
+
+            <div class="col-md-3">
+              <%= link_to 'Duplicate', duplicate_recipe_path(recipe), class: "btn btn-xs btn-info" %>
+            </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="panel-body">
-    <div class="row">
-      <div class="col-md-6 col-sm-12">
-
-        <h4><strong>Site:</strong> <%= recipe.site.url rescue '' %></h4>
-        <h4><strong>Status:</strong> <%= recipe.enabled ? "running" : "disabled" %></h4>
-        <h4><strong>Times Ran:</strong> <%= recipe.hits %></h4>
-        <h4><strong>Last Run:</strong> <%= recipe.hit_last_time %></h4>
-        <a href="/recipes/<%= recipe.id %>/edit?rebuild" style='display:none' class='rebuild' target=_blank>Rebuild</a>
-
-      </div>
-      <div class="col-md-6 col-sm-12">
-
-
-
-        <p>
-          <%= link_to 'Preview', recipe.preview_url, class:"btn btn-info btn-xs hidden", target: "_blank", data: { no_turbolink: true } %>  
-        </p>
-
-        <p>
-         <%= link_to 'Edit Recipe', edit_recipe_path(recipe), class: "btn btn-primary btn-xs", data: { no_turbolink: true } %>
-       </p>
-       
-       <p>
-        <%= link_to 'Delete',recipe, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: 'Are you sure?' } %>
-      </p>
-
-      <p>
-        <%= link_to 'Duplicate', duplicate_recipe_path(recipe), class: "btn btn-xs btn-info" %>
-      </p>
-
-    </div>
-  </div>
-</div>
-</div>
 
 <% end %>
 
