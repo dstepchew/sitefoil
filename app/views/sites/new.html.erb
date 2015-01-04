@@ -2,6 +2,18 @@
 
 <%= render 'form' %>
 
+<script>
 
+$(function() {
+
+	var offset = new Date().getTimezoneOffset();
+	offset = -offset;
+	console.log('setting timezone to user browser timezone',-offset)
+	$("#site_timezone_minutes").val(offset);
+
+})
+
+
+</script>
 
 <% content_for :body_class, "main-form" %>

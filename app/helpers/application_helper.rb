@@ -2,7 +2,28 @@ module ApplicationHelper
 
 
   def self.timezones
-    ActiveSupport::TimeZone.zones_map.values.collect{|z| [z.name + format(" %+03d:%02d", z.utc_offset/3600, z.utc_offset/60%60),z.utc_offset/60] }
+
+    zones = {}
+    ActiveSupport::TimeZone.zones_map.values.collect do  |z| 
+      if !zones[z.utc_offset]
+        zones[z.utc_offset] = [z.name]
+      else
+        zones[z.utc_offset] << z.name
+      end
+    end
+
+    ret = zones.collect do |offset,cities|
+
+      cities = cities.sort.join(", ")
+      [format(" GMT %+03d:%02d", offset/3600, offset/60%60)+" #{cities}",offset/60]
+
+    end
+
+    ret.sort! do |a,b|
+      a[1] <=> b[1]
+    end
+    
+    ret
   end
 
 	def self.trigger_channels
