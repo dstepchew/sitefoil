@@ -24,7 +24,7 @@
 <div class="jumbotron center">
   <h2>Copy and paste the following code just before the "&lt;/html&gt;" tag on <strong> all pages</strong> of your website:</h2>
   <textarea class="form-control" style='cursor:text' id="siteTextarea" readonly >
-   <script async src=<%= @site.tracker_url(request.host_with_port) %>></script>
+   <script async defer src=<%= @site.tracker_url(request.host_with_port) %>></script>
  </textarea>
 
 <a href="#" class="btn btn-primary" onclick='testSite(<%= @site.id %>);return false;'>Test Code Presence</a>
