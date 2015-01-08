@@ -128,7 +128,12 @@ function buildRecipe() {
 
   $("#action_params input, #action_params textarea").each(function() {
   	var name = $(this).attr("name")
-  	var val = $(this).val()
+  	var val;
+  	if($(this).attr("type")=="checkbox") {
+ 			val = $(this).is(":checked")
+  	} else {
+  		val = $(this).val();
+  	}
   	console.log("action_param input: ", name, val)
   	action_js = action_js.replace('":'+name+'"', 'decodeURIComponent("'+encodeURIComponent(val)+'")')
   	action_js = action_js.replace(':'+name, val)
@@ -161,7 +166,14 @@ function recipe_save() {
   }
 
   $("#action_params .action_param").each(function() {
-   var param = {name:$(this).attr("name"),val: encodeURIComponent($(this).val())}
+
+   var val;
+   if($(this).attr("type")=="checkbox") {
+   	val = $(this).is(":checked")
+   } else {
+   	val = encodeURIComponent($(this).val())
+   }
+   var param = {name:$(this).attr("name"),val: val}
    recipe.action.params.push(param)
   })
 
@@ -191,7 +203,13 @@ function recipe_restore(json) {
 
 		$("#action").val(recipe.action.name).trigger("change")
 		_.each(recipe.action.params,function(param) {
-			$("#action_params .action_param[name='"+param.name+"']").val(decodeURIComponent(param.val))
+			console.log(param)
+			var action_param = $("#action_params .action_param[name='"+param.name+"']")
+			if(action_param.attr("type")=="checkbox") {
+				action_param.attr("checked",param.val)
+			} else {
+				action_param.val(decodeURIComponent(param.val))
+			}
 		})
   }
 }

@@ -68,8 +68,8 @@ module ApplicationHelper
 	def self.actions
     [
       { name: 'custom site footer', js: 'sitefoil.footer_show(":html")', params: [{name: :html, input_type: :textarea }] },
-      { name: 'custom site banner', js: 'sitefoil.banner_show(":html")', params: [{name: :html, input_type: :textarea }] },
-      { name: 'custom site popup', js: 'sitefoil.popup_show(":html")', params: [{name: :html, input_type: :textarea }] },
+      { name: 'welcome banner', js: 'sitefoil.banner_show(":html")', params: [{name: :html, input_type: :textarea }] },
+      { name: 'welcome popup', js: 'sitefoil.popup_show({html: ":html", once_per_session: :once_per_session, recipe_id: recipe_id})', params: [{name: :html, input_type: :textarea },{name: :once_per_session, caption: "show only once per session", input_type: :checkbox}] },
       { name: 'show hidden element', js: 'sitefoil.$(":selector").show()', params: [:selector]},
     	{ name: 'alert', js: 'alert(":message")', params: [:message] },
     	{ name: 'autofill', js: 'document.querySelector(":selector").value=":value"', params:[{name: :selector, input_type: :selector_pick},:value] },

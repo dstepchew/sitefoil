@@ -98,8 +98,19 @@ var sitefoil = {
   			sitefoil.popup_close()
   		}
   },
-	popup_show: function(html) {
-		console.log("popup show")
+	popup_show: function(opt) {
+		var html = opt['html'];
+		console.log("popup show", opt)
+		if(opt['once_per_session']) {
+			var cookie_name = 'popup_'+opt['recipe_id']+'already_displayed'
+			if(sitefoil.$.cookie(cookie_name)) {
+				console.log("popup for recipe id:"+opt['recipe_id']+ ' already displayed during this session, skipping')
+				return
+			} else {
+				sitefoil.$.cookie(cookie_name,true)
+			}
+
+		}
 		sitefoil.$("body").prepend(
 			'<div id=sitefoil_popup_overlay style="z-index:10000;position:fixed;top:0px;left:0px;width:100%;height:100%;background:#000;opacity:0"></div>'+
 			'<div id=sitefoil_popup style="opacity:0;display:none;padding:20px;box-shadow:rgba(0, 0, 0, 0.4) 0px 0px 10px 0px;background:#fff;top:0px;animation-top:2s;position:fixed;z-index:10001;">'+html+
