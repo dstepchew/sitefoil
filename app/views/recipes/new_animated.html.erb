@@ -210,8 +210,8 @@ $(function() {
 	<li class='step site_select' style='border-top:none;font-size:40px;'>
 		Select site:
 		<select id=site onChange='toNextStep.apply(this)'>
+			<option value=''>--select site--</option>
 			<% current_user.sites.each do |site| %>
-				<option value=''>--select site--</option>
 				<option value=<%= site.id%>><%= site.name_or_url %></option>
 			<% end %>
 		</select>
