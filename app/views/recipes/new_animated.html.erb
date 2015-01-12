@@ -117,7 +117,7 @@ function anotherTrigger() {
 
 function back() {
 	var cur_step = $(this).parents(".step");
-  cur_step.hide().addClass("hidden_step");
+  cur_step.addClass("hidden_step").fadeOut(200*animation_speed).slideUp(200*animation_speed)
 
   activateStep(cur_step.prev())
 
