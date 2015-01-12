@@ -14,14 +14,20 @@ a {
 .wizard-progress {
 	font-size: 14px;
 	text-align: right;
+	height: 14px;
 }
 
-.trigger, .action {
+.trigger_select.selected {
+	background: #ddd;
+}
+
+.trigger_select, .action_select {
 	cursor: pointer;
 }
 
 .step {
 	display:none;
+	padding: 20px;
 }
 
 ul.steps {
@@ -32,37 +38,50 @@ ul.steps {
 	display: none;
 }
 
+.trigger_delete {
+	position: absolute;
+	margin-left: -80px;
+	margin-top: 20px;
+	display: none;
+}
+
 .back {
 	display: none;
 }
+
+.trigger_select, .action_select { 
+	cursor: pointer;
+	display: inline-block;
+	border: 1px solid black;
+	margin: 5px;
+	padding: 5px 10px;
+}
+
+select, input[type=text], input[type=date], input[type=time], #recipe { 
+	border:0; color:#000000; background: #fff;
+	font-size:20px; font-weight:bold; padding:2px 10px; 
+ *background:#FFFFFF; -webkit-appearance: none; 
+}
+
+
+.step.hidden_step a {
+   pointer-events: none;
+   cursor: default;
+}
+
 
 </style>
 
 <script>
 
-function toStep(step_name) {
-
-	console && console.log("to step: "+step_name)
-	$(".step").css({opacity: 0.5}) //hide all
-
-	$(".back").hide() //hide all
-
-	$(".step."+step_name).find(".back").show() //show back button in new step
-
-	$(".step."+step_name).show()
-		.animate({opacity: 1}, 500);
-
-  $('html, body').animate({
-      scrollTop: $(".step."+step_name).offset().top
-  }, 500);
-
-}
+var animation_speed = 1;
 
 function toTriggerParams(trigger_name) {
-	toStep("trigger_params");
+	$(this).addClass("selected")
+	toNextStep.apply(this);
 	$(".step.trigger_params .trigger_name").html(trigger_name)
 	$(".step.trigger_params .trigger_settings").hide()
-	$(".step.trigger_params .trigger_settings[data-trigger-name='"+trigger_name+"']").show();
+	$(".step.trigger_params .trigger_settings[data-trigger-name='"+trigger_name+"']").show()
 }
 
 function toActionParams(action_name) {
@@ -70,47 +89,118 @@ function toActionParams(action_name) {
 
 	$(".step.action_params .action_name").html(action_name);
 
-
   $(".step.action_params .action_params").hide();
   $(".step.action_params .action_params[data-action-name='"+action_name+"']").show()
 }
 
 
-function back() {
-  $(this).parents(".step").hide();
-  $(this).parents(".step").prev().show().animate({opacity: 1}, 500);
-  $(this).parents(".step").prev().find(".back").show();
 
-  $('html, body').animate({
-      scrollTop: $(this).parents(".step").prev().offset().top
-  }, 500);
-}
-
-var trigger_num = 1;
+var trigger_count = 1;
 
 function anotherTrigger() {
-	trigger_num++;
-	$(this).parents(".step").after($(".step.action_or_another_trigger")[0].outerHTML)
-	$(this).parents(".step").after($(".step.trigger_params")[0].outerHTML)
-	$(this).parents(".step").after($(".step.trigger")[0].outerHTML)
+	trigger_count++;
+	var cur_step = $(this).parents(".step");
 
-	$(".step.trigger").last().hide().removeClass("trigger").addClass("trigger_"+trigger_num)
-	$(".step.trigger_params").last().hide().removeClass("trigger_params").addClass("trigger_params_"+trigger_num)
-	$(".step.action_or_another_trigger").last().hide().removeClass("action_or_another_trigger").addClass("action_or_another_trigger_"+trigger_num)
+	cur_step.after($(".step.trigger_params")[0].outerHTML)
+	cur_step.after($(".step.trigger")[0].outerHTML)
 
-	$(".step.trigger_"+trigger_num+" .trigger").attr("onclick",'toStep("trigger_params_'+trigger_num+'")')
-	$(".step.trigger_params_"+trigger_num+" .done").attr("onclick",'toStep("action_or_another_trigger_'+trigger_num+'")')
+	$(".step.trigger:last").hide().addClass("and trigger_"+trigger_count)
+	$(".step.trigger_params:last").hide().addClass("and trigger_params_"+trigger_count)
 
-	toStep("trigger_"+trigger_num)
+	$(".step.trigger_"+trigger_count+" .trigger").attr("onclick",'toStep("trigger_params_'+trigger_count+'")')
+
+	toStep("trigger_"+trigger_count)
+
+	updateTriggerDeleteButtons()
+
+}
+
+function back() {
+	var cur_step = $(this).parents(".step");
+  cur_step.hide().addClass("hidden_step");
+
+  activateStep(cur_step.prev())
+
+  //case for AND trigger
+  if(cur_step.hasClass("trigger") && !cur_step.is($(".step.trigger:first")) ) {
+  	cur_step.next().remove() //trigger params
+  	cur_step.remove() //triger select
+  }
+
+  updateTriggerDeleteButtons()
+
+}
+
+function updateTriggerDeleteButtons() {
+
+	if($(".step.trigger").length>1) {
+		$(".trigger_delete").show()
+	} else {
+		$(".trigger_delete").hide()
+	}
+}
+
+
+function activateStep(show_step) {
+	setTimeout(function() {
+		show_step.find(".back").show() //show back button in new step
+
+		show_step.show()
+			.animate({opacity: 1}, 500*animation_speed);
+
+	  show_step.find(".selected").removeClass("selected")
+
+	  $('html, body').animate({
+	      scrollTop: show_step.offset().top
+	  }, 500*animation_speed);
+
+	  show_step.removeClass("hidden_step")
+	}, 100*animation_speed)
+}
+
+function animateToNextStep(show_step) {
+
+
+	$(".step").css({opacity: 0.5}).addClass("hidden_step") //hide all steps
+	$(".back").hide() //hide all back buttons
+
+	activateStep(show_step)
+
+}
+
+function toStep(step_name) {
+
+	console && console.log("to step: "+step_name)
+	var show_step = $(".step."+step_name)
+	animateToNextStep(show_step)
+
+}
+
+function toNextStep() {
+	var cur_step = $(this).parents(".step");
+	var next_step = cur_step.next();
+	animateToNextStep(next_step);
 
 }
 
 $(function() {
 	$(".step.site_select").show();
 
-	$("a.back").click(function() {
+	$(document).on("click","a.back",function() {
 		back.apply(this);
 	})
+
+	$(document).on("click",".trigger_delete",function() {
+		var cur_step = $(this).parents(".step");
+		if(cur_step.hasClass("trigger") && !cur_step.hasClass("hidden_step")) {
+			back.apply(this);
+			return;
+		}
+		cur_step.next().slideUp(animation_speed*500).fadeOut(animation_speed*500,function() { $(this).remove(); updateTriggerDeleteButtons() })
+		cur_step.slideUp(animation_speed*500).fadeOut(animation_speed*500,function() { $(this).remove(); updateTriggerDeleteButtons() })
+
+		
+	});
 
 })
 
@@ -119,7 +209,7 @@ $(function() {
 <ul class="steps" id=recipe_animated>
 	<li class='step site_select' style='border-top:none;font-size:40px;'>
 		Select site:
-		<select id=site onChange='toStep("start")'>
+		<select id=site onChange='toNextStep.apply(this)'>
 			<% current_user.sites.each do |site| %>
 				<option value=''>--select site--</option>
 				<option value=<%= site.id%>><%= site.name_or_url %></option>
@@ -130,15 +220,18 @@ $(function() {
 
 	<li class='step start'>
 		<div class='wizard-progress'><a onclick='$("#site").val("")' class='back'>back</a></div>
-		<h1>if <a onclick='toStep("trigger")'>this</a> then that</h1>
+		<h1>if <a onclick='toNextStep.apply(this)'>this</a> then that</h1>
 	</li>
 
 	<li class='step trigger'>
 		<div class='wizard-progress'><a class='back'>back</a> </div>
+		<button type="button" class="btn btn-danger btn-circle trigger_delete">
+    		<i class="glyphicon fa fa-trash"></i>
+    </button>
 		<h1>Choose Trigger</h1>
 		<div style='font-size:20px'>
 			<% ApplicationHelper::triggers.each do |trigger| %>
-				<div class="trigger_select" onclick='toTriggerParams("<%= trigger[:name] %>")'><%= trigger[:name] %></div>
+				<div class="trigger_select" onclick='toTriggerParams.apply(this,["<%= trigger[:name] %>"])'><%= trigger[:name] %></div>
 			<% end %>
 		</div>
 	</li>
@@ -154,7 +247,11 @@ $(function() {
 				<%= render partial: "wizard_trigger_params", locals: {trigger:trigger} %>
 			</div>
 		<% end %>
-		<a onclick='anotherTrigger.apply(this)'>another trigger</a> or <a onclick='toStep("action")'>set action</a>
+		<center>
+		<h3>
+		<a onclick='anotherTrigger.apply(this)'>AND another condition (trigger)</a> or <a onclick='toNextStep.apply(this)'>set action</a>
+		</h3>
+		</center>
 	</li>
 
 
@@ -163,7 +260,7 @@ $(function() {
 		<h1>Choose Action</h1>
 		<div style='font-size:20px'>
 			<% ApplicationHelper::actions.each do |action| %>
-				<div class=action onclick='toActionParams("<%= action[:name] %>")'><%= action[:name] %></div>
+				<div class="action_select" onclick='toActionParams("<%= action[:name] %>")'><%= action[:name] %></div>
 			<% end %>
 		</div>
 	</li>
@@ -175,11 +272,15 @@ $(function() {
 		<% ApplicationHelper::actions.each do |action| %>
 			<%= render partial:"wizard_action_params", locals: {action:action} %>
 		<% end %>
-		<a onclick='toStep("done")'>save recipe</a>
+		<center>
+		<h4>
+		<a onclick='toNextStep.apply(this)'>done</a>
+		</h4>
 	</li>
 
 
 	<li class='step done'>
+		<div class='wizard-progress'><a class='back'>back</a> </div>
 		thank you, recipe saved
 	</li>
 
