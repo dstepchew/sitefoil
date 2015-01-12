@@ -28,6 +28,11 @@ class RecipesController < ApplicationController
     @recipe = current_user.recipes.new
   end
 
+  def new_angular
+    @recipe = current_user.recipes.new
+    render layout: false
+  end
+
   def edit
   end
 

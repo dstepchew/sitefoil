@@ -3,9 +3,6 @@
 #site option {
 	font-size: 14px;
 }
-#recipe_animated {
-	font-size: 80px;
-}
 
 a {
 	cursor: pointer;
@@ -22,6 +19,23 @@ a {
 .trigger, .action {
 	cursor: pointer;
 }
+
+.step {
+	display:none;
+}
+
+ul.steps {
+	list-style: none;
+}
+
+.trigger_settings {
+	display: none;
+}
+
+.back {
+	display: none;
+}
+
 </style>
 
 <script>
@@ -29,7 +43,12 @@ a {
 function toStep(step_name) {
 
 	console && console.log("to step: "+step_name)
-	$(".step").css({opacity: 0.5})
+	$(".step").css({opacity: 0.5}) //hide all
+
+	$(".back").hide() //hide all
+
+	$(".step."+step_name).find(".back").show() //show back button in new step
+
 	$(".step."+step_name).show()
 		.animate({opacity: 1}, 500);
 
@@ -39,10 +58,28 @@ function toStep(step_name) {
 
 }
 
+function toTriggerParams(trigger_name) {
+	toStep("trigger_params");
+	$(".step.trigger_params .trigger_name").html(trigger_name)
+	$(".step.trigger_params .trigger_settings").hide()
+	$(".step.trigger_params .trigger_settings[data-trigger-name='"+trigger_name+"']").show();
+}
+
+function toActionParams(action_name) {
+	toStep("action_params");
+
+	$(".step.action_params .action_name").html(action_name);
+
+
+  $(".step.action_params .action_params").hide();
+  $(".step.action_params .action_params[data-action-name='"+action_name+"']").show()
+}
+
 
 function back() {
   $(this).parents(".step").hide();
   $(this).parents(".step").prev().show().animate({opacity: 1}, 500);
+  $(this).parents(".step").prev().find(".back").show();
 
   $('html, body').animate({
       scrollTop: $(this).parents(".step").prev().offset().top
@@ -68,11 +105,19 @@ function anotherTrigger() {
 
 }
 
+$(function() {
+	$(".step.site_select").show();
+
+	$("a.back").click(function() {
+		back.apply(this);
+	})
+
+})
+
 </script>
 
-<div id=recipe_animated>
-
-	<div class='step site' style='border-top:none;font-size:40px;'>
+<ul class="steps" id=recipe_animated>
+	<li class='step site_select' style='border-top:none;font-size:40px;'>
 		Select site:
 		<select id=site onChange='toStep("start")'>
 			<% current_user.sites.each do |site| %>
@@ -81,58 +126,65 @@ function anotherTrigger() {
 			<% end %>
 		</select>
 		or <a href=#>add site</a>
-	</div>
+	</li>
 
-	<div class='step start' style='opacity:0;display:none'>
-		<div class='wizard-progress'><a onclick='$("#site").val("");back.apply(this)'>back</a> </div>
-		if<a onclick='toStep("trigger")'>this</a> then that
-	</div>
+	<li class='step start'>
+		<div class='wizard-progress'><a onclick='$("#site").val("")' class='back'>back</a></div>
+		<h1>if <a onclick='toStep("trigger")'>this</a> then that</h1>
+	</li>
 
-	<div class='step trigger' style='opacity:0;display:none'>
-		<div class='wizard-progress'><a onclick='back.apply(this)'>back</a> </div>
-		Choose Trigger
+	<li class='step trigger'>
+		<div class='wizard-progress'><a class='back'>back</a> </div>
+		<h1>Choose Trigger</h1>
 		<div style='font-size:20px'>
 			<% ApplicationHelper::triggers.each do |trigger| %>
-			<div class=trigger onclick='toStep("trigger_params")'><%= trigger[:name] %></div>
+				<div class="trigger_select" onclick='toTriggerParams("<%= trigger[:name] %>")'><%= trigger[:name] %></div>
 			<% end %>
 		</div>
-	</div>
+	</li>
 
-	<div class='step trigger_params' style='opacity:0;display:none'>
-		<div class='wizard-progress'><a onclick='back.apply(this)'>back</a> </div>
-		Trigger params
-		<a class='done' onclick='toStep("action_or_another_trigger")'>done</a>
-	</div>
+	<li class='step trigger_params'>
+		<div class='wizard-progress'><a class='back'>back</a> </div>
+		<h2 class='trigger_name'>Trigger name</h2>
+		<% ApplicationHelper::triggers.each do |trigger| %>
+			<div class=trigger_settings data-trigger-name='<%= trigger[:name]%>'>
+				<select style='float:left'>
+					<%= render partial: "wizard_trigger_methods", locals: {trigger:trigger} %>
+				</select>
+				<%= render partial: "wizard_trigger_params", locals: {trigger:trigger} %>
+			</div>
+		<% end %>
+		<a onclick='anotherTrigger.apply(this)'>another trigger</a> or <a onclick='toStep("action")'>set action</a>
+	</li>
 
 
-	<div class='step action_or_another_trigger' style='opacity:0;display:none'>
-		<a onclick='anotherTrigger.apply(this)'>add another trigger</a> or <a onclick='toStep("action")'>set action</a>
-	</div>
-
-
-
-	<div class='step action' style='opacity:0;display:none'>
-		<div class='wizard-progress'><a onclick='back.apply(this)'>back</a> 	</div>
-		Choose Action
+	<li class='step action'>
+		<div class='wizard-progress'><a class='back'>back</a> </div>
+		<h1>Choose Action</h1>
 		<div style='font-size:20px'>
 			<% ApplicationHelper::actions.each do |action| %>
-
-			<div class=action onclick='toStep("action_params")'><%= action[:name] %></div>
-
+				<div class=action onclick='toActionParams("<%= action[:name] %>")'><%= action[:name] %></div>
 			<% end %>
 		</div>
+	</li>
+
+
+	<li class='step action_params'>
+		<div class='wizard-progress'><a class='back'>back</a> </div>
+		<h1 class='action_name'>Action Parameters</h1>
+		<% ApplicationHelper::actions.each do |action| %>
+			<%= render partial:"wizard_action_params", locals: {action:action} %>
+		<% end %>
+		<a onclick='toStep("done")'>save recipe</a>
+	</li>
+
+
+	<li class='step done'>
+		thank you, recipe saved
+	</li>
+
+
+	<div style='height:1000px'>
 	</div>
 
-
-	<div class='step action_params' style='opacity:0;display:none'>
-		<div class='wizard-progress'><a onclick='back.apply(this)'>back</a> </div>
-
-		Action Parameters
-
-	</div>
-
-
-	<div class='place holder' style='height:1000px'>
-	</div>
-
-</div>
+</ul>

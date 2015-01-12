@@ -1,0 +1,24 @@
+		<div class=trigger_param_template data-trigger-name='<%= trigger[:name] %>'>
+			<% if trigger[:possible_values] %>
+				<select id=trigger_param>
+					<% trigger[:possible_values].each do |val| %>
+						<% if val.class == Array %>
+							<option value='<%= val[0] %>'><%= val[1] %></option>
+						<% else %>
+							<option value='<%= val %>'><%= val %></option>
+						<% end %>
+					<% end %>
+				</select>
+			<% else %>
+				<% if trigger[:input_type] == :selector_pick %>
+					<input id=trigger_param>
+					<input type=button value='...' style='margin-left:-35px' 	class='selector_pick'>
+				<% else %>
+					<input id=trigger_param
+						<% if trigger[:input_type] %>
+						type=<%= trigger[:input_type].to_s %>
+						<% end %>
+					>
+				<% end %>
+			<% end %>
+		</div>

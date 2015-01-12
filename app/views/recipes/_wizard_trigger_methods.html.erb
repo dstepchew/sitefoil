@@ -1,0 +1,7 @@
+
+		<div class='trigger_methods' data-trigger-name='<%= trigger[:name] %>'>
+		  <option value=''>-- select method -- </option>
+			<% trigger[:methods].each do |method| %>
+			  <option value='<%= method %>'><%= ApplicationHelper::human_method(method) %></option>
+			<% end %>
+		</div>
