@@ -118,8 +118,14 @@ function anotherTrigger() {
 function back() {
 	var cur_step = $(this).parents(".step");
   cur_step.addClass("hidden_step").fadeOut(200*animation_speed).slideUp(200*animation_speed)
+  var prev_step = cur_step.prev()
+  console.log("back",prev_step)
 
-  activateStep(cur_step.prev())
+  while(!prev_step.is(":visible")) {
+  	prev_step = prev_step.prev()
+  }
+
+  activateStep(prev_step)
 
   //case for AND trigger
   if(cur_step.hasClass("trigger") && !cur_step.is($(".step.trigger:first")) ) {
@@ -177,16 +183,20 @@ function toStep(step_name) {
 
 }
 
-function toNextStep() {
+function toNextStep(step_name) {
 	var cur_step = $(this).parents(".step");
 	console.log("toNextStep cur_step:",cur_step,cur_step.attr("class"))
 	var next_step = cur_step.next();
+	if(step_name) {
+		next_step = $(".step."+step_name)
+	}
 	console.log("next_step:",next_step.attr("class"))
 	animateToNextStep(next_step);
 
 }
 
 $(function() {
+	$(".back").addClass("btn btn-default")
 	$(".step:first").show();
 
 	$(document).on("click","a.back",function() {
@@ -201,9 +211,14 @@ $(function() {
 		}
 		cur_step.next().slideUp(animation_speed*500).fadeOut(animation_speed*500,function() { $(this).remove(); updateTriggerDeleteButtons() })
 		cur_step.slideUp(animation_speed*500).fadeOut(animation_speed*500,function() { $(this).remove(); updateTriggerDeleteButtons() })
-
 		
 	});
+
+	var offset = new Date().getTimezoneOffset();
+	offset = -offset;
+	console.log('setting timezone to user browser timezone',-offset)
+	$("[name=site_timezone_minutes]").val(offset);
+
 
 })
 
@@ -212,42 +227,51 @@ $(function() {
 <ul class="steps" id=recipe_animated>
 	<% if !current_user %>
 		<li class='step account_create'>
-			<h1>Creating account</h1>
+			<h1>Sign up and create your first recipe</h1>
 			<table>
 			<tr>
 			<td>
-			email: 
+			your email: 
 			<td><input name=email><br>
 			<tr>
 			<td>
-			password: <td><input type=password name=password><br>
+			choose password: <td><input type=password name=password><br>
 			</table>
-			<a onclick=toNextStep.apply(this)>next</a>
-		</li>
-		<li class='step site_create'>
-			<div class='wizard-progress'><a onclick='$("#site").val("")' class='back'>back</a></div>
-			<h1>Specify your site</h1>
-			Url:<input name=site_url style='width:60%'><br>
-			Timezone:
-			<select>
-      <%= options_for_select ApplicationHelper::timezones %>
-      </select>
-      <br>
-			<a onclick=toNextStep.apply(this)>next</a>
+			<br>
+			<a onclick=toNextStep.apply(this) class='btn btn-default'>next</a>
 		</li>
 	<% else %>
 		<li class='step site_select'>
 				Select site:
-				<select id=site onChange='toNextStep.apply(this)'>
+				<select id=site onChange='toNextStep.apply(this,["start"])'>
 					<option value=''>--select site--</option>
 					<% current_user.sites.each do |site| %>
 						<option value=<%= site.id%>><%= site.name_or_url %></option>
 					<% end %>
 				</select>
-				or <a href=#>add site</a>
+				or <a onclick='toNextStep.apply(this)' class='btn btn-default'>add site</a>
 		</li>
 	<% end %>
-
+	<li class='step site_create'>
+		<div class='wizard-progress'><a onclick='$("#site").val("")' class='back'>back</a></div>
+		<h1>Specify your site</h1>
+		<table>
+			<tr>
+				<td>
+				Url:
+				<td><input name=site_url style='width:100%'><br>
+			<tr>
+				<td>
+				Timezone:
+				<td>
+				<select name='site_timezone_minutes'>
+		    <%= options_for_select ApplicationHelper::timezones %>
+		    </select>
+    </table>
+    <br>
+    <br>
+		<a onclick=toNextStep.apply(this) class='btn btn-default'>next</a>
+	</li>
 	<li class='step start'>
 		<div class='wizard-progress'><a onclick='$("#site").val("")' class='back'>back</a></div>
 		<h1>Create your recipe: if <a onclick='toNextStep.apply(this)'>this</a> then that</h1>
