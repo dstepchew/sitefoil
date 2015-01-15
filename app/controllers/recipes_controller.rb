@@ -1,6 +1,6 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy, :duplicate]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:new_animated]
 
 
   def duplicate
@@ -25,7 +25,8 @@ class RecipesController < ApplicationController
   end
 
   def new_animated
-    @recipe = current_user.recipes.new
+
+    
   end
 
 

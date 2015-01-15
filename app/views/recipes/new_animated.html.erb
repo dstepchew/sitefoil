@@ -159,6 +159,7 @@ function activateStep(show_step) {
 }
 
 function animateToNextStep(show_step) {
+	console.log("animateToNextStep",show_step.attr("class"))
 
 
 	$(".step").css({opacity: 0.5}).addClass("hidden_step") //hide all steps
@@ -178,13 +179,15 @@ function toStep(step_name) {
 
 function toNextStep() {
 	var cur_step = $(this).parents(".step");
+	console.log("toNextStep cur_step:",cur_step,cur_step.attr("class"))
 	var next_step = cur_step.next();
+	console.log("next_step:",next_step.attr("class"))
 	animateToNextStep(next_step);
 
 }
 
 $(function() {
-	$(".step.site_select").show();
+	$(".step:first").show();
 
 	$(document).on("click","a.back",function() {
 		back.apply(this);
@@ -207,20 +210,47 @@ $(function() {
 </script>
 
 <ul class="steps" id=recipe_animated>
-	<li class='step site_select' style='border-top:none;font-size:40px;'>
-		Select site:
-		<select id=site onChange='toNextStep.apply(this)'>
-			<option value=''>--select site--</option>
-			<% current_user.sites.each do |site| %>
-				<option value=<%= site.id%>><%= site.name_or_url %></option>
-			<% end %>
-		</select>
-		or <a href=#>add site</a>
-	</li>
+	<% if !current_user %>
+		<li class='step account_create'>
+			<h1>Creating account</h1>
+			<table>
+			<tr>
+			<td>
+			email: 
+			<td><input name=email><br>
+			<tr>
+			<td>
+			password: <td><input type=password name=password><br>
+			</table>
+			<a onclick=toNextStep.apply(this)>next</a>
+		</li>
+		<li class='step site_create'>
+			<div class='wizard-progress'><a onclick='$("#site").val("")' class='back'>back</a></div>
+			<h1>Specify your site</h1>
+			Url:<input name=site_url style='width:60%'><br>
+			Timezone:
+			<select>
+      <%= options_for_select ApplicationHelper::timezones %>
+      </select>
+      <br>
+			<a onclick=toNextStep.apply(this)>next</a>
+		</li>
+	<% else %>
+		<li class='step site_select'>
+				Select site:
+				<select id=site onChange='toNextStep.apply(this)'>
+					<option value=''>--select site--</option>
+					<% current_user.sites.each do |site| %>
+						<option value=<%= site.id%>><%= site.name_or_url %></option>
+					<% end %>
+				</select>
+				or <a href=#>add site</a>
+		</li>
+	<% end %>
 
 	<li class='step start'>
 		<div class='wizard-progress'><a onclick='$("#site").val("")' class='back'>back</a></div>
-		<h1>if <a onclick='toNextStep.apply(this)'>this</a> then that</h1>
+		<h1>Create your recipe: if <a onclick='toNextStep.apply(this)'>this</a> then that</h1>
 	</li>
 
 	<li class='step trigger'>
