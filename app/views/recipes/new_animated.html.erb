@@ -197,6 +197,7 @@ function toNextStep(step_name) {
 
 $(function() {
 	$(".back").addClass("btn btn-default")
+	$(".back").prepend("<i class='glyphicon glyphicon-chevron-up'></i> ")
 	$(".step:first").show();
 
 	$(document).on("click","a.back",function() {
@@ -241,6 +242,7 @@ $(function() {
 			<a onclick=toNextStep.apply(this) class='btn btn-default'>next</a>
 		</li>
 	<% else %>
+		<h1>New Recipe</h1>
 		<li class='step site_select'>
 				Select site:
 				<select id=site onChange='toNextStep.apply(this,["start"])'>
