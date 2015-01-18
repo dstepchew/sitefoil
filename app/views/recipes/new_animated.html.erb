@@ -194,11 +194,23 @@ function toNextStep(step_name) {
 	animateToNextStep(next_step);
 
 }
-
+ 
+function onSiteSelected() {
+	if($("#site").val()) {
+ 		toNextStep.apply(this,["trigger"])
+ 	}
+}
 $(function() {
-	$(".back").addClass("btn btn-default")
-	$(".back").prepend("<i class='glyphicon glyphicon-chevron-up'></i> ")
+	$(".back").addClass("btn btn-default").prepend("<i class='glyphicon glyphicon-chevron-up'></i> ")
 	$(".step:first").show();
+	var step = 1;
+	var total = $(".step").length-1;
+	$(".step").each(function() {
+		if(step<=total) {
+			$(this).find(".wizard-progress").append("step "+step+" of "+total+" ")
+			step++
+		}
+	})
 
 	$(document).on("click","a.back",function() {
 		back.apply(this);
@@ -226,26 +238,12 @@ $(function() {
 </script>
 
 <ul class="steps" id=recipe_animated>
-	<% if !current_user %>
-		<li class='step account_create'>
-			<h1>Sign up and create your first recipe</h1>
-			<table>
-			<tr>
-			<td>
-			your email: 
-			<td><input name=email><br>
-			<tr>
-			<td>
-			choose password: <td><input type=password name=password><br>
-			</table>
-			<br>
-			<a onclick=toNextStep.apply(this) class='btn btn-default'>next</a>
-		</li>
-	<% else %>
+	<% if current_user %>
 		<h1>New Recipe</h1>
 		<li class='step site_select'>
+				<div class='wizard-progress'></div>
 				Select site:
-				<select id=site onChange='toNextStep.apply(this,["start"])'>
+				<select id=site onChange='onSiteSelected.apply(this)'>
 					<option value=''>--select site--</option>
 					<% current_user.sites.each do |site| %>
 						<option value=<%= site.id%>><%= site.name_or_url %></option>
@@ -254,9 +252,20 @@ $(function() {
 				or <a onclick='toNextStep.apply(this)' class='btn btn-default'>add site</a>
 		</li>
 	<% end %>
+
 	<li class='step site_create'>
-		<div class='wizard-progress'><a onclick='$("#site").val("")' class='back'>back</a></div>
+	
+		<div class='wizard-progress'>
+			<% if current_user %>
+				<a  class='back'>back</a>
+			<% end %>
+		</div>
 		<h1>Specify your site</h1>
+		<% if !current_user %>
+		<a href=/users/sign_in>already have account?</a>
+		<br>
+		<br>
+		<% end %>
 		<table>
 			<tr>
 				<td>
@@ -274,13 +283,10 @@ $(function() {
     <br>
 		<a onclick=toNextStep.apply(this) class='btn btn-default'>next</a>
 	</li>
-	<li class='step start'>
-		<div class='wizard-progress'><a onclick='$("#site").val("")' class='back'>back</a></div>
-		<h1>Create your recipe: if <a onclick='toNextStep.apply(this)'>this</a> then that</h1>
-	</li>
 
 	<li class='step trigger'>
 		<div class='wizard-progress'><a class='back'>back</a> </div>
+		<h1>if <b>this</b> then that</h1>
 		<button type="button" class="btn btn-danger btn-circle trigger_delete">
     		<i class="glyphicon fa fa-trash"></i>
     </button>
@@ -305,7 +311,8 @@ $(function() {
 		<% end %>
 		<center>
 		<h3>
-		<a onclick='anotherTrigger.apply(this)'>AND another condition (trigger)</a> or <a onclick='toNextStep.apply(this)'>set action</a>
+		<a onclick='toNextStep.apply(this)'>set action</a> or
+		<a onclick='anotherTrigger.apply(this)'>AND another condition (trigger)</a> 
 		</h3>
 		</center>
 	</li>
@@ -330,10 +337,27 @@ $(function() {
 		<% end %>
 		<center>
 		<h4>
-		<a onclick='toNextStep.apply(this)'>done</a>
+		<a onclick='toNextStep.apply(this)'>save recipe</a>
 		</h4>
 	</li>
 
+	<% if !current_user %>
+		<li class='step account_create'>
+			<div class='wizard-progress'><a onclick='$("#site").val("")' class='back'>back</a></div>
+			<h1>REGISTER TO COMPLETE YOUR FIRST RECIPE</h1>
+			<table>
+			<tr>
+			<td>
+			your email: 
+			<td><input name=email><br>
+			<tr>
+			<td>
+			choose password: <td><input type=password name=password><br>
+			</table>
+			<br>
+			<a onclick=toNextStep.apply(this) class='btn btn-default'>next</a>
+		</li>
+	<% end %>
 
 	<li class='step done'>
 		<div class='wizard-progress'><a class='back'>back</a> </div>
