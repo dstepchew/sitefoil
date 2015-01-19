@@ -1,3 +1,9 @@
+<%
+=begin
+RECIPE CREATE TEST, chrome browser console code:
+animation_speed=0.1;$('#site option:last-child').attr("selected", "selected").trigger("change");$(".trigger_select:first").trigger("click");$(".trigger_params:visible select option:eq(1)").attr('selected','selected');$("#set_action").trigger("click");$("#alert").click();$(".action_params[data-action-name=alert] .action_param").val("test");$("#save_recipe").trigger("click");
+=end
+%>
 <style>
 
 #site option {
@@ -200,6 +206,35 @@ function onSiteSelected() {
  		toNextStep.apply(this,["trigger"])
  	}
 }
+
+function getRecipeStructure() {
+
+	var ret = {triggers:[],action:{}};
+
+	$(".step.trigger_params:visible").each(function() {
+		ret.triggers.push({
+			name: $(this).find(".trigger_name").html(),
+			method: $(this).find("#trigger_method").val(),
+			param: $(this).find("#trigger_param").val()
+		})
+	})
+
+
+	ret.action.name = $(".step.action_params .action_name").html()
+	ret.action.params = []
+	$(".step.action_params .action_params:visible .action_param").each(function() {
+		ret.action.params.push( {
+			name: $(this).attr("name"),
+			val: $(this).val()
+		})
+	})
+	return ret;
+}
+
+function saveRecipe() {
+	console.log("SAVING RECIPE", getRecipeStructure());
+}
+
 $(function() {
 	$(".back").addClass("btn btn-default").prepend("<i class='glyphicon glyphicon-chevron-up'></i> ")
 	$(".step:first").show();
@@ -304,7 +339,7 @@ $(function() {
 		<h2 class='trigger_name'>Trigger name</h2>
 		<% ApplicationHelper::triggers.each do |trigger| %>
 			<div class=trigger_settings data-trigger-name='<%= trigger[:name]%>'>
-				<select style='float:left'>
+				<select style='float:left' id='trigger_method'>
 					<%= render partial: "wizard_trigger_methods", locals: {trigger:trigger} %>
 				</select>
 				<%= render partial: "wizard_trigger_params", locals: {trigger:trigger} %>
@@ -312,7 +347,7 @@ $(function() {
 		<% end %>
 		<center>
 		<h3>
-		<a onclick='toNextStep.apply(this)'>set action</a> or
+		<a onclick='toNextStep.apply(this)' id=set_action>set action</a> or
 		<a onclick='anotherTrigger.apply(this)'>AND another condition (trigger)</a> 
 		</h3>
 		</center>
@@ -324,7 +359,7 @@ $(function() {
 		<h1>Choose Action</h1>
 		<div style='font-size:20px'>
 			<% ApplicationHelper::actions.each do |action| %>
-				<div class="action_select" onclick='toActionParams("<%= action[:name] %>")'><%= action[:name] %></div>
+				<div class="action_select" id="<%= action[:name] %>" onclick='toActionParams("<%= action[:name] %>")'><%= action[:name] %></div>
 			<% end %>
 		</div>
 	</li>
@@ -338,7 +373,7 @@ $(function() {
 		<% end %>
 		<center>
 		<h4>
-		<a onclick='toNextStep.apply(this)'>save recipe</a>
+		<a id=save_recipe onclick='saveRecipe();toNextStep.apply(this)'>save recipe</a>
 		</h4>
 	</li>
 
