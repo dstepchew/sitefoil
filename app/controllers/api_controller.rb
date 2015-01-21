@@ -1,6 +1,24 @@
 class ApiController < ApplicationController
 
 
+  def recipe_create
+    if params[:recipe_json]
+
+      recipe_attr = JSON::parse params[:recipe_json]
+
+      site = current_user.sites.find_by_id recipe_attr["site_id"]
+      
+      recipe = site.recipes.new(recipe_attr)
+
+      if recipe.save
+        render text: {message: "recipe created #{recipe.id}"}.to_json
+      else 
+        render text: {error: "recipe not created, error while saving recipe #{@recipe.errors}"}.to_json
+      end
+
+    end    
+  end
+
   def test_site
     site = current_user.sites.find(params[:site_id])
     render text:{

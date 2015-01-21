@@ -2,22 +2,18 @@
 #
 # Table name: recipes
 #
-#  id              :integer          not null, primary key
-#  name            :string(255)
-#  status          :string(255)
-#  hits            :integer
-#  description     :text
-#  created_at      :datetime
-#  updated_at      :datetime
-#  site_id         :integer
-#  trigger_id      :string(255)
-#  act_id          :string(255)
-#  trig_channel_id :string(255)
-#  act_channel_id  :string(255)
-#  js              :text
-#  wizard_json     :text
-#  enabled         :boolean          default(TRUE)
-#  hit_last_time   :datetime
+#  id            :integer          not null, primary key
+#  name          :string(255)
+#  status        :string(255)
+#  hits          :integer
+#  description   :text
+#  created_at    :datetime
+#  updated_at    :datetime
+#  site_id       :integer
+#  js            :text
+#  wizard_json   :text
+#  enabled       :boolean          default(TRUE)
+#  hit_last_time :datetime
 #
 
 class Recipe < ActiveRecord::Base

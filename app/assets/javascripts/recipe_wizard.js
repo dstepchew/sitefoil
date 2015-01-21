@@ -155,8 +155,7 @@ function recipe_save() {
      var trigger = {
      	name: $(this).find("#trigger_name").val(),
      	method: $(this).find("#trigger_method").val(),
-      param: $(this).find("#trigger_param").val(),
-      logic: $(this).find("#logic").val()}
+      param: $(this).find("#trigger_param").val()}
      recipe.triggers.push(trigger)
   })
 
@@ -187,18 +186,21 @@ function recipe_restore(json) {
 	if(json) {
 		try {
 		  var recipe = JSON.parse(json)
-
 		  recipe.triggers = recipe.triggers || recipe.conditions
 
 	  } catch(err) {
 	  	alert("bad recipe data")
 	  	return;
 	  }
-		_.each(recipe.triggers,function(trigger) {
-			$(".trigger").last().find("#trigger_name").val(trigger.name).trigger("change")
-			$(".trigger").last().find("#trigger_method").val(trigger.method).trigger("change")
-			$(".trigger").last().find("#trigger_param").val(trigger.param).trigger("change")
-			$(".trigger").last().find("#logic").val(trigger.logic).trigger("change")
+
+		_.each(recipe.triggers,function(trigger,i) {
+			console.log(trigger,i)
+			$(".trigger:last #trigger_name").val(trigger.name).trigger("change")
+			$(".trigger:last #trigger_method").val(trigger.method).trigger("change")
+			$(".trigger:last #trigger_param").val(trigger.param).trigger("change")
+			if((i+1)<recipe.triggers.length) {
+				$(".trigger:last #logic").val("&&").trigger("change")
+			}
 		})
 
 		$("#action").val(recipe.action.name).trigger("change")

@@ -24,9 +24,7 @@ class RecipesController < ApplicationController
     @recipe = current_user.recipes.new
   end
 
-  def new_animated
-
-    
+  def new_animated    
   end
 
 

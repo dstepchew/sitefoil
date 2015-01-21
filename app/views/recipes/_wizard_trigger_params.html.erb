@@ -1,6 +1,6 @@
 		<div class=trigger_param_template data-trigger-name='<%= trigger[:name] %>'>
 			<% if trigger[:possible_values] %>
-				<select id=trigger_param>
+				<select id=trigger_param class=trigger_param>
 					<% trigger[:possible_values].each do |val| %>
 						<% if val.class == Array %>
 							<option value='<%= val[0] %>'><%= val[1] %></option>

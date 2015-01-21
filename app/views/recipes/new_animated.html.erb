@@ -85,9 +85,9 @@ var animation_speed = 1;
 function toTriggerParams(trigger_name) {
 	$(this).addClass("selected")
 	toNextStep.apply(this);
-	$(".step.trigger_params .trigger_name").html(trigger_name)
-	$(".step.trigger_params .trigger_settings").hide()
-	$(".step.trigger_params .trigger_settings[data-trigger-name='"+trigger_name+"']").show()
+	$(".step.trigger_params:last .trigger_name").html(trigger_name)
+	$(".step.trigger_params:last .trigger_settings").hide()
+	$(".step.trigger_params:last .trigger_settings[data-trigger-name='"+trigger_name+"']").show()
 }
 
 function toActionParams(action_name) {
@@ -214,8 +214,8 @@ function getRecipeStructure() {
 	$(".step.trigger_params:visible").each(function() {
 		ret.triggers.push({
 			name: $(this).find(".trigger_name").html(),
-			method: $(this).find("#trigger_method").val(),
-			param: $(this).find("#trigger_param").val()
+			method: $(this).find(".trigger_settings:visible .trigger_method").val(),
+			param: $(this).find(".trigger_settings:visible .trigger_param").val()
 		})
 	})
 
@@ -232,7 +232,15 @@ function getRecipeStructure() {
 }
 
 function saveRecipe() {
-	console.log("SAVING RECIPE", getRecipeStructure());
+	var recipe_struct = {wizard_json: JSON.stringify(getRecipeStructure()), site_id: $("#site").val()}
+	console.log("SAVING RECIPE", recipe_struct);
+
+	$.get("/api/recipe_create", {recipe_json: JSON.stringify(recipe_struct)}, function(resp) {
+		console.log("response",resp)
+
+	})
+
+
 }
 
 $(function() {
@@ -339,7 +347,7 @@ $(function() {
 		<h2 class='trigger_name'>Trigger name</h2>
 		<% ApplicationHelper::triggers.each do |trigger| %>
 			<div class=trigger_settings data-trigger-name='<%= trigger[:name]%>'>
-				<select style='float:left' id='trigger_method'>
+				<select style='float:left' class='trigger_method'>
 					<%= render partial: "wizard_trigger_methods", locals: {trigger:trigger} %>
 				</select>
 				<%= render partial: "wizard_trigger_params", locals: {trigger:trigger} %>
@@ -347,8 +355,8 @@ $(function() {
 		<% end %>
 		<center>
 		<h3>
-		<a onclick='toNextStep.apply(this)' id=set_action>set action</a> or
-		<a onclick='anotherTrigger.apply(this)'>AND another condition (trigger)</a> 
+		<a onclick='anotherTrigger.apply(this)'>AND another condition (trigger)</a> or
+		<a onclick='toNextStep.apply(this)' id=set_action>set action</a>
 		</h3>
 		</center>
 	</li>
