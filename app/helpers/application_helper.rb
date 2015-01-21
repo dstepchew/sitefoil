@@ -1,4 +1,4 @@
-module ApplicationHelper
+ module ApplicationHelper
 
 
   def self.timezones
@@ -37,6 +37,13 @@ module ApplicationHelper
 	end
 
 
+  def self.trigger_by_name name
+    self.triggers.each { |trigger|
+      return trigger if trigger[:name] == name
+    }
+    nil
+  end
+
 	def self.triggers
 		[
       { name: 'conversion rate percent', js: 'site.conversion_rate', methods: ['==?','>=?','<=?'], input_type: :number},
@@ -65,6 +72,12 @@ module ApplicationHelper
 	  ]
 	end
 
+  def self.action_by_name name
+    self.actions.each { |action| 
+      return action if action[:name]==name
+    }
+    nil
+  end
 	def self.actions
     [
       { name: 'custom site footer', js: 'sitefoil.footer_show(":html")', params: [{name: :html, input_type: :textarea }] },

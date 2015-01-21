@@ -25,6 +25,41 @@ class Recipe < ActiveRecord::Base
 	belongs_to :site
 	validates :site_id, presence: true
 
+
+	def js_generate
+
+		wizard_structure = JSON::parse self.wizard_json
+
+
+		triggers_js = ""
+		wizard_structure["triggers"].each do |wizard_trigger|
+			trigger = ApplicationHelper::trigger_by_name wizard_trigger["name"]
+			if wizard_trigger["method"] && wizard_trigger["method"].include?("?")
+				trigger_js = trigger[:js] + wizard_trigger["method"].gsub("?",wizard_trigger["param"])
+			else
+				trigger_js = trigger[:js] + wizard_trigger["method"]
+			end
+			triggers_js += " && " if !triggers_js.blank?
+			triggers_js += "(#{trigger_js})"
+		end
+
+		action_js = ""
+
+		action = ApplicationHelper::action_by_name wizard_structure["action"]["name"]
+
+		action_js = action[:js]
+		wizard_structure["action"]["params"].each { |action_param|			
+			action_js.gsub! '":'+action_param["name"]+'"', 'decodeURIComponent("'+URI.escape(action_param["val"].to_s, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))+'")'
+			action_js.gsub! ":"+action_param["name"], action_param["val"].to_s
+		}
+
+		#tracking recipe hit code injection
+		action_js = "  sitefoil.report_recipe_hit(recipe_id)\r\n  "+action_js
+
+		"if("+triggers_js+") { \r\n"+action_js+"\r\n}"
+
+	end
+
 	def name_or_action
 		return self['name'] if !self['name'].blank?
 		begin

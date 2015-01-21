@@ -138,9 +138,9 @@ function buildRecipe() {
   	action_js = action_js.replace('":'+name+'"', 'decodeURIComponent("'+encodeURIComponent(val)+'")')
   	action_js = action_js.replace(':'+name, val)
 
-  	action_js = "sitefoil.report_recipe_hit(recipe_id)\n"+action_js
   })
 
+  action_js = "sitefoil.report_recipe_hit(recipe_id)\n"+action_js
 	js = "if("+trigger_js+") { "+action_js+" }";
 
 	$("#recipe_js").val(js)
