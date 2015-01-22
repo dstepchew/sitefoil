@@ -25,11 +25,17 @@ class Recipe < ActiveRecord::Base
 	belongs_to :site
 	validates :site_id, presence: true
 
+	before_save :js_build
+
+	def js_build
+		if self.wizard_json_changed?
+			self.js = (self.js_generate rescue nil)
+		end
+	end
 
 	def js_generate
 
 		wizard_structure = JSON::parse self.wizard_json
-
 
 		triggers_js = ""
 		wizard_structure["triggers"].each do |wizard_trigger|

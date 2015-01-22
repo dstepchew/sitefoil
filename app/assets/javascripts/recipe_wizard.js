@@ -76,7 +76,6 @@ function onConditionDelete() {
 		$(trigger).remove();
 	}
 	adjustRemoveRecipeButtons();
-	buildRecipe();
 }
 
 function onActionChange() {
@@ -89,65 +88,6 @@ function onActionChange() {
 	}
 }
 
-function buildRecipe() {
-	console.log("build recipe")
-	var js = "";
-	var trigger_js = ""
-
-	$("#triggers .trigger").each(function() {
-		var trigger_name = $(this).find("#trigger_name").val()
-		console.log(trigger_name)
-		var trigger_name_js = $(this).find("#trigger_name option[value='"+trigger_name+"']").attr('data-js')
-		console.log(trigger_name_js)
-		var method_js = $(this).find("#trigger_method").val()
-		console.log("method_js",method_js)
-		var value_js = $(this).find("#trigger_param").val()
-
-		var this_trigger_js;
-
-
-		if(method_js && _.str.contains(method_js,"?")) {
-	    this_trigger_js = trigger_name_js+method_js.replace("?",value_js)
-		} else {
-			this_trigger_js = trigger_name_js+method_js
-		}
-
-		trigger_js = trigger_js + "("+this_trigger_js+") "
-
-		var logic = $(this).find("#logic").val()
-		if(logic) {
-			trigger_js = trigger_js + " "+logic+" "
-		}
-  })
-
-  var action_js;
-
-  var action_name = $("#action").val()
-  console.log("action name", action_name)
-  var action_js = $("#action option[value='"+action_name+"']").attr("data-js")
-
-  $("#action_params input, #action_params textarea").each(function() {
-  	var name = $(this).attr("name")
-  	var val;
-  	if($(this).attr("type")=="checkbox") {
- 			val = $(this).is(":checked")
-  	} else {
-  		val = $(this).val();
-  	}
-  	console.log("action_param input: ", name, val)
-  	action_js = action_js.replace('":'+name+'"', 'decodeURIComponent("'+encodeURIComponent(val)+'")')
-  	action_js = action_js.replace(':'+name, val)
-
-  })
-
-  action_js = "sitefoil.report_recipe_hit(recipe_id)\n"+action_js
-	js = "if("+trigger_js+") { "+action_js+" }";
-
-	$("#recipe_js").val(js)
-
-	$("#recipe_wizard_json").val(recipe_save)
-
-}
 
 function recipe_save() {
 	var recipe = {triggers:[],action:{}}
@@ -217,14 +157,12 @@ function recipe_restore(json) {
 }
 
 
-function js_show() {
-	$("#recipe_js").parents(".form-group").show()
-}
 $(function() {
   recipe_restore($("#recipe_wizard_json").val())
   adjustRemoveRecipeButtons();
 
-  $("body").on("change","select, .action_param",buildRecipe)
-  $("body").on("keyup change","input, .action_param",buildRecipe)
-  $("body").on("submit","form",buildRecipe)
+  $("form").submit(function() {
+  	$("#recipe_wizard_json").val(recipe_save())
+  });
+
 })

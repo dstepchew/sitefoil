@@ -3,7 +3,7 @@
   <script>
   $(function() {
     //autoselect one site if there is only one
-    if($("select#recipe_site_id option").length==2) {
+    if($("select#recipe_site_id option").length==1) {
       $("select#recipe_site_id option:eq(1)").attr("selected","selected")
     }
   })
@@ -82,10 +82,6 @@
               = f.label :name, "JSON"
               %br/
               = f.text_area :wizard_json, rows: 3, class: "form-control"
-            .form-group{ style: 'display:none' }
-              = f.label :name, "JS"
-              %br/
-              = f.text_area :js, rows: 3, class: "form-control"
         .row
           .col-xs-12.col-sm-4.col-md-4.text-center
           .col-xs-12.col-sm-4.col-md-4.text-center
