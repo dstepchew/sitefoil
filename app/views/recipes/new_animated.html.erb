@@ -233,9 +233,20 @@ function getRecipeStructure() {
 
 function saveRecipe() {
 	var recipe_struct = {wizard_json: JSON.stringify(getRecipeStructure()), site_id: $("#site").val()}
+
 	console.log("SAVING RECIPE", recipe_struct);
 
-	$.get("/api/recipe_create", {recipe_json: JSON.stringify(recipe_struct)}, function(resp) {
+	var params = {recipe_json: JSON.stringify(recipe_struct)}
+
+	if($(".step.site_create").is(":visible")) {
+		params.site = JSON.stringify({	
+				url:$("input[name=site_url]").val(), 
+				timezone_minutes: $("select[name=site_timezone_minutes]").val()
+			})
+	}
+
+
+	$.get("/api/recipe_create", params, function(resp) {
 		console.log("response",resp)
 
 	})

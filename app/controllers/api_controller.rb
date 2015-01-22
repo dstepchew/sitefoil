@@ -6,7 +6,11 @@ class ApiController < ApplicationController
 
       recipe_attr = JSON::parse params[:recipe_json]
 
-      site = current_user.sites.find_by_id recipe_attr["site_id"]
+      if params[:site]
+        site = current_user.sites.create JSON::parse(params[:site])
+      else
+        site = current_user.sites.find_by_id recipe_attr["site_id"]
+      end
       
       recipe = site.recipes.new(recipe_attr)
 
