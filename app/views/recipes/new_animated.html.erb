@@ -258,7 +258,6 @@ function saveRecipe(on_success) {
 		var resp = JSON.parse(resp)
 		console.log("response",resp)
 		if(resp.error) {
-			resp.error = JSON.parse(resp.error)
 			for(var i=0;i<resp.error.length;i++) {
 				alert(resp.error[i])
 			}

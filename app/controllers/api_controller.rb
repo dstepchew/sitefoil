@@ -8,7 +8,7 @@ class ApiController < ApplicationController
       if !current_user && params[:user]
         user = User.new JSON::parse(params[:user])
         if !user.save
-          render text: {error: user.errors.full_messages.to_json}.to_json
+          render text: {error: user.errors.full_messages}.to_json
           return
         end
       else
