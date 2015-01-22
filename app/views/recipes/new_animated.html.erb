@@ -231,7 +231,7 @@ function getRecipeStructure() {
 	return ret;
 }
 
-function saveRecipe() {
+function saveRecipe(on_success) {
 	var recipe_struct = {wizard_json: JSON.stringify(getRecipeStructure()), site_id: $("#site").val()}
 
 	console.log("SAVING RECIPE", recipe_struct);
@@ -245,9 +245,26 @@ function saveRecipe() {
 			})
 	}
 
+	if($(".step.account_create").is(":visible")) {
+		params.user = JSON.stringify({
+			email:$("#email").val(),
+			full_name: $("#full_name").val(),
+			password:$("#password").val()
+		})
+	}
+
 
 	$.get("/api/recipe_create", params, function(resp) {
+		var resp = JSON.parse(resp)
 		console.log("response",resp)
+		if(resp.error) {
+			resp.error = JSON.parse(resp.error)
+			for(var i=0;i<resp.error.length;i++) {
+				alert(resp.error[i])
+			}
+		} else {
+			on_success()
+		}
 
 	})
 
@@ -286,6 +303,9 @@ $(function() {
 	console.log('setting timezone to user browser timezone',-offset)
 	$("[name=site_timezone_minutes]").val(offset);
 
+	$("form#register").submit(function(e) {
+		e.preventDefault();
+	})
 
 })
 
@@ -324,7 +344,7 @@ $(function() {
 			<tr>
 				<td>
 				Url:
-				<td><input name=site_url style='width:100%'><br>
+				<td><input id=site_url name=site_url style='width:100%'><br>
 			<tr>
 				<td>
 				Timezone:
@@ -392,7 +412,12 @@ $(function() {
 		<% end %>
 		<center>
 		<h4>
-		<a id=save_recipe onclick='saveRecipe();toNextStep.apply(this)'>save recipe</a>
+
+		<% if !current_user %>
+			<a id=save_recipe onclick='toNextStep.apply(this)'>register and save recipe</a>
+		<% else %>
+			<a id=save_recipe onclick='saveRecipe(function() {toNextStep.apply(this)})'>save recipe</a>	
+		<% end %>
 		</h4>
 	</li>
 
@@ -400,23 +425,29 @@ $(function() {
 		<li class='step account_create'>
 			<div class='wizard-progress'><a onclick='$("#site").val("")' class='back'>back</a></div>
 			<h1>REGISTER TO COMPLETE YOUR FIRST RECIPE</h1>
-			<table>
-			<tr>
-			<td>
-			your email: 
-			<td><input name=email><br>
-			<tr>
-			<td>
-			choose password: <td><input type=password name=password><br>
-			</table>
-			<br>
-			<a onclick=toNextStep.apply(this) class='btn btn-default'>next</a>
+			<form id=register>
+				<table>
+				<tr>
+					<td>
+					your email: 
+					<td><input name=email id=email><br>
+				<tr>
+					<td>
+					full name:
+					<td><input name=full_name id=full_name><br>
+				<tr>
+					<td>
+					choose password: <td><input type=password name=password id=password><br>
+				</table>
+				<br>
+				<input type=submit id=done onclick='var self = this; saveRecipe(function() {toNextStep.apply(self)})' class='btn btn-default' value='done'>
+			</form>
 		</li>
 	<% end %>
 
 	<li class='step done'>
 		<div class='wizard-progress'><a class='back'>back</a> </div>
-		thank you, recipe saved
+		<span class=message>thank you, recipe saved</span>
 	</li>
 
 
