@@ -106,10 +106,10 @@ ActiveRecord::Schema.define(version: 20150121114349) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "site_id",       limit: 255
+    t.integer  "site_id"
     t.text     "js"
     t.text     "wizard_json"
-    t.boolean  "enabled",                   default: true
+    t.boolean  "enabled",       default: true
     t.datetime "hit_last_time"
   end
 
