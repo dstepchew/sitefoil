@@ -89,7 +89,7 @@ end
             <div class="row">
               <div class="col-md-12 col-sm-12">
 
-                <h4><strong>Site:</strong> <%= recipe.site.url rescue '' %></h4>
+                <h4><strong>Site:</strong> <a href=<%= recipe.site.url rescue '' %> target=_blank><%= recipe.site.url rescue '' %></a></h4>
                 <h4><strong>Status:</strong> <%= recipe.enabled ? "running" : "disabled" %></h4>
                 <h4><strong>Times Ran:</strong> <%= recipe.hits %></h4>
                 <h4><strong>Last Run:</strong> <%= recipe.hit_last_time_human %></h4>

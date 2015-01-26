@@ -88,7 +88,8 @@
     	{ name: 'autofill', js: 'document.querySelector(":selector").value=":value"', params:[{name: :selector, input_type: :selector_pick},:value] },
       { name: 'autofill and submit', js: 'sitefoil.autofill_and_submit(":selector",":value")', params:[{name: :selector, input_type: :selector_pick},:value]},
     	{ name: 'send email', js: 'this.email_to(":to_email",":message")', params: [:to_email,:message] },
-      { name: 'console log', js: 'console.log(":message")', params: [:message]}
+      { name: 'console log', js: 'console.log(":message")', params: [:message]},
+      { name: 'run javascript', js: ':javascript', params: [{name: :javascript, input_type: :textarea}] }
     ]
   end
 

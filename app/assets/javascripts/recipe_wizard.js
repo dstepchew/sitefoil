@@ -110,7 +110,7 @@ function recipe_save() {
    if($(this).attr("type")=="checkbox") {
    	val = $(this).is(":checked")
    } else {
-   	val = encodeURIComponent($(this).val())
+   	val = $(this).val()
    }
    var param = {name:$(this).attr("name"),val: val}
    recipe.action.params.push(param)
