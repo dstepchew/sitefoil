@@ -4,6 +4,8 @@ class ApiController < ApplicationController
   def recipe_create
     if params[:recipe_json]
 
+      recipe_attr = JSON::parse params[:recipe_json]
+
 
       if !current_user && params[:user]
         user = User.new JSON::parse(params[:user])
@@ -22,7 +24,6 @@ class ApiController < ApplicationController
       end
       
 
-      recipe_attr = JSON::parse params[:recipe_json]
       recipe = site.recipes.new(recipe_attr)
 
       if recipe.save

@@ -28,9 +28,7 @@ class Recipe < ActiveRecord::Base
 	before_save :js_build
 
 	def js_build
-		if self.wizard_json_changed?
-			self.js = (self.js_generate rescue nil)
-		end
+		self.js = (self.js_generate rescue nil)
 	end
 
 	def js_generate
@@ -55,7 +53,7 @@ class Recipe < ActiveRecord::Base
 
 		action_js = action[:js]
 		wizard_structure["action"]["params"].each { |action_param|			
-			action_js.gsub! '":'+action_param["name"]+'"', 'decodeURIComponent("'+URI.escape(action_param["val"].to_s, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))+'")'
+			action_js.gsub! '":'+action_param["name"]+'"', 'unescape(decodeURIComponent("'+URI.escape(action_param["val"].to_s, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))+'"))'
 			action_js.gsub! ":"+action_param["name"], action_param["val"].to_s
 		}
 

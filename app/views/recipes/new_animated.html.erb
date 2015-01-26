@@ -415,7 +415,7 @@ $(function() {
 		<% if !current_user %>
 			<a id=save_recipe onclick='toNextStep.apply(this)'>register and save recipe</a>
 		<% else %>
-			<a id=save_recipe onclick='saveRecipe(function() {toNextStep.apply(this)})'>save recipe</a>	
+			<a id=save_recipe onclick='var self = this; saveRecipe(function() {toNextStep.apply(self)})'>save recipe</a>	
 		<% end %>
 		</h4>
 	</li>
