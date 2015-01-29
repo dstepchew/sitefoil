@@ -4,6 +4,10 @@ RECIPE CREATE TEST, chrome browser console code:
 animation_speed=0.1;$('#site option:last-child').attr("selected", "selected").trigger("change");$(".trigger_select:first").trigger("click");$(".trigger_params:visible select option:eq(1)").attr('selected','selected');$("#set_action").trigger("click");$("#alert").click();$(".action_params[data-action-name=alert] .action_param").val("test");$("#save_recipe").trigger("click");
 =end
 %>
+<script src=/bower_components/underscore/underscore-min.js></script>
+<script src=/bower_components/underscore.string/dist/underscore.string.min.js></script>
+<script src=/bower_components/webshim/js-webshim/minified/polyfiller.js></script>
+
 <style>
 
 .step {
@@ -90,6 +94,14 @@ select, input[type=text], input[type=date], input[type=time], #recipe {
 }
 
 
+textarea.action_param {
+	width:100%;
+}
+
+.trigger_settings {
+	min-height: 40px;
+}
+
 </style>
 
 <script>
@@ -102,6 +114,7 @@ function toTriggerParams(trigger_name) {
 	$(".step.trigger_params:last .trigger_name").html(trigger_name)
 	$(".step.trigger_params:last .trigger_settings").hide()
 	$(".step.trigger_params:last .trigger_settings[data-trigger-name='"+trigger_name+"']").show()
+	$(".step.trigger_params:last .trigger_settings[data-trigger-name='"+trigger_name+"'] #trigger_param").hide()
 }
 
 function toActionParams(action_name) {
@@ -320,6 +333,12 @@ $(function() {
 	$("form#register").submit(function(e) {
 		e.preventDefault();
 	})
+
+	$(document).on("change",".step.trigger_params .trigger_settings .trigger_method",function() {
+		var method = $(this).val()
+		$(this).next().find("#trigger_param").toggle(_.str.contains(method,"?"))
+	});
+
 
 })
 
