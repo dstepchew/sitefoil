@@ -318,7 +318,7 @@ $(function() {
 	var total = $(".step").length-1;
 	$(".step").each(function() {
 		if(step<=total) {
-			$(this).find(".wizard-progress").append("step "+step+" of "+total+" ")
+			$(this).find(".wizard-progress").append(" step "+step+" of "+total+" ")
 			step++
 		}
 	})
