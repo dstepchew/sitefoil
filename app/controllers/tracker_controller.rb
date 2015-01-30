@@ -50,7 +50,9 @@ class TrackerController < ApplicationController
       conversion_rate: @site.conversion_rate, 
       conversion_rate_24_hours: @site.conversion_rate_24_hours,
       timezone_string: @site.timezone_string}
-     render "index", :content_type => "application/javascript"
+     js = render_to_string "index"
+     js = Uglifier.new.compile(js)
+     render text: js, content_type: "application/javascript"
   end
 
   def user_agent_to_os_name user_agent
