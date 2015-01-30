@@ -2,17 +2,17 @@
 			<% action[:params].each do |param| %>
 				<% param_name = (param[:name] rescue param) %>
 				<% if (param[:input_type] rescue false) == :selector_pick %>
-					<%= (param[:caption] || param_name) rescue param_name %>:
+					<%= ((param[:caption] || param_name) rescue param_name).to_s.gsub("_"," ") %>:
 					<input class='action_param' name=<%= param_name %>>
 					<input type=button value='...' style='margin-left:-35px' 	class='selector_pick'>
 				<% elsif (param[:input_type] rescue false) == :textarea %>
-					<br><%= (param[:caption] || param_name) rescue param_name %>:<br>
+					<br><%= ((param[:caption] || param_name) rescue param_name).to_s.gsub("_"," ") %>:<br>
 					<textarea class=action_param name=<%= param_name %>></textarea>
 				<% elsif (param[:input_type] rescue false) == :checkbox %>
 					<input id=<%= param_name%> type=checkbox class=action_param name=<%= param_name %>>
 					<label for=<%= param_name%>> <%= (param[:caption] || param_name) rescue param_name %></label><br>
 				<% else %>
-					<%= param_name %>: <input class=action_param name=<%= param_name %>>
+					<%= param_name.to_s.gsub("_"," ") %>: <input class=action_param name=<%= param_name %>>
 				<% end %>
 			<% end %>
 		</div>

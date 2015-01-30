@@ -81,12 +81,16 @@ ul.steps {
 	padding: 5px 10px;
 }
 
-select, input[type=text], input[type=date], input[type=time], #recipe { 
+select, input[type=text], input[type=date], input[type=time], #recipe, #trigger_param, .action_param { 
 	border:0; color:#000000; background: #fff;
 	font-size:20px; font-weight:bold; padding:2px 10px; 
  *background:#FFFFFF; -webkit-appearance: none; 
+ 	margin: 0 5px;
 }
 
+input.action_param {
+	width: 100%;
+}
 
 .step.hidden_step a {
    pointer-events: none;
@@ -96,6 +100,7 @@ select, input[type=text], input[type=date], input[type=time], #recipe {
 
 textarea.action_param {
 	width:100%;
+	height: 200px;
 }
 
 .trigger_settings {
@@ -111,10 +116,18 @@ var animation_speed = 1;
 function toTriggerParams(trigger_name) {
 	$(this).addClass("selected")
 	toNextStep.apply(this);
+	var trigger_settings = $(".step.trigger_params:last .trigger_settings[data-trigger-name='"+trigger_name+"']")
 	$(".step.trigger_params:last .trigger_name").html(trigger_name)
 	$(".step.trigger_params:last .trigger_settings").hide()
-	$(".step.trigger_params:last .trigger_settings[data-trigger-name='"+trigger_name+"']").show()
-	$(".step.trigger_params:last .trigger_settings[data-trigger-name='"+trigger_name+"'] #trigger_param").hide()
+	trigger_settings.show()
+	trigger_settings.find("#trigger_param").hide()
+	trigger_settings.find(".trigger_method").val('')
+
+	var trigger_method =	trigger_settings.find(".trigger_method")
+	if(trigger_method.find("option").length==2) {
+		trigger_method.val(trigger_method.find("option:last").val())
+			.attr("disabled", true); 
+	}
 }
 
 function toActionParams(action_name) {
@@ -464,10 +477,6 @@ $(function() {
 					<td>
 					your email: 
 					<td><input name=email id=email><br>
-				<tr>
-					<td>
-					full name:
-					<td><input name=full_name id=full_name><br>
 				<tr>
 					<td>
 					choose password: <td><input type=password name=password id=password><br>
