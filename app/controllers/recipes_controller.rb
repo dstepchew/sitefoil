@@ -3,6 +3,11 @@ class RecipesController < ApplicationController
   before_action :authenticate_user!, except: [:new_animated]
 
 
+  #is called by animated wizard after user signed up
+  def after_user_create
+    redirect_to "/sites/#{current_user.sites.first.id}", notice: "Your first recipe has been just created, don't forget to add code snippet to your site."
+  end
+
   def duplicate
     new_recipe = @recipe.dup
     new_recipe.enabled = false

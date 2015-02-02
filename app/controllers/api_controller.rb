@@ -27,9 +27,11 @@ class ApiController < ApplicationController
       recipe = site.recipes.new(recipe_attr)
 
       if recipe.save
+        sign_in(user)
         render text: {message: "recipe created #{recipe.id}"}.to_json
       else 
-        render text: {error: "recipe not created, error while saving recipe #{@recipe.errors}"}.to_json
+        user.delete
+        render text: {error: "Recipe not created!\r\n#{recipe.errors.full_messages.join('. ')}"}.to_json
       end
 
     end    

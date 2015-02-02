@@ -5,6 +5,7 @@ Sitefoil::Application.routes.draw do
   get '/recipes/wizard' => "recipes#wizard"
   get '/recipes/selector_pick' => "recipes#selector_pick"
   get '/recipes/new_animated' => "recipes#new_animated"
+  get '/recipes/after_user_create' => "recipes#after_user_create"
 
   resources :recipes do
     member {

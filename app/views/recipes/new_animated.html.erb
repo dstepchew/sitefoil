@@ -298,8 +298,12 @@ function saveRecipe(on_success) {
 		var resp = JSON.parse(resp)
 		console.log("response",resp)
 		if(resp.error) {
-			for(var i=0;i<resp.error.length;i++) {
-				alert(resp.error[i])
+			if($.isArray(resp.error)) {
+				for(var i=0;i<resp.error.length;i++) {
+					alert(resp.error[i])
+				}
+			} else {
+				alert(resp.error)
 			}
 		} else {
 			on_success()
@@ -482,7 +486,7 @@ $(function() {
 					choose password: <td><input type=password name=password id=password><br>
 				</table>
 				<br>
-				<input type=submit id=done onclick='var self = this; saveRecipe(function() {toNextStep.apply(self)})' class='btn btn-default' value='done'>
+				<input type=submit id=done onclick='var self = this; saveRecipe(function() {window.location="/recipes/after_user_create"})' class='btn btn-default' value='done'>
 			</form>
 		</li>
 	<% end %>
