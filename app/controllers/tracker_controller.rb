@@ -51,7 +51,7 @@ class TrackerController < ApplicationController
       conversion_rate_24_hours: @site.conversion_rate_24_hours,
       timezone_string: @site.timezone_string}
      js = render_to_string "index"
-     js = Uglifier.new.compile(js)
+     #js = Uglifier.new.compile(js)
      render text: js, content_type: "application/javascript"
   end
 
