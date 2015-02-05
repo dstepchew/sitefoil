@@ -107,6 +107,12 @@ textarea.action_param {
 	color: red;
 }
 
+
+.step.account_create .error {
+	margin: 0 10px;
+	color: red;
+}
+
 </style>
 
 <script>
@@ -322,19 +328,21 @@ function saveRecipe(on_success) {
 	}
 
 
+	$(".step.account_create .error").html("");
+
 	$.get("/api/recipe_create", params, function(resp) {
 		var resp = JSON.parse(resp)
 		console.log("response",resp)
-		if(resp.error) {
-			if($.isArray(resp.error)) {
-				for(var i=0;i<resp.error.length;i++) {
-					alert(resp.error[i])
-				}
-			} else {
-				alert(resp.error)
+		if(resp.user_error) {
+			console.log('got user error')
+			for(var key in resp.user_error) {
+				console.log(key)
+				var value = resp.user_error[key];
+				$(".register_form_input#"+key).next(".error").html(value)
 			}
+		}	else if(resp.error) {
+			alert(resp.error)
 		} else {
-			on_success()
 			on_success()
 		}
 
@@ -511,10 +519,10 @@ $(function() {
 				<tr>
 					<td>
 					your email: 
-					<td><input name=email class=register_form_input id=email><br>
+					<td><input name=email class=register_form_input id=email><span class=error></span><br>
 				<tr>
 					<td>
-					choose password: <td><input class=register_form_input type=password name=password id=password><br>
+					choose password: <td><input class=register_form_input type=password name=password id=password><span class=error></span><br>
 				</table>
 				<br>
 				<input type=button id=done onclick='var self = this; saveRecipe(function() {window.location="/recipes/after_user_create"})' class='btn btn-default register_form_input' value='done'>
