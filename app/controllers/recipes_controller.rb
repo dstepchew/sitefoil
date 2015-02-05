@@ -5,7 +5,7 @@ class RecipesController < ApplicationController
 
   #is called by animated wizard after user signed up
   def after_user_create
-    redirect_to "/sites/#{current_user.sites.first.id}", notice: "Your first recipe has been just created, don't forget to add code snippet to your site."
+    redirect_to "/sites/#{current_user.sites.first.id}", notice: "Your first recipe has been just created. To make it work please ADD CODE SNIPPET to your site."
   end
 
   def duplicate

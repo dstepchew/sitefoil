@@ -335,6 +335,7 @@ function saveRecipe(on_success) {
 			}
 		} else {
 			on_success()
+			on_success()
 		}
 
 	})
@@ -375,10 +376,12 @@ $(function() {
 	console.log('setting timezone to user browser timezone',-offset)
 	$("[name=site_timezone_minutes]").val(offset);
 
-	$("form#register").submit(function(e) {
-		e.preventDefault();
+	$(".register_form_input#password").keydown(function(e) {
+		console.log(e)
+		if(e.keyCode==13) {
+			$("input#done.register_form_input").trigger("click")
+		}
 	})
-
 	$(document).on("change",".step.trigger_params .trigger_settings .trigger_method",function() {
 		var method = $(this).val()
 		$(this).next().find("#trigger_param").toggle(_.str.contains(method,"?"))
@@ -504,19 +507,17 @@ $(function() {
 		<li class='step account_create'>
 			<div class='wizard-progress'><a onclick='$("#site").val("")' class='back'>back</a></div>
 			<h1>REGISTER TO COMPLETE YOUR FIRST RECIPE</h1>
-			<form id=register>
 				<table>
 				<tr>
 					<td>
 					your email: 
-					<td><input name=email id=email><br>
+					<td><input name=email class=register_form_input id=email><br>
 				<tr>
 					<td>
-					choose password: <td><input type=password name=password id=password><br>
+					choose password: <td><input class=register_form_input type=password name=password id=password><br>
 				</table>
 				<br>
-				<input type=submit id=done onclick='var self = this; saveRecipe(function() {window.location="/recipes/after_user_create"})' class='btn btn-default' value='done'>
-			</form>
+				<input type=button id=done onclick='var self = this; saveRecipe(function() {window.location="/recipes/after_user_create"})' class='btn btn-default register_form_input' value='done'>
 		</li>
 	<% end %>
 
