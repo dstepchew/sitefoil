@@ -1,12 +1,8 @@
-<%
-=begin
-RECIPE CREATE TEST, chrome browser console code:
-animation_speed=0.1;$('#site option:last-child').attr("selected", "selected").trigger("change");$(".trigger_select:first").trigger("click");$(".trigger_params:visible select option:eq(1)").attr('selected','selected');$("#set_action").trigger("click");$("#alert").click();$(".action_params[data-action-name=alert] .action_param").val("test");$("#save_recipe").trigger("click");
-=end
-%>
 <script src=/bower_components/underscore/underscore-min.js></script>
 <script src=/bower_components/underscore.string/dist/underscore.string.min.js></script>
 <script src=/bower_components/webshim/js-webshim/minified/polyfiller.js></script>
+
+<%= render "recipes/selector_pick" %>
 
 <style>
 
@@ -157,7 +153,8 @@ function toTriggerParams(trigger_name) {
 	var trigger_method =	trigger_settings.find(".trigger_method")
 	if(trigger_method.find("option").length==2) {
 		trigger_method.val(trigger_method.find("option:last").val())
-			.attr("disabled", true); 
+			.attr("disabled", true)
+			.trigger("change")
 	}
 }
 
