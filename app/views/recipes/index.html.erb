@@ -74,7 +74,48 @@ if session[:highlight_recipe_id]==recipe.id
   add_class='highlighted' 
 end
 %>
-    <div class="row">
+
+    <div class="row" style="border-bottom: 1px solid #ccc; margin-bottom:20px; background:#FFF;">
+        <div class="col-md-5">
+        <strong>Recipe Name</strong>
+        </div>
+        <div class="col-md-4">
+        <strong>Recipe Data</strong>
+        </div>
+        <div class="col-md-3">
+        <strong>Actions</strong>
+        </div>
+    </div>
+
+    <div class="row" style="border-bottom: 1px solid #ccc; margin-bottom:20px;">
+      <div class="col-md-5">
+        <%= recipe.name_or_action %>
+      </div>
+      <div class="col-md-4">
+      <h4><strong>Site:</strong> <a href=<%= recipe.site.url rescue '' %> target=_blank><%= recipe.site.url rescue '' %></a></h4>
+                <h4><strong>Status:</strong> <%= recipe.enabled ? "running" : "disabled" %></h4>
+                <h4><strong>Times Ran:</strong> <%= recipe.hits %></h4>
+                <h4><strong>Last Run:</strong> <%= recipe.hit_last_time_human %></h4>
+                <a href="/recipes/<%= recipe.id %>/edit?rebuild" style='display:none' class='rebuild' target=_blank>Rebuild</a>
+      </div>
+      <div class="col-md-3">
+      <%= link_to 'Preview', recipe.preview_url, class:"btn btn-info btn-xs", target: "_blank", data: { no_turbolink: true } %>  
+
+       <%= link_to edit_recipe_path(recipe), class: "rounded-box box-btn", data: { no_turbolink: true } do %>
+                  Edit 
+               <% end %>
+
+                <%= link_to recipe, class: "rounded-box box-btn", method: :delete, data: { confirm: 'Are you sure?' } do %>
+               Delete 
+               <% end %>
+
+                <%= link_to duplicate_recipe_path(recipe), class: "rounded-box box-btn" do %>
+             Duplicate 
+               <% end %>
+
+      </div>
+    </div>
+    <div class="row hidden">
       <div class="col-md-8">
         <div class="panel panel-default <%=add_class%>" id="recipe_<%= recipe.id %>">
           <div class="panel-heading">
