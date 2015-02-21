@@ -46,7 +46,8 @@ Sitefoil::Application.routes.draw do
 
 
   get "about" => "pages#about"
-   get "features" => "pages#features"
+  get "features" => "pages#features"
+  get "ecommerce" => "pages#ecommerce"
   get "privacy" => "pages#privacy"
   get "terms" => "pages#terms"
   get "signup" => "pages#subscribe"

@@ -18,6 +18,7 @@ html, body {
     height: 100%;
 }
 
+.col {float:none;display:inline-block;font-size:0px;}
 #wrap
 {
 	min-height: 100%;
@@ -155,6 +156,18 @@ letter-spacing:2px;
 text-transform:uppercase;
 
 }
+
+h3 {
+	line-height: 1.5;
+letter-spacing: 0.02em;
+}
+
+p {
+	font-size:14px;
+}
+
+.row.padded, .col.padded {padding-top:40px;padding-bottom:40px;}
+
 body.home .slide1 h2 {
 	
 	color: #f96145;
@@ -327,29 +340,33 @@ a.box-btn:hover {
 	text-decoration:none;
 }
 
-body.features ul {
+body.features #main ul {
 	list-style-type:none;
 	margin:0px;
 	padding:0px;
 }
 
-body.features ul li ul {
+body.features #main ul li ul {
 	padding-left: 70px;
 }
 
-body.features ul li {
+body.features #main ul li {
 	margin-bottom:15px;
 }
 
-body.features .rounded-box .big-glyphicon {
+body.features #main .rounded-box .big-glyphicon {
 	
 }
 
-body.features .rounded-box {
+body.features #main .rounded-box {
 
 	margin-right:10px;
 }
 
+body.flush .navbar {margin-bottom:0px;}
+
+
+#main div.row  {margin-right:0px;}
 /*
 body.small-form .full-width,  body.main-form .full-width {
 	background-color: #8eb5e2;
