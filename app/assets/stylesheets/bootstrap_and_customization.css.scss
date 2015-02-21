@@ -18,7 +18,7 @@ html, body {
     height: 100%;
 }
 
-.col {float:none;display:inline-block;font-size:0px;}
+.col {float:none;display:inline-block;font-size:0px; vertical-align:top;}
 #wrap
 {
 	min-height: 100%;
@@ -192,7 +192,7 @@ body.sites h2 {
 }
 
 .header-text h2 {
-	font-size:3em;
+	font-size:30px;
 	padding:4px;
 	color: #777;
 }

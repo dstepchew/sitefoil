@@ -78,18 +78,19 @@
   
 
 <!-- Static Header -->
-                    <div class="header-text">
-                        <div class="col col-md-12 col-sm-12 text-center">
+                    <div class="header-text text-center">
+                        <div class="col col-md-6 col-sm-12 text-center">
                             <h2>
                                 <span><strong>Sitefoil Is A Simple Website Add-On</strong></span>
                             </h2>
                             <br>
+
                             <h3>
-                                <span>Sitefoil tracks your visitors and automatically performs actions when you want it to.<br />Add a snippet of code to your site and schedule new promotions right away. </span>
+                                <span>Sitefoil tracks your website visitors and automatically performs <%= link_to "all kinds of custom actions", features_path %> when you want it to based on <%= link_to "all kinds of triggers", features_path %>.<br /><br />Add a snippet of code to your site and schedule personalized experiences right away. <br /><br /></span>
                             </h3>
                             <br>
                             <div class="">
-                                <%= link_to "Add it to my site", signup_path, class: "btn btn-primary btn-lg active" %>
+                                <%= link_to "SIGN UP", signup_path, class: "btn btn-primary btn-lg active" %>
                                  
   
 
@@ -202,6 +203,7 @@
                                     <div class="rounded-box">  
                                         <span class="glyphicon fa fa-money big-glyphicon text-center" style="margin:auto;"></span>
                                     </div>
+                                    <h3>Conversion Rate Targeting</h3>
                                     <h4>E-Commerce <i class="fa fa-arrow-right"></i> Site Visitors <i class="fa fa-arrow-right"></i> Promotion</h4>
                                     <p>If the site's conversion rate is below 3% and a site visitor is new, pop-up a custom alert.</p>
                                 </div>
@@ -214,6 +216,7 @@
                                     <div class="rounded-box">   
                                         <span class="glyphicon fa fa-money big-glyphicon text-center" style="margin:auto;"></span>
                                     </div>
+                                    <h3>Referral Targeting</h3>
                                     <h4>Site Visitors <i class="fa fa-arrow-right"></i> Promotion</h4>
                                     <p>If a site visitor is from Facebook, apply and submit FACEBOOK coupon code in cart</p>
                                 </div>
@@ -228,6 +231,7 @@
                                     <div class="rounded-box">   
                                         <span class="glyphicon fa fa-envelope big-glyphicon text-center" style="margin:auto;"></span>
                                     </div>
+                                    <h3>Promotion Scheduling</h3>
                                     <h4>Time/Date <i class="fa fa-arrow-right"></i> Site URL <i class="fa fa-arrow-right"></i> Promotion</h4>
                                     <p>If today is Wednesday, display a hidden message on a specific page. </p>
 
@@ -237,7 +241,7 @@
                             </div>
                             </div>
                              <h3 class="dark-text">
-                                <span>Build your first "recipe" and run it forever for free.  </span>
+                                <span>Sign up as a BETA tester to build your first "recipe" and run it forever for free.  </span>
                             </h3>
                             <div class="">
                                 <%= link_to "Sign me up", signup_path, class: "btn btn-primary btn-lg active" %>
