@@ -33,7 +33,7 @@ Sitefoil::Application.routes.draw do
   devise_for :users
 
   authenticated :user do
-      root to: "recipes#index", as: "profile"
+      #root to: "recipes#index", as: "profile"
   end
 
   unauthenticated do

@@ -18,6 +18,8 @@ html, body {
     height: 100%;
 }
 
+body#signed_in  { padding-top: 70px; }
+
 .col {float:none;display:inline-block;font-size:0px; vertical-align:top;}
 #wrap
 {
@@ -148,6 +150,8 @@ body.home .row .col {
 body.home .slide1 {
 	/* min-height:800px; */
 }
+
+div.row.bordered {border-bottom: 1px solid #ccc; margin-bottom:20px;padding-bottom:20px;}
 
 h2, h1
 {
