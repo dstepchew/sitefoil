@@ -1,5 +1,5 @@
 class SitesController < ApplicationController
-  before_action :set_site, only: [:show, :edit, :update, :destroy,:stats,:recipes]
+  before_action :set_site, only: [:show, :edit, :update, :destroy,:stats,:recipes, :code]
   before_action :authenticate_user!
   before_action :correct_user, only: [:edit, :update, :destroy]
 
@@ -11,6 +11,9 @@ class SitesController < ApplicationController
   end
 
   def show
+  end
+
+  def code
   end
 
   def new

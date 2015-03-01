@@ -19,6 +19,7 @@ html, body {
 }
 
 body#signed_in  { padding-top: 70px; }
+body.home#signed_in .row {overflow:visible;margin-bottom:40px;} 
 
 .col {float:none;display:inline-block;font-size:0px; vertical-align:top;}
 #wrap
@@ -172,6 +173,12 @@ p {
 
 .row.padded, .col.padded {padding-top:40px;padding-bottom:40px;}
 
+.row-header {
+	font-weight:700;
+	text-transform:uppercase;
+
+}
+
 body.home .slide1 h2 {
 	
 	color: #f96145;
@@ -299,11 +306,11 @@ body.small-form h2, body.main-form h2 {
 
 */
 
-body.small-form .btn, body.main-form .btn-default {
+body.small-form .btn, body.main-form .btn-default, .blue.btn-default {
 	border-radius: 0.2rem;
 	background-color: #8eb5e2;
 }
-body.small-form .btn .glyphicon, body.main-form .btn .glyphicon {
+body.small-form .btn .glyphicon, body.main-form .btn .glyphicon, .btn.blue .glyphicon {
 	font-size: 3rem;
 	color: #fff;
 }

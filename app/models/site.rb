@@ -66,7 +66,7 @@ class Site < ActiveRecord::Base
     begin
   	  html = open(url,"r",read_timeout: 4).read 
     rescue Exception=>e
-      return "<span class=error>error: can't open #{url}. #{e.message}</span>"
+      return "<span class=error>Error: We can't open #{url}. #{e.message}</span>"
     end
 
     Rails.logger.info("html: #{html.length} bytes")
@@ -75,10 +75,10 @@ class Site < ActiveRecord::Base
   	doc.search("script").each do |script|
   		Rails.logger.info(script.attr("src").to_s)
   		if script.attr("src").to_s == self.tracker_url(opt[:host])
-  			return "<span class=success>script installed<span>"
+  			return "<span class=success>Good job! Your code is installed<span>"
   		end
   	end
-  	return "<span class=error>link to tracking script not found</span>"
+  	return "<span class=error>Oops! We can't find your tracking code. <br />Please make sure you have installed it correctly and try again.</span>"
   end
 
   def tracker_url host_with_port

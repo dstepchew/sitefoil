@@ -8,32 +8,131 @@
 }
 </style>
 
+
+<ol class="breadcrumb">
+  <li><a href="/">Dashboard</a></li>
+  <li><a href="/sites">Sites</a></li>
+  <li class="active">Site</li>
+</ol>
+
 <h1><%= @site.name %></h1>
 
 
-<p>
-  <strong>Url:</strong>
-  <%= @site.url %>
-</p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-lg-10 col-md-8 col-sm-8 col-xs-6">
+        <h3 class="panel-title"><%= link_to @site.name_or_url, edit_site_path(@site) %></h3>
+         <h4><%= @site.url %> <small style="color:#666;">- created <%= @site.created_at.strftime("%b %d, %Y") %>, site time: <%= @site.time.to_formatted_s(:rfc822)  %></small></h4> 
+      </div>
+      <div class="col-lg-1 col-md-2 col-sm-2 col-xs-3 text-right">
+        <%= link_to 'Edit Site', edit_site_path(@site), class: "btn btn-primary" %><br/>
+      </div>
+      <div class="col-lg-1 col-md-2 col-sm-2 col-xs-3 text-right">
+        <%= link_to 'Delete', @site, class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>
+    </div>
+  </div>
+  
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-8 col-sm-8">
+            
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-2 col-sm-2 col-xs-6 text-center">
+
+                     <h2><%= number_to_human(@site.unique_visitor_hits.count.count, :format => '%n%u', :units => { :thousand => 'K' }) %>
+                     </h2>
+                        <p>
+                          Unique Sessions
+                        </p>
+
+                  </div>
+                  <div class="col-md-2 col-sm-2 col-xs-6 text-center">
+
+                     <h2><%= number_to_human(@site.hits.count, :format => '%n%u', :units => { :thousand => 'K' }) %></h2>
+                        <p>
+                          Site Sessions
+                        </p>
+
+                  </div>
+                  <div class="col-md-2 col-sm-2 col-xs-6 text-center">
 
 
-<div class="jumbotron center">
-  <h2>Copy and paste the following code just before the "&lt;/html&gt;" tag on <strong> all pages</strong> of your website:</h2>
-  <textarea class="form-control" style='cursor:text' id="siteTextarea" readonly >
-   <script async defer src=<%= @site.tracker_url(request.host_with_port) %>></script>
- </textarea>
+                  </div>
+              </div>
+              <% if !@site.order_url.blank? %>
+              <div class="row">
+                  <div class="col-md-2 col-sm-2 col-xs-4 text-center">
 
-<a href="#" class="btn btn-primary" onclick='testSite(<%= @site.id %>);return false;'>Test Code Presence</a>
+                     <h2><%= number_to_human(@site.unique_visitors_orders.count.count, :format => '%n%u', :units => { :thousand => 'K' }) %></h2>
+                        <p>
+                          Total Customers
+                        </p>
 
- <div class="jumbotron">
+                  </div>
+                  <div class="col-md-2 col-sm-2 col-xs-4 text-center">
 
-  <table class="table table-responsive" style="text-align:left;">
-    <tr>
-      <td>Status</td>
-      <td id='site_test_script_installed'></td>
-    </tr>
-  </table>
+                     <h2><%= number_to_human(@site.orders.count, :format => '%n%u', :units => { :thousand => 'K' }) %></h2>
+                        <p>
+                          Total Conversions
+                        </p>
+
+                  </div>
+                  <div class="col-md-2 col-sm-2 col-xs-4 text-center">
+
+                     <h2> <%= @site.conversion_rate.round(2) %></h2>
+                        <p>
+                          Conversion Rate (%)
+                        </p>
+
+                  </div>
+              </div>
+
+              <% else %>
+                <div class="row">
+                   <div class="col-md-6 col-sm-6 text-center">
+                   <hr>
+                  Conversion statistics are not available, please <%= link_to "add a confirmation page URL", "/sites/#{@site.id}/edit?focus_on_order_url" %>
+                    </div>
+                </div>
+              <% end %>
+          </div>
+
+
+          
+
+           
+
+
+
+
+
+      </div>
+      <div class="col-md-4 col-sm-4">
+      <h4>Site Settings</h4>
+
+       <ul><li><%= link_to 'Retrieve & Test the Script Snippet', code_site_path(@site) %></li>
+          <li><%= link_to 'View Full Site Statistics', stats_site_path(@site) %></li>
+        </ul>
+
+        <h4>Current Recipes</h4>
+
+        <% @site.recipes.each do |recipe| %>
+        <p>
+
+
+          <%= link_to recipe.name_or_action, recipe_path(recipe) %>
+         
+          <a class="btn btn-default btn-xs" data-no-turbolink=true href=<%= edit_recipe_path(recipe)%>>edit</a> 
+        </p>
+        <% end %>
+      </ul>
+
+
+    </div>
+
+  </div>
 </div>
-
-
-<%= link_to 'Edit', edit_site_path(@site) %>
+</div>

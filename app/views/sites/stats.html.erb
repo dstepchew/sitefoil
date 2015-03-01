@@ -1,57 +1,95 @@
+<ol class="breadcrumb">
+  <li><a href="/">Dashboard</a></li>
+  <li><a href="/sites">Sites</a></li>
+  <li class="active">Site Stats</li>
+</ol>
+
+<div class="container">
+<div class="row">
+
 <h1><%= @site.name_or_url %> - site statistics</h1>
 
 <h2>From: <%= @site.created_at.strftime("%b %d, %Y") %></h2>
+</div>
+</div>
+<div class="jumbotron">
+
+<div class="row">
+	<div class="col-md-4 text-center">
+<h4>Sessions</h4>
 
 
-<h3>Visitors</h3>
+<h2><%= @site.unique_visitor_hits.count.count %></h2>
 <p>
-	Total unique visitors: <%= @site.unique_visitor_hits.count.count %>
+	Total unique visitors 
 </p>
-
+<h2><%= @site.hits.count %></h2>
 <p>
-	Total hits: <%= @site.hits.count %>
+	Total hits 
 </p>
+	</div>
 
-<h3>E-commerce</h3>
+	
+
+
 
 <% if !@site.order_url.blank? %>
-	<h4>All time</h4>
+	<div class="col-md-4 text-center">
+	<h4>E-Commerce: All time</h4>
+	
+
+	<h2><%= @site.unique_visitors_orders.count.count %></h2>
 	<p>
-		Unique visitors made order: <%= @site.unique_visitors_orders.count.count %>
+		Unique Visitors Who Purchased
+	</p>
+	<h2><%= @site.orders.count %></h2>
+	<p>
+		Total Orders 
+	</p>
+	<h2><%= @site.conversion_rate.round(2) %> %</h2>
+	<p>
+		Conversion Rate 
 	</p>
 
+	</div>
+	<div class="col-md-4 text-center">
+	<h4>E-Commerce: Last 24 hours</h4>
+	<h2><%= @site.unique_visitor_hits.where("created_at>?",24.hours.ago).count.count %></h2>
 	<p>
-		Total orders: <%= @site.orders.count %>
+		Unique visitors 
 	</p>
-
+	<h2><%= @site.unique_visitors_orders.where("created_at>?",24.hours.ago).count.count %></h2>
 	<p>
-		Conversion rate: <%= @site.conversion_rate.round(2) %> %
+		Unique visitors made order
 	</p>
-
-<br>
-	<h4>Last 24 hours</h4>
-
+	<h2><%= @site.orders.where("created_at>?",24.hours.ago).count %>	</h2>
 	<p>
-		Unique visitors: <%= @site.unique_visitor_hits.where("created_at>?",24.hours.ago).count.count %>
+		Total orders
 	</p>
-
+	<h2><%=  @site.conversion_rate_24_hours.round(2) %> %</h2>
 	<p>
-		Unique visitors made order: <%= @site.unique_visitors_orders.where("created_at>?",24.hours.ago).count.count %>
+		Conversion rate
 	</p>
-
-	<p>
-		Total orders: <%= @site.orders.where("created_at>?",24.hours.ago).count %>	
-	</p>
-
-	<p>
-		Conversion rate: <%=  @site.conversion_rate_24_hours.round(2) %> %
-	</p>
+	</div>
 
 
 
 <% else %>
 
+<div class="col-md-8 text-center">
+
 E-commerce statistics not available, please <%= link_to "add order url", "/sites/#{@site.id}/edit?focus_on_order_url", target: "_blank" %>
+</div>
 
 
-<% end %>
+<% end %></div>
+
+</div>
+<div class="text-center">
+<%= link_to 'Back To Sites', sites_path, class: "btn btn-primary text-center" %></div></div>
+
+
+
+
+
+

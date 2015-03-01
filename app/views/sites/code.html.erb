@@ -1,0 +1,60 @@
+<style>
+#site_test_script_installed .error {
+  color: red;
+}
+
+#site_test_script_installed .success {
+  color: rgb(60, 118, 61);
+}
+</style>
+
+
+<ol class="breadcrumb">
+  <li><a href="/">Dashboard</a></li>
+  <li><a href="/sites">Sites</a></li>
+  <li class="active">Site Set Up</li>
+</ol>
+
+<h1><%= @site.name %></h1>
+
+
+<p>
+  <strong>Url:</strong>
+  <%= @site.url %>
+</p>
+
+
+<div class="jumbotron center">
+  <h2>SiteFoil Tracking Code</h2>
+  <h4>To use SiteFoil with   <%= @site.url %>, you need to install your SiteFoil Tracking Code. </h4><h4><strong>Copy and paste the following code just before the "&lt;/html&gt;" tag of every page you want to track on your site</strong></h4>
+  <div class="row">
+    <textarea class="form-control text-center" style='cursor:text;font-size:1.1em;padding-top:20px;' onclick="this.focus();this.select()" id="siteTextarea" readonly ><script async defer src="<%= @site.tracker_url(request.host_with_port) %>"></script></textarea>
+ </div>
+<p>Click inside the box above to highlight your tracking code and use Control/CMD + C to copy to your clipboard</p>
+        <div class="row">
+
+
+
+        </div>
+
+
+
+<div class="row padded">
+ <p><i class="glyphicon glyphicon-thumbs-up"> </i> Your SiteFoil Tracking Code will not affect your site's speed.</p>
+ </div>
+<h2>Test To Make Sure It's Working</h2>
+<a href="#" class="btn btn-primary" onclick='testSite(<%= @site.id %>);return false;'>Look For The Code</a>
+
+ <div class="jumbotron">
+
+  <table class="table table-responsive text-center">
+    <tr>
+      
+      <td id='site_test_script_installed'></td>
+    </tr>
+  </table>
+</div>
+
+ <a class="btn blue btn-default full-width" href="/sites">
+              <span class="glyphicon glyphicon-ok white">
+              </span><span class="white"> DONE</span></a>

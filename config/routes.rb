@@ -27,6 +27,7 @@ Sitefoil::Application.routes.draw do
     member {
       get 'stats'
       get 'recipes'
+      get 'code'
     }
   end
 
