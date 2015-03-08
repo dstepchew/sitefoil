@@ -21,6 +21,8 @@ html, body {
 body#signed_in  { padding-top: 70px; }
 body.home#signed_in .row {overflow:visible;margin-bottom:40px;} 
 
+h1.primary, h2.primary, .glyphicon.primary, span.primary {color:#f96145}
+
 .col {float:none;display:inline-block;font-size:0px; vertical-align:top;}
 #wrap
 {
@@ -29,6 +31,8 @@ body.home#signed_in .row {overflow:visible;margin-bottom:40px;}
     height: 100%;
     margin: 0 auto -142px; /* the bottom margin is the negative value of the footer's height */
 }
+
+.row.padded .col {padding-bottom:15px;}
 
 footer, .push {
     height: 142px; /* .push must be the same height as .footer */
@@ -423,6 +427,11 @@ body.main-form .hero .glyphicon {
 }
 */
 
+@media screen and (max-width:767px){
+
+	#home-headline {font-size:25px;}
+
+}
 
 @media screen and (min-width:768px){
     .navbar-brand-centered {
@@ -441,4 +450,6 @@ body.main-form .hero .glyphicon {
     body.home .slide1 h2 {
 	font-size: 63px;
 }
+	
+
 }
