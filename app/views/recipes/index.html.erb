@@ -51,13 +51,20 @@
       rebuildAll()
     }
 
-    <% if session[:highlight_recipe_id] %>
-      $('html,body').animate({
-        scrollTop: $("#recipe_<%= session[:highlight_recipe_id]%>").offset().top-40
-      }, 1000);
-    <% end %>
-
   })
+
+  <% if session[:highlight_recipe_id] %>
+    console.log("highlight recipe",<%= session[:highlight_recipe_id] %>)
+
+    function highlight_recipe() {
+        console.log("highlighting")
+        $('html,body').animate({
+          scrollTop: $("#recipe_<%= session[:highlight_recipe_id]%>").offset().top-40
+        }, 1000);
+    }
+    $(document).ready(highlight_recipe).on("page:load",highlight_recipe)
+
+  <% end %>
 
 </script>
 
@@ -81,7 +88,7 @@ end
 
     
 
-    <div class="row bordered">
+    <div class="row bordered" id="recipe_<%=recipe.id%>">
       <div class="col-md-5">
         <h3><%= link_to recipe.name_or_action, edit_recipe_path(recipe)  %></h3>
       </div>
