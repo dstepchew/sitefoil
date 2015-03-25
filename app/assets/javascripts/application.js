@@ -14,3 +14,14 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require turbolinks
+
+
+
+function autoselect_one_site() {
+  if($("select#recipe_site_id option").length==2) {
+    console.log("autoselect one site")
+    $("select#recipe_site_id option:eq(1)").attr("selected","selected")
+  }
+}
+$(document).ready(autoselect_one_site)
+$(document).on('page:load', autoselect_one_site)  

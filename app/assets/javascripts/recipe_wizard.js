@@ -150,7 +150,7 @@ function recipe_restore(json) {
 			if(action_param.attr("type")=="checkbox") {
 				action_param.attr("checked",param.val)
 			} else {
-				action_param.val(decodeURIComponent(param.val))
+				action_param.val(param.val)
 			}
 		})
   }

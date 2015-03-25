@@ -52,12 +52,12 @@
     }
 
     <% if session[:highlight_recipe_id] %>
-    $('html,body').animate({
-      scrollTop: $("#recipe_<%= session[:highlight_recipe_id]%>").offset().top-40
-    }, 1000);
+      $('html,body').animate({
+        scrollTop: $("#recipe_<%= session[:highlight_recipe_id]%>").offset().top-40
+      }, 1000);
+    <% end %>
 
   })
-  <% end %>
 
 </script>
 
@@ -106,11 +106,11 @@ end
                       <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                      <li><%= link_to edit_recipe_path(recipe), data: { no_turbolink: true } do %>
+                      <li><%= link_to edit_recipe_path(recipe) do %>
                   Edit
                <% end %></li>
                       <li>
-                         <%= link_to duplicate_recipe_path(recipe), data: { no_turbolink: true } do %>
+                         <%= link_to duplicate_recipe_path(recipe) do %>
                        Duplicate 
                          <% end %>
                         </li>
@@ -159,7 +159,7 @@ end
               </div>
 
               <div class="col-md-4 col-sm-4 col-xs-4">
-               <%= link_to edit_recipe_path(recipe), class: "rounded-box box-btn", data: { no_turbolink: true } do %>
+               <%= link_to edit_recipe_path(recipe), class: "rounded-box box-btn" do %>
                   <i class="glyphicon big-glyphicon fa fa-pencil-square"></i><br />Edit 
                <% end %>
              </div>
@@ -181,7 +181,7 @@ end
 
 <% end %>
 
-<%= link_to 'New Recipe', new_recipe_path, class: "btn btn-primary", data: { no_turbolink: true }%>
+<%= link_to 'New Recipe', new_recipe_path, class: "btn btn-primary" %>
 <% end %>
 
 

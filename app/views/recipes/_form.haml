@@ -1,13 +1,4 @@
 = render "recipes/selector_pick"
-:erb
-  <script>
-  $(function() {
-    //autoselect one site if there is only one
-    if($("select#recipe_site_id option").length==1) {
-      $("select#recipe_site_id option:eq(1)").attr("selected","selected")
-    }
-  })
-  </script>
 :css
   .slide {display:none}
 .container
