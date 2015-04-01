@@ -73,4 +73,4 @@ gem "haml"
 gem "font-awesome-rails"
 gem 'thin'
 gem 'mina', group: [:development]
-gem 'newrelic_rpm'
+#gem 'newrelic_rpm'
