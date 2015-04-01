@@ -66,7 +66,7 @@ gem 'nokogiri'
 
 gem 'protected_attributes'
 
-#gem 'geocoder'
+gem 'geocoder'
 gem 'better_errors', :group => [:test, :development, :production]
 gem 'binding_of_caller', :group => [:test, :development]
 gem "haml"
