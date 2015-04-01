@@ -56,11 +56,6 @@ group :development, :test do
      gem 'sqlite3'
 end
 
-group :production do
-     gem 'pg'
-     gem 'rails_12factor'
-end
-
 gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'annotate'
 gem 'nokogiri'
@@ -68,7 +63,7 @@ gem 'nokogiri'
 gem 'protected_attributes'
 
 #gem 'geocoder'
-gem 'better_errors', :group => [:test, :development, :production, :digitalocean_production]
+gem 'better_errors', :group => [:test, :development, :production]
 gem 'binding_of_caller', :group => [:test, :development]
 gem "haml"
 gem "font-awesome-rails"
