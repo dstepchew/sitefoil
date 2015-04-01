@@ -11,7 +11,7 @@ Sitefoil::Application.configure do
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
@@ -61,7 +61,6 @@ Sitefoil::Application.configure do
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
   # config.assets.precompile += %w( search.js )
   config.assets.precompile += ['active_admin.css']
-  config.assets.precompile << '*.js'  
   
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -80,21 +79,5 @@ Sitefoil::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
-  config.action_mailer.default_url_options = { :host => 'sitefoil.com' }
-
- config.action_mailer.smtp_settings = {
-    :address   => "smtp.mandrillapp.com",
-    :port      => 25, #587, # ports 587 and 2525 are also supported with STARTTLS
-    :enable_starttls_auto => true, # detects and uses STARTTLS
-    :user_name => "dan@sitefoil.com",
-    :password  => "g_1v7MHENGuoXl35OzJOOA", # SMTP password is any valid API key
-    :authentication => 'login', # Mandrill supports 'plain' or 'login'
-    :domain => 'www.sitefoil.com', # your domain to identify your server when connecting
-  }
-
-
-
+  config.action_mailer.default_url_options = { :host => 'http://sitefoil-commits.herokuapp.com/' }
 end
-
-APP_PROTOCOL = "https://"
-
