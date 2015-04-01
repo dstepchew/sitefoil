@@ -81,3 +81,6 @@ Sitefoil::Application.configure do
 
   config.action_mailer.default_url_options = { :host => 'http://sitefoil-commits.herokuapp.com/' }
 end
+
+
+APP_PROTOCOL = "https://"
