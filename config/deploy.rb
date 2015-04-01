@@ -93,7 +93,7 @@ end
 
 task :log do
   queue 'echo "Contents of the log file are as follows:"'
-  queue "cd #{deploy_to}/current && tail -f log/production.log -n 100"
+  queue "cd #{deploy_to}/current && tail -f log/newrelic_agent.log -n 100"
 end
 
 task :push do
