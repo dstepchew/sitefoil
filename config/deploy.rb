@@ -14,8 +14,8 @@ set :domain, 'www.sitefoil.com'
 set :deploy_to, '/var/www/sitefoil'
 set :repository, 'git@github.com:dstepchew/sitefoil.git'
 set :branch, 'nazar'
-set :rails_env, 'digitalocean_production'
-set :launch_cmd, "cd #{deploy_to}/current && RAILS_ENV=digitalocean_production thin start -p 8080 -d" 
+set :rails_env, 'production'
+set :launch_cmd, "cd #{deploy_to}/current && RAILS_ENV=#{rails_env} thin start -p 8080 -d" 
 set :shutdown_cmd, "ps ax | grep 80 | grep -v grep | awk '{print $1}' | xargs kill || true"  
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
 # They will be linked in the 'deploy:link_shared_paths' step.
@@ -93,7 +93,7 @@ end
 
 task :log do
   queue 'echo "Contents of the log file are as follows:"'
-  queue "cd #{deploy_to}/current && tail -f log/digitalocean_production.log -n 100"
+  queue "cd #{deploy_to}/current && tail -f log/#{rails_env}.log -n 100"
 end
 
 task :push do
