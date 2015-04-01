@@ -1,5 +1,5 @@
 Sitefoil::Application.routes.draw do
-  get "test_site/:site_id" => "test_site#index"
+  get "/test_site(/:site_id)" => "test_site#index"
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   get '/recipes/wizard' => "recipes#wizard"
