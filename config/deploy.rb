@@ -19,7 +19,7 @@ set :launch_cmd, "cd #{deploy_to}/current && RAILS_ENV=production thin start -p 
 set :shutdown_cmd, "ps ax | grep 808 | grep -v grep | awk '{print $1}' | xargs kill || true"  
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
 # They will be linked in the 'deploy:link_shared_paths' step.
-set :shared_paths, ['log']
+set :shared_paths, ['log','public/assets']
 
 # Optional settings:
 set :rvm_path, '/usr/local/rvm/scripts/rvm'
@@ -47,6 +47,8 @@ task :setup => :environment do
   queue! %[mkdir -p "#{deploy_to}/shared/config"]
   queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/config"]
 
+  queue! %[mkdir -p "#{deploy_to}/shared/public/assets"]
+  queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/public/assets"]
 #  queue! %[mkdir -p "#{deploy_to}/shared/db"]
 #   queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/db"]
 
