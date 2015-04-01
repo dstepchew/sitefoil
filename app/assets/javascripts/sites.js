@@ -1,3 +1,4 @@
+console.log("sites.js")
 window.testSite = function(site_id) {
   $("body").prepend('<div style="position:fixed;width:100%;height:100%;left:0px;top:0px;background:#000;opacity:0.2;z-index:10000;cursor:wait;" id="testsite_wait"></div>');
   return $.get("/api/test_site", {
