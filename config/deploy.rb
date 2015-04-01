@@ -15,7 +15,7 @@ set :deploy_to, '/var/www/sitefoil'
 set :repository, 'git@github.com:dstepchew/sitefoil.git'
 set :branch, 'nazar'
 set :rails_env, 'production'
-set :launch_cmd, "cd #{deploy_to}/current && RAILS_ENV=production thin start -p 8080 -d --servers 4" 
+set :launch_cmd, "cd #{deploy_to}/current && RAILS_ENV=production thin start -p 8080 -d --servers 3" 
 set :shutdown_cmd, "ps ax | grep 808 | grep -v grep | awk '{print $1}' | xargs kill || true"  
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
 # They will be linked in the 'deploy:link_shared_paths' step.
