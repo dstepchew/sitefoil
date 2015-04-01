@@ -1,1 +1,1 @@
-Geocoder.configure(ip_lookup: :telize)
+#Geocoder.configure(ip_lookup: :maxmind)
