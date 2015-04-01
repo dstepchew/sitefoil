@@ -50,11 +50,16 @@ class TrackerController < ApplicationController
       conversion_rate: @site.conversion_rate, 
       conversion_rate_24_hours: @site.conversion_rate_24_hours,
       timezone_string: @site.timezone_string}
-
-     js = render_to_string "index_not_dynamic"
-     js += render_to_string "index"
+     js = index_render
      #js = Uglifier.new.compile(js)
      render text: js, content_type: "application/javascript"
+     return
+  end
+
+  def index_render
+     js = render_to_string "index_not_dynamic"
+     js += render_to_string "index"
+     js    
   end
 
   def user_agent_to_os_name user_agent
