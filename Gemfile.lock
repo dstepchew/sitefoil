@@ -206,7 +206,6 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass
-  coffee-rails (~> 4.0.0)
   devise
   font-awesome-rails
   geocoder
