@@ -1,6 +1,3 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
 $(function() {
   $("#recipe_site_id").change(function() {
     return $("#recipe-slide-2").toggle($(this).val() !== "");
