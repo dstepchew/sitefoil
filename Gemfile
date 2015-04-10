@@ -76,3 +76,4 @@ gem 'mina', group: [:development]
 #gem 'newrelic_rpm'
 
 gem 'actionpack-action_caching'
+gem 'rails-observers'

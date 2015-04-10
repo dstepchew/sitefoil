@@ -81,6 +81,8 @@ Sitefoil::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   config.action_mailer.default_url_options = { :host => 'http://sitefoil-commits.herokuapp.com/' }
+  config.action_controller.perform_caching = true
+
 end
 
 

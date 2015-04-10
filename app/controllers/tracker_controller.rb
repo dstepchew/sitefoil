@@ -5,10 +5,13 @@ class TrackerController < ApplicationController
 
   #tracker.js script is fetched with this method
 
-  caches_action :index, expires_in: 5.seconds
+
+  caches_action :index, :cache_path => Proc.new {|c| "tracker/"+c.params[:site_id] }, 
+    :expires_in => 10.seconds #because tracker script includes time
 
   def index
 
+      sleep(1)
      if !params[:site_id]
         render text:"site_id parameter not specified", status: 400
         return

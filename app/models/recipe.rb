@@ -28,7 +28,11 @@ class Recipe < ActiveRecord::Base
 	before_save :js_build
 
 	def js_build
-		self.js = (self.js_generate rescue nil)
+		if self.wizard_json_changed?
+			self.js = (self.js_generate rescue nil)
+			self.js_will_change!
+			self.site.save #expire cache
+		end
 	end
 
 	def js_generate
