@@ -11,7 +11,6 @@ class TrackerController < ApplicationController
 
   def index
 
-      sleep(1)
      if !params[:site_id]
         render text:"site_id parameter not specified", status: 400
         return
@@ -34,6 +33,7 @@ class TrackerController < ApplicationController
        cookies[:track_id] = { :value => visitor.id, :expires => 100.years.from_now }      
        new_visitor = true
      end
+
      @hit = visitor.hits.new
      #saving whole data just in case
      @hit.url = request.referrer #url that calls script
