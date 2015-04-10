@@ -48,10 +48,16 @@ class TrackerController < ApplicationController
      @hit.browser = request.user_agent
      @hit.save
 
-     @site_hash = {order_count: @site.orders.count, 
-      conversion_rate: @site.conversion_rate, 
-      conversion_rate_24_hours: @site.conversion_rate_24_hours,
-      timezone_string: @site.timezone_string}
+     if params[:no_site_stats]
+        @site_hash = {
+          timezone_string: @site.timezone_string
+        }
+     else
+        @site_hash = {order_count: @site.orders.count, 
+          conversion_rate: @site.conversion_rate, 
+          conversion_rate_24_hours: @site.conversion_rate_24_hours,
+          timezone_string: @site.timezone_string}
+     end
 
      @app_base = APP_PROTOCOL+request.host_with_port
 
