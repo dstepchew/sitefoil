@@ -157,33 +157,35 @@ var sitefoil = {
 		}
 		console.log("el_click",el_click)
 		console.log("el_clicked_id",el_clicked_id)
+
 	  <% if @site %>  
+	  	<% cache "site/#{@site.id}/recipes", skip_digest: true do %>
 
-		  //running recipes
-				if(page_load) {
-					console.log("page load events")
+			  //running recipes
+					if(page_load) {
+						console.log("page load events")
+					  <% @site.recipes.where(enabled:true).each do |recipe| %>			  	
+					  	console.log("checking recipe condition, recipe_id: ",<%= recipe.id %>)
+					  	if(!only_recipe_id || only_recipe_id==<%= recipe.id %>) {
+					  		var recipe_id = <%= recipe.id %>
+					  		<%= recipe.js.html_safe %>
+					  	}
+		        <% end %>
+					}
+
+					if(el_click) {
 				  <% @site.recipes.where(enabled:true).each do |recipe| %>			  	
-				  	console.log("checking recipe condition, recipe_id: ",<%= recipe.id %>)
+				  	<% if recipe.js.include? "(el_click"  %>
 				  	if(!only_recipe_id || only_recipe_id==<%= recipe.id %>) {
-				  		var recipe_id = <%= recipe.id %>
-				  		<%= recipe.js.html_safe %>
-				  	}
-	        <% end %>
-				}
+				  			var recipe_id = <%= recipe.id %>
+					    	<%= recipe.js.html_safe %>
+					    }
+				    <% end %>
+				  <% end %>
+					}
 
-				if(el_click) {
-			  <% @site.recipes.where(enabled:true).each do |recipe| %>			  	
-			  	<% if recipe.js.include? "(el_click"  %>
-			  	if(!only_recipe_id || only_recipe_id==<%= recipe.id %>) {
-			  			var recipe_id = <%= recipe.id %>
-				    	<%= recipe.js.html_safe %>
-				    }
-			    <% end %>
-			  <% end %>
-				}
+			<% end %>
 
-		<% else %>
-		  // SITE NOT DEFINED!
 		<% end %>
 
 	},

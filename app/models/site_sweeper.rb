@@ -10,7 +10,7 @@ class SiteSweeper < ActionController::Caching::Sweeper
   end
   
   def expire_cache(site)
-    name = "views/tracker/#{site.id}.js"
+    name = "views/site/#{site.id}/recipes"
     puts "expiring site:#{site.id} cache #{name}"
     Rails.cache.delete name
   end
