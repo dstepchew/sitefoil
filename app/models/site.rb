@@ -51,7 +51,7 @@ class Site < ActiveRecord::Base
   end
 
   def conversion_rate
-    return 0 if self.unique_visitor_hits.count.count==0
+    return 0 if (self.unique_visitor_hits.count.count==0 rescue true)
     100 * self.unique_visitors_orders.count.count.to_f / self.unique_visitor_hits.count.count.to_f
   end
 
