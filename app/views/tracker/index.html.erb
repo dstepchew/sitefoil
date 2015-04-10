@@ -4,8 +4,8 @@ console.log("sitefoil tracker.js script started, site_id: "+<%= @site.id rescue 
 'use strict';
 var sitefoil = {
 	language: (window.navigator.userLanguage || window.navigator.language),
-	visitor: JSON.parse('<%= @hit.to_json.html_safe %>'),
-	site: JSON.parse('<%= @site_hash.to_json.html_safe %>'),
+	visitor: JSON.parse('<%= raw(@hit.to_json) %>'),
+	site: JSON.parse('<%= raw(@site_hash.to_json) %>'),
 	page_load: false,
 	el_click: false,
 	el_clicked_id: "",
@@ -16,7 +16,7 @@ var sitefoil = {
 	},
 	email_to: function(to_email,text) {
 		console.log("sending email message")
-		this.$.post("<%= APP_PROTOCOL %><%= request.host_with_port%>/tracker/email_action",{
+		this.$.post("<%= @app_base %>/tracker/email_action",{
 			to_email: to_email,
 			text: text
 		})
@@ -25,7 +25,7 @@ var sitefoil = {
 	report_recipe_hit: function(recipe_id) {
 		console.log("reporting recipe hit")
 		
-		sitefoil.$.get("<%= APP_PROTOCOL %><%= request.host_with_port%>/api/report_recipe_hit",{id:recipe_id},function() {
+		sitefoil.$.get("<%= @app_base %>/api/report_recipe_hit",{id:recipe_id},function() {
 			console.log("recipe hit reported")
 		});
 
@@ -159,8 +159,8 @@ var sitefoil = {
 		console.log("el_clicked_id",el_clicked_id)
 
 	  <% if @site %>  
-	  	<% cache "site/#{@site.id}/recipes", skip_digest: true do %>
 
+	  		<%= cache "site/#{@site.id}/recipes", skip_digest: true do %>
 			  //running recipes
 					if(page_load) {
 						console.log("page load events")
@@ -183,8 +183,7 @@ var sitefoil = {
 				    <% end %>
 				  <% end %>
 					}
-
-			<% end %>
+				<% end %>
 
 		<% end %>
 
@@ -192,7 +191,7 @@ var sitefoil = {
 	save_visitor_data: function() {
 		var hit_id = "<%= @hit.id %>"
 		var xhr = new XMLHttpRequest()
-		var url = "<%= APP_PROTOCOL %><%= request.host_with_port%>/tracker/data_from_script?hit_id="+hit_id+
+		var url = "<%= @app_base %>/tracker/data_from_script?hit_id="+hit_id+
 		          "&hit[referrer]="+encodeURIComponent(document.referrer)
 		xhr.open('GET', url);
 		xhr.onreadystatechange = function (data) {
