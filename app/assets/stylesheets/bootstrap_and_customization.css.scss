@@ -175,6 +175,9 @@ p {
 	font-size:14px;
 }
 
+.help-text.well, .help-text .glyphicon {font-size:12px;}
+
+
 .row.padded, .col.padded {padding-top:40px;padding-bottom:40px;}
 
 .row-header {
@@ -354,6 +357,10 @@ a.btn.form-btn {
 a.box-btn:hover {
 	text-decoration:none;
 }
+
+
+
+
 
 body.features #main ul {
 	list-style-type:none;

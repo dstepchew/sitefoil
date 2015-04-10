@@ -80,19 +80,19 @@
   end
 	def self.actions
     [
-      { name: 'custom site footer', help: 'Overlay your site footer with custom HTML inside the following standard output:
+      { name: 'custom site footer', help: 'This action allows you to overlay your site footer with your custom HTML inside the following standard output:
 <div class=sitefoil-footer style=z-index:99999; position:fixed; bottom:0px; width:100%; margin:0px; padding:0px; > YOUR HTML GOES HERE </div>', js: 'sitefoil.footer_show(":html")', params: [{name: :html, input_type: :textarea }] },
-      { name: 'welcome banner', help: 'Overlay your site banner with custom HTML inside the following output:
+      { name: 'welcome banner', help: 'This action allows you to overlay your site banner with your custom HTML inside the following standard output:
 <div class=sitefoil-banner style=z-index:99999; position:fixed; top:0px; width:100%; margin:0px; padding:0px;> Your HTML goes here </div>', js: 'sitefoil.banner_show(":html")', params: [{name: :html, input_type: :textarea }] },
-      { name: 'welcome popup', help:'Overlay your site with a jquery popup with custom HTML inside the following output:
-<div id=sitefoil_popup_overlay style="z-index:10000; position:fixed; top:0px; left:0px; width:100%; height:100%; background:#000; opacity:0"></div><div id=sitefoil_popup style="opacity:0; display:none; padding:20px; box-shadow:rgba(0, 0, 0, 0.4) 0px 0px 10px 0px; background:#fff; top:0px;animation-top:2s; position:fixed; z-index:10001;"> Your HTML goes here <center> <input style="margin-top:20px; border:#eee; border-radius:5px; padding:10px; cursor:pointer;" type=button id=sitefoil_popup_ok onclick=sitefoil.popup_close() value="OK"> </center> </div>',js: 'sitefoil.popup_show({html: ":html", once_per_session: :once_per_session, recipe_id: recipe_id})', params: [{name: :html, input_type: :textarea },{name: :once_per_session, caption: "show only once per session", input_type: :checkbox}] },
-      { name: 'show hidden element', js: 'sitefoil.$(":selector").show()', params: [:selector]},
-    	{ name: 'alert', js: 'alert(":message")', params: [:message] },
-    	{ name: 'autofill', js: 'document.querySelector(":selector").value=":value"', params:[{name: :selector, input_type: :selector_pick},:value] },
-      { name: 'autofill and submit', js: 'sitefoil.autofill_and_submit(":selector",":value")', params:[{name: :selector, input_type: :selector_pick},:value]},
-    	{ name: 'send email', js: 'this.email_to(":to_email",":message")', params: [{name: :to_email},{name: :message,input_type: :textarea}] },
-      { name: 'console log', js: 'console.log(":message")', params: [:message]},
-      { name: 'run javascript', js: 'eval.apply(window,[":javascript"])', params: [{name: :javascript, input_type: :textarea}] }
+      { name: 'welcome popup', help:'This action will overlay your site with a jquery popup with your custom HTML inside the following standard output:
+<div id=sitefoil_popup_overlay style="z-index:10000; position:fixed; top:0px; left:0px; width:100%; height:100%; background:#000; opacity:0"></div><div id=sitefoil_popup style="opacity:0; display:none; padding:20px; box-shadow:rgba(0, 0, 0, 0.4) 0px 0px 10px 0px; background:#fff; top:0px;animation-top:2s; position:fixed; z-index:10001;"> Your HTML goes here <center> <input style="margin-top:20px; border:#eee; border-radius:5px; padding:10px; cursor:pointer;" type=button id=sitefoil_popup_ok onclick=sitefoil.popup_close() value="OK"> </center> </div>', js: 'sitefoil.popup_show({html: ":html", once_per_session: :once_per_session, recipe_id: recipe_id})', params: [{name: :html, input_type: :textarea },{name: :once_per_session, caption: "show only once per session", input_type: :checkbox}] },
+      { name: 'show hidden element', help:'This action will override the display property of any matching element so that it is display:block', js: 'sitefoil.$(":selector").show()', params: [:selector]},
+    	{ name: 'alert', help:'This action will prompt a basic browser javascript alert with your text.', js: 'alert(":message")', params: [:message] },
+    	{ name: 'autofill', help:'This action will force your custom text into any field you choose based on a designated input ID', js: 'document.querySelector(":selector").value=":value"', params:[{name: :selector, input_type: :selector_pick},:value] },
+      { name: 'autofill and submit', help:'This action will force custom text into any field you choose based on a designated input ID and then it will submit the form the field belongs to - used in cases were you want to auto-apply a discount code.', js: 'sitefoil.autofill_and_submit(":selector",":value")', params:[{name: :selector, input_type: :selector_pick},:value]},
+    	{ name: 'send email', help:'This action will send a basic email to any email address.', js: 'this.email_to(":to_email",":message")', params: [{name: :to_email},{name: :message,input_type: :textarea}] },
+      { name: 'console log', help:'This action will add messages into your browsers console log (for testing).', js: 'console.log(":message")', params: [:message]},
+      { name: 'run javascript', help:'This action will run any custom javascript. Run this in combination with other html recipes that require javascript', js: 'eval.apply(window,[":javascript"])', params: [{name: :javascript, input_type: :textarea}] }
     ]
   end
 
