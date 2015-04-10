@@ -5,10 +5,6 @@ class TrackerController < ApplicationController
   #tracker.js script is fetched with this method
 
   def index
-
-    if params[:profile]
-      Rack::MiniProfiler.authorize_request
-    end
     
     if !params[:site_id]
       render text:"site_id parameter not specified", status: 400

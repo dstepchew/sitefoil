@@ -4,6 +4,14 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_filter :configure_devise_params, if: :devise_controller?
+  before_action :profiler_enable
+
+  def profiler_enable
+    if params[:profile]
+      Rack::MiniProfiler.authorize_request
+    end
+  end
+
 
 
 APP_DOMAIN = 'app.sitefoil.com'
