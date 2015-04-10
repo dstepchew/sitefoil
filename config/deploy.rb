@@ -10,7 +10,7 @@ require 'mina/rvm'    # for rvm support. (http://rvm.io)
 #   repository   - Git repo to clone from. (needed by mina/git)
 #   branch       - Branch name to deploy. (needed by mina/git)
 
-set :domain, 'www.sitefoil.com'
+set :domain, 'app.sitefoil.com'
 set :deploy_to, '/var/www/sitefoil'
 set :repository, 'git@github.com:dstepchew/sitefoil.git'
 set :branch, 'nazar'

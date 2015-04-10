@@ -5,7 +5,7 @@ class TestSiteController < ApplicationController
 
   def main_app
     @use_protocol = "https://"
-    @host = "www.sitefoil.com"
+    @host = "app.sitefoil.com"
     render :index, layout:false
   end
 end
