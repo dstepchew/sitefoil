@@ -26,11 +26,18 @@ class Recipe < ActiveRecord::Base
 	validates :site_id, presence: true
 
 	before_save :js_build
+	before_save :before_save
 
-	before_destroy :site_touch
+	before_destroy :site_cache_clear
 
-	def site_touch
-		self.site.save #cleare cache
+	def before_save
+		if self.enabled_changed?
+			self.site_cache_clear
+		end
+	end
+	
+	def site_cache_clear
+		self.site.save #clear cache
 	end
 
 
@@ -38,7 +45,7 @@ class Recipe < ActiveRecord::Base
 		if self.wizard_json_changed?
 			self.js = (self.js_generate rescue nil)
 			self.js_will_change!
-			self.site.save #expire cache
+			self.site_cache_clear #expire cache
 		end
 	end
 

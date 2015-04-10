@@ -14,4 +14,10 @@ class SiteSweeper < ActionController::Caching::Sweeper
     puts "expiring site:#{site.id} cache #{name}"
     Rails.cache.delete name
   end
+
+  def self.expire_cache
+    Site.all.each do |r|
+      r.save
+    end
+  end
 end
