@@ -8,5 +8,5 @@
 #
 
 class Visitor < ActiveRecord::Base
-	has_many :hits
+	has_many :hits, dependent: :destroy
 end
