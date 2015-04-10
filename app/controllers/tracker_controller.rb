@@ -1,5 +1,4 @@
 class TrackerController < ApplicationController
-  layout false
   skip_before_action :verify_authenticity_token
   before_action :set_headers
 
@@ -7,65 +6,72 @@ class TrackerController < ApplicationController
 
   def index
 
-     if !params[:site_id]
-        render text:"site_id parameter not specified", status: 400
-        return
-     end
- 
-     @site = Site.find_by_id params[:site_id]
+    if params[:profile]
+      Rack::MiniProfiler.authorize_request
+    end
+    
+    if !params[:site_id]
+      render text:"site_id parameter not specified", status: 400
+      return
+    end
 
-     if !@site
-       render text: "site with such id not found", status: 400
-       return
-     end
+    @site = Site.find_by_id params[:site_id]
 
-     new_visitor = false
-     if cookies[:track_id]
-       visitor = Visitor.find_by_id cookies[:track_id]
-     end
-
-     if !visitor
-       visitor = Visitor.create
-       cookies[:track_id] = { :value => visitor.id, :expires => 100.years.from_now }      
-       new_visitor = true
-     end
-
-     @hit = visitor.hits.new
-     #saving whole data just in case
-     @hit.url = request.referrer #url that calls script
-     if (request.location rescue false)
-       @hit.tag[:location] = request.location.data
-       @hit.country = request.location.data["country_name"]
-       @hit.state = request.location.data["region_name"]
-       @hit.city = request.location.data["city"]
-     end
-     @hit.tag[:user_agent] = request.user_agent
-     @hit.device = user_agent_to_device request.user_agent
-     @hit.os_name = user_agent_to_os_name request.user_agent
-     @hit.site = @site
-     @hit.new_visitor = new_visitor
-     @hit.ip = request.remote_ip
-     @hit.browser = request.user_agent
-     @hit.save
-
-     if params[:no_site_stats]
-        @site_hash = {
-          timezone_string: @site.timezone_string
-        }
-     else
-        @site_hash = {order_count: @site.orders.count, 
-          conversion_rate: @site.conversion_rate, 
-          conversion_rate_24_hours: @site.conversion_rate_24_hours,
-          timezone_string: @site.timezone_string}
-     end
-
-     @app_base = APP_PROTOCOL+request.host_with_port
-
-     js = index_render
-     #js = Uglifier.new.compile(js)
-     render text: js, content_type: "application/javascript"
-
+    if !@site
+     render text: "site with such id not found", status: 400
      return
+    end
+
+    new_visitor = false
+    if cookies[:track_id]
+     visitor = Visitor.find_by_id cookies[:track_id]
+    end
+
+    if !visitor
+     visitor = Visitor.create
+     cookies[:track_id] = { :value => visitor.id, :expires => 100.years.from_now }      
+     new_visitor = true
+    end
+
+    @hit = visitor.hits.new
+    #saving whole data just in case
+    @hit.url = request.referrer #url that calls script
+    if (request.location rescue false)
+     @hit.tag[:location] = request.location.data
+     @hit.country = request.location.data["country_name"]
+     @hit.state = request.location.data["region_name"]
+     @hit.city = request.location.data["city"]
+    end
+    @hit.tag[:user_agent] = request.user_agent
+    @hit.device = user_agent_to_device request.user_agent
+    @hit.os_name = user_agent_to_os_name request.user_agent
+    @hit.site = @site
+    @hit.new_visitor = new_visitor
+    @hit.ip = request.remote_ip
+    @hit.browser = request.user_agent
+    @hit.save
+
+    if params[:no_site_stats]
+      @site_hash = {
+        timezone_string: @site.timezone_string
+      }
+    else
+      @site_hash = {order_count: @site.orders.count, 
+        conversion_rate: @site.conversion_rate, 
+        conversion_rate_24_hours: @site.conversion_rate_24_hours,
+        timezone_string: @site.timezone_string}
+    end
+
+    @app_base = APP_PROTOCOL+request.host_with_port
+
+    js = index_render
+    #js = Uglifier.new.compile(js)
+    if params[:format] == 'html'
+        render :profiling
+    else
+        render text: js, layout: false, content_type: "application/javascript"
+    end
+
   end
 
   def index_render
