@@ -74,3 +74,5 @@ gem "font-awesome-rails"
 gem 'thin'
 gem 'mina', group: [:development]
 #gem 'newrelic_rpm'
+
+gem 'actionpack-action_caching'

@@ -4,6 +4,9 @@ class TrackerController < ApplicationController
   before_action :set_headers
 
   #tracker.js script is fetched with this method
+
+  caches_action :index, expires_in: 5.seconds
+
   def index
 
      if !params[:site_id]
