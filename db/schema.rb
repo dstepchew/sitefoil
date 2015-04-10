@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150121114349) do
+ActiveRecord::Schema.define(version: 20150410180506) do
 
   create_table "actions", force: true do |t|
     t.string   "name"
@@ -112,6 +112,10 @@ ActiveRecord::Schema.define(version: 20150121114349) do
     t.boolean  "enabled",       default: true
     t.datetime "hit_last_time"
   end
+
+  add_index "recipes", ["enabled"], name: "index_recipes_on_enabled"
+  add_index "recipes", ["site_id", "enabled"], name: "index_recipes_on_site_id_and_enabled"
+  add_index "recipes", ["site_id"], name: "index_recipes_on_site_id"
 
   create_table "sites", force: true do |t|
     t.string   "name"
