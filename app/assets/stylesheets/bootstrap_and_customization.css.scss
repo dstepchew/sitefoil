@@ -102,6 +102,8 @@ padding-bottom:240px; /* this needs to be bigger than footer height*/
 	font-style: italic;
 }
 
+/* OLD HOME PAGE 
+
 body.home {
 	background-color:#FFF;
 }
@@ -119,7 +121,7 @@ footer {
     margin-top:40px;
     position: relative;
 	margin-top: -200px; /* negative value of footer height */
-	clear:both;
+/*	clear:both;
 
 }
 
@@ -127,7 +129,6 @@ h3.panel-title {
 	font-size:24px;
 }
 
-/* HOME PAGE */
 
 body.home .top-container {
     width:100%;
@@ -153,8 +154,8 @@ body.home .row .col {
 }
 
 body.home .slide1 {
-	/* min-height:800px; */
-}
+	/* min-height:800px; 
+}*/
 
 div.row.bordered {border-bottom: 1px solid #ccc; margin-bottom:20px;padding-bottom:20px;}
 
