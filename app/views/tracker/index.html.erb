@@ -160,7 +160,6 @@ var sitefoil = {
 
 	  <% if @site %>  
 
-	  		<%= cache "site/#{@site.id}/recipes", skip_digest: true do %>
 			  //running recipes
 					if(page_load) {
 						console.log("page load events")
@@ -183,7 +182,6 @@ var sitefoil = {
 				    <% end %>
 				  <% end %>
 					}
-				<% end %>
 
 		<% end %>
 

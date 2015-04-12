@@ -33,6 +33,5 @@ module Sitefoil
 =end
 
     ActionMailer::Base.delivery_method = :smtp
-    config.active_record.observers = :site_sweeper    
   end
 end
