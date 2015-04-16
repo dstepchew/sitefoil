@@ -51,11 +51,25 @@ class Site < ActiveRecord::Base
   end
 
   def conversion_rate
+    self.tag[:conversion_rate]
+  end
+
+  def conversion_rate_24_hours
+    self.tag[:conversion_rate_24_hours]
+  end
+
+  def on_cron
+    self.tag[:conversion_rate] = self.conversion_rate_calc
+    self.tag[:conversion_rate_24_hours] = self.conversion_rate_24_hours_calc
+    self.save
+  end
+
+  def conversion_rate_calc
     return 0 if self.unique_visitor_hits.count.count==0
     100 * self.unique_visitors_orders.count.count.to_f / self.unique_visitor_hits.count.count.to_f
   end
 
-  def conversion_rate_24_hours
+  def conversion_rate_24_hours_calc
     100.0 * self.unique_visitors_orders.where("created_at>?",24.hours.ago).count.count.to_f / self.unique_visitor_hits.where("created_at>?",24.hours.ago).count.count.to_f
   end
 
