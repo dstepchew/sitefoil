@@ -4,6 +4,10 @@ class TrackerController < ApplicationController
 
   #tracker.js script is fetched with this method
 
+  def test
+    render text:request.location.to_json
+  end
+
   def index
     
     if !params[:site_id]
@@ -32,7 +36,7 @@ class TrackerController < ApplicationController
     @hit = visitor.hits.new
     #saving whole data just in case
     @hit.url = request.referrer #url that calls script
-    if (request.location rescue false)
+    if !params[:no_location] && (request.location rescue false)
      @hit.tag[:location] = request.location.data
      @hit.country = request.location.data["country_name"]
      @hit.state = request.location.data["region_name"]
