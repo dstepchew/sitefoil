@@ -50,6 +50,12 @@ class Site < ActiveRecord::Base
     self.hits.where("url like ?",self.order_url_sql_wildcard).group(:visitor)
   end
 
+  #this value should be updated, increased dynamically on hit create
+  #it should be site field
+  def orders_count
+    self.tag[:orders_count]
+  end
+
   def conversion_rate
     self.tag[:conversion_rate]
   end
@@ -61,6 +67,7 @@ class Site < ActiveRecord::Base
   def on_cron
     self.tag[:conversion_rate] = self.conversion_rate_calc
     self.tag[:conversion_rate_24_hours] = self.conversion_rate_24_hours_calc
+    self.tag[:orders_count] = self.orders.count
     self.save
   end
 

@@ -52,7 +52,7 @@ class TrackerController < ApplicationController
         timezone_string: @site.timezone_string
       }
     else
-      @site_hash = {order_count: @site.orders.count, 
+      @site_hash = {order_count: @site.orders_count, 
         conversion_rate: @site.conversion_rate, 
         conversion_rate_24_hours: @site.conversion_rate_24_hours,
         timezone_string: @site.timezone_string}
