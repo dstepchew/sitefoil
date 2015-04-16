@@ -87,3 +87,4 @@ end
 
 
 APP_PROTOCOL = "https://"
+GEOIP_DATA = "/var/www/sitefoil/shared/GeoLiteCity.dat"

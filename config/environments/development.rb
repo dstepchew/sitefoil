@@ -33,3 +33,4 @@ Sitefoil::Application.configure do
 end
 
 APP_PROTOCOL = "http://"
+GEOIP_DATA = "../GeoLiteCity.dat"

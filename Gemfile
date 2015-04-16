@@ -79,3 +79,4 @@ gem 'actionpack-action_caching'
 gem 'rails-observers'
 
 gem 'rack-mini-profiler'
+gem 'geoip'

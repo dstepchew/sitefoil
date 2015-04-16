@@ -36,12 +36,17 @@ class TrackerController < ApplicationController
     @hit = visitor.hits.new
     #saving whole data just in case
     @hit.url = request.referrer #url that calls script
-    if !params[:no_location] && (request.location rescue false)
-     @hit.tag[:location] = request.location.data
-     @hit.country = request.location.data["country_name"]
-     @hit.state = request.location.data["region_name"]
-     @hit.city = request.location.data["city"]
+
+    @geoip ||= GeoIP.new(GEOIP_DATA)
+
+    if !params[:no_location]
+     data = @geoip.country(request.remote_ip)
+     @hit.tag[:location] = data
+     @hit.country = data.country_name
+     @hit.state = data.real_region_name
+     @hit.city = data.city_name
     end
+
     @hit.tag[:user_agent] = request.user_agent
     @hit.device = user_agent_to_device request.user_agent
     @hit.os_name = user_agent_to_os_name request.user_agent
