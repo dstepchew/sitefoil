@@ -1,11 +1,24 @@
-
 console.log("sitefoil tracker.js script started, site_id: "+<%= @site.id rescue 'not defined' %>)
 
 'use strict';
+
+/************************/
+/* dynamic per hit data */
+
+var app_base = "<%= @app_base %>";
+var hit_id = "<%= @hit.id %>"
+
 var sitefoil = {
+	
+	visitor: JSON.parse('<%= raw(@hit.to_json) %>'), /* location, country, browser etc. */
+	site: JSON.parse('<%= raw(@site_hash.to_json) %>'), /* conversion rates here */
+	date_int: (new Date('<%= "#{DateTime.now.to_date.to_s} 00:00:00 "+ @site.timezone_string %>')).valueOf(),
+	hours_minutes_int: <%= @site.time.hour%>*60+<%= @site.time.min %>,
+
+/* end of dynamic per hit data */
+/*******************************/
+
 	language: (window.navigator.userLanguage || window.navigator.language),
-	visitor: JSON.parse('<%= raw(@hit.to_json) %>'),
-	site: JSON.parse('<%= raw(@site_hash.to_json) %>'),
 	page_load: false,
 	el_click: false,
 	el_clicked_id: "",
@@ -16,7 +29,7 @@ var sitefoil = {
 	},
 	email_to: function(to_email,text) {
 		console.log("sending email message")
-		this.$.post("<%= @app_base %>/tracker/email_action",{
+		this.$.post(app_base+"/tracker/email_action",{
 			to_email: to_email,
 			text: text
 		})
@@ -25,7 +38,7 @@ var sitefoil = {
 	report_recipe_hit: function(recipe_id) {
 		console.log("reporting recipe hit")
 		
-		sitefoil.$.get("<%= @app_base %>/api/report_recipe_hit",{id:recipe_id},function() {
+		sitefoil.$.get(app_base+"/api/report_recipe_hit",{id:recipe_id},function() {
 			console.log("recipe hit reported")
 		});
 
@@ -114,13 +127,11 @@ var sitefoil = {
     sitefoil.$("#sitefoil_popup_overlay").bind("mousedown",sitefoil.popup_close)
 
 	},
-	date_int: (new Date('<%= "#{DateTime.now.to_date.to_s} 00:00:00 "+ @site.timezone_string %>')).valueOf(),
 	date_to_int: function(date_string) {
 		var ret = (new Date(date_string+" 00:00:00 "+sitefoil.site.timezone_string)).valueOf();
 		console.log("date_int for  "+date_string + " is " + ret+", current sitefoil.date_int: "+sitefoil.date_int)
 		return ret;
 	},
-	hours_minutes_int: <%= @site.time.hour%>*60+<%= @site.time.min %>,
 	hours_minutes_to_int: function(s) {
 		try {
 		  var parts = s.split(":")
@@ -158,6 +169,7 @@ var sitefoil = {
 		console.log("el_click",el_click)
 		console.log("el_clicked_id",el_clicked_id)
 
+		/* block depending only from recipes, can be cached */
 	  <% if @site %>  
 
 			  //running recipes
@@ -187,9 +199,8 @@ var sitefoil = {
 
 	},
 	save_visitor_data: function() {
-		var hit_id = "<%= @hit.id %>"
 		var xhr = new XMLHttpRequest()
-		var url = "<%= @app_base %>/tracker/data_from_script?hit_id="+hit_id+
+		var url = app_base + "/tracker/data_from_script?hit_id="+hit_id+
 		          "&hit[referrer]="+encodeURIComponent(document.referrer)
 		xhr.open('GET', url);
 		xhr.onreadystatechange = function (data) {

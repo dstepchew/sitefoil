@@ -42,12 +42,12 @@ class TrackerController < ApplicationController
 
     @geoip ||= GeoIP.new(GEOIP_DATA)
 
-    if !params[:no_location]
-     data = @geoip.country(request.remote_ip)
-     @hit.tag[:location] = data
-     @hit.country = data.country_name
-     @hit.state = data.real_region_name
-     @hit.city = data.city_name
+    data = @geoip.country(request.remote_ip)
+    if data
+      @hit.tag[:location] = data
+      @hit.country = data.country_name
+      @hit.state = data.real_region_name
+      @hit.city = data.city_name
     end
 
     @hit.tag[:user_agent] = request.user_agent
