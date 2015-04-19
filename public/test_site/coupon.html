@@ -1,4 +1,25 @@
 <body>
 <script src=http://localhost:3000/tracker.js?site_id=1></script>
-coupon input: <input id=coupon value='initial value'>
+<form>
+
+   <input type="submit" value="wrong button" onclick="localStorage['st'] = 'wrong btn 1 clicked'">
+   
+    <input name="someother">
+    <br>
+  coupon input: <input id=coupon value='initial value'>
+    <input name="someother">
+    <div>
+
+    <input type="submit" value="right, closest button" id=right onclick="localStorage['st'] = 'right btn clicked'">
+    </div>
+    <input name="someother">
+    <input name="someother">
+    <input name="someother">
+    <input type="submit" value="wrong button" onclick="localStorage['st'] = 'wrong btn clicked'">
+</form>
 </body>
+
+<script>
+console.log("[[[[[ current status ]]]]] "+localStorage['st'])
+localStorage.removeItem('st')
+</script>

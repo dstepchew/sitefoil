@@ -43,29 +43,86 @@ var sitefoil = {
 		});
 
 	},
+
 	autofill_and_submit: function(selector,value) {
 		console.log("sitefoil action 'autofill and submit'")
-		var submit_data = JSON.stringify({url:window.location.href,selector:selector,value:value})
-		if(sitefoil.$.cookie("last_autofill_and_submit")==submit_data) {
+		var submit_data = JSON.stringify({url:window.location.pathname,selector:selector,value:value})
+		if(localStorage["last_autofill_and_submit"]==submit_data) {
 			console.log("detected just submitted from same location, ignoring")
-			sitefoil.$.removeCookie("last_autofill_and_submit")
+			localStorage.removeItem("last_autofill_and_submit")
 			return;
 		}
 
-		if(this.$(selector).length>0) {
-			this.$(selector).val(value)
-			var form = this.$(selector).parents("form")
-			if(form.length>0) {
-				console.log("submitting form")
-				sitefoil.$.cookie("last_autofill_and_submit",submit_data)
-				form.submit()
-			} else {
-				console.log("parent form not found")
-			}
-		} else {
+		var target_ctrl = this.$(selector)
+		if(target_ctrl.length==0) {
 			console.log("selector: ",selector," not found")
+			return;
+
 		}
+
+		target_ctrl.val(value)
+		var form = this.$(selector).parents("form")
+		if(form.length==0) {
+			console.log("parent form not found")
+			return;
+		}
+
+		sitefoil.ignore_click = true;
+
+		console.log("submitting form")
+		localStorage["last_autofill_and_submit"] = submit_data
+		
+		var submit_btns = form.find("input[type='submit']")
+		if(submit_btns.length==0) {
+			//submitting form without button click
+			console.log("no submit button, submitting form")
+			form.submit()
+			return;
+		}
+
+		if(submit_btns.length==1) {
+			console.log("got one submit btn")
+			sitefoil.$(submit_btns[0]).trigger("click")
+			return;
+		} 
+
+		//clicking closest submit button
+		console.log("got several submit btns")
+		var closest_btn = null;
+		var distance = null;
+		var target_ofs = target_ctrl.first().offset()
+		
+		submit_btns.each(function(i,el) {
+			var el_ofs = sitefoil.$(el).offset()
+			//ignore btns above
+			if(target_ofs.top>el_ofs.top) {
+				console.log("btn is above target field", el)
+				return;
+			}
+
+			var dy = el_ofs.top - target_ofs.top
+			var dx = el_ofs.left - target_ofs.left
+			var dist = dx*dx+dy*dy
+			console.log("distance to ",el,": ",dist)
+			if( distance==null || dist<distance) {
+				distance = dist
+				closest_btn = el
+			}
+
+		})
+		
+		if(!closest_btn) {
+			console.log("can't find right button,submitting form")
+			form.submit()
+			return;
+		}
+		
+		console.log("submitting form with btn: ",closest_btn)
+		sitefoil.$(closest_btn).trigger("click")
+
 	},
+
+
 	visitor_type: function() {
 		if(this.visitor.new_visitor) {
 			return 'new'
@@ -234,7 +291,12 @@ sitefoil.$(function() {
 })
 
 
+/* click event */
 sitefoil.$(document).bind("click",function(e) {
+	if(sitefoil.ignore_click) {
+		sitefoil.ignore_click = false;
+		return;
+	}
 	sitefoil.el_click = true;
 	sitefoil.el_clicked_id = e.target.id
 	console.log("id",sitefoil.el_clicked_id)
