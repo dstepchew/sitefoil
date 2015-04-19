@@ -5,7 +5,10 @@ class TrackerController < ApplicationController
   #tracker.js script is fetched with this method
 
   def test
-    render text:request.location.to_json
+    @geoip ||= GeoIP.new(GEOIP_DATA)
+
+    data = @geoip.country(request.remote_ip)
+    render text: data.to_json
   end
 
   def index
