@@ -75,7 +75,7 @@ padding-bottom:240px; /* this needs to be bigger than footer height*/
 	color:#FFF;
 }
 
-.navbar-dark .navbar-nav > li > a:hover {
+.navbar-dark .navbar-nav > li > a:hover, .navbar-dark .navbar-nav > li > a:active {
 	color:#EEE;
 }
 
@@ -390,6 +390,9 @@ body.flush .navbar {margin-bottom:0px;}
 
 
 #main div.row  {margin-right:0px;}
+
+body.home#signed_in div#main {background:#FFF; margin-bottom:20px;margin-top: -20px;
+padding-top: 20px;}
 /*
 body.small-form .full-width,  body.main-form .full-width {
 	background-color: #8eb5e2;
