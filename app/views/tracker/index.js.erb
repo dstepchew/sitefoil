@@ -45,10 +45,11 @@ var sitefoil = {
 	},
 
 	autofill_and_submit: function(selector,value) {
+		var emulate = localStorage['sitefoil_emulate']
 		console.log("sitefoil action 'autofill and submit'")
 		var submit_data = JSON.stringify({url:window.location.pathname,selector:selector,value:value})
 		if(localStorage["last_autofill_and_submit"]==submit_data) {
-			console.log("detected just submitted from same location, ignoring")
+			console.log("already updated control and submitted on same url, ignoring")
 			localStorage.removeItem("last_autofill_and_submit")
 			return;
 		}
@@ -76,13 +77,13 @@ var sitefoil = {
 		if(submit_btns.length==0) {
 			//submitting form without button click
 			console.log("no submit button, submitting form")
-			form.submit()
+			!emulate && form.submit()
 			return;
 		}
 
 		if(submit_btns.length==1) {
 			console.log("got one submit btn")
-			sitefoil.$(submit_btns[0]).trigger("click")
+			!emulate && sitefoil.$(submit_btns[0]).trigger("click")
 			return;
 		} 
 
@@ -113,12 +114,12 @@ var sitefoil = {
 		
 		if(!closest_btn) {
 			console.log("can't find right button,submitting form")
-			form.submit()
+			!emulate && form.submit()
 			return;
 		}
 		
 		console.log("submitting form with btn: ",closest_btn)
-		sitefoil.$(closest_btn).trigger("click")
+		!emulate && sitefoil.$(closest_btn).trigger("click")
 
 	},
 
