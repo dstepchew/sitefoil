@@ -71,11 +71,39 @@
 
 <h1>Your Recipes</h1>
 
+
+
+                                
+
+
+
+
 <hr>
 
 <div class="row" style="border-bottom: 1px solid #ccc; margin-bottom:20px; background:#FFF;">
        
     </div>
+
+    <% if current_user.sites.empty? %>
+                                    
+
+                                    <div class="jumbotron text-center" style="background:#fff;">
+                                    <div class="container">
+                                        <h2>You do not have any web sites set up yet</h2>
+                                    <%= link_to "Get Started Here", new_site_path, class: "btn btn-primary" %>
+                                      </div>
+                                    </div>
+
+
+                                <% else %>
+
+                                <% if current_user.recipes.empty? %>
+
+                                You currently do not have any recipes set up.  Click the button below to add a recipe to your site.<br /><br />
+
+                                 <% else %>
+
+
 <% @recipes.order(:created_at).each do |recipe| %>
 
 <%
@@ -186,10 +214,10 @@ end
         </div>
     </div>
 
-<% end %>
+<% end %><% end %>
 
 <%= link_to 'New Recipe', new_recipe_path, class: "btn btn-primary" %>
 <% end %>
 
-
+<% end %>
 

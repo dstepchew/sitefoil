@@ -29,15 +29,15 @@
         
        
               <div class="form-group" style="margin-top:20px;">
-                <%= f.label :name, "Name Your Site" %><br>
+                <%= f.label :name, "Name Your Web Site" %>
                 <%= f.text_field :name, class: "form-control" %>
               </div>
         
         
         
               <div class="form-group">
-                <%= f.label :url, "Site URL address" %><br>
-                <%= f.text_field :url, class: "form-control" %>
+                <%= f.label :url, "Site URL address" %>
+                <%= f.text_field :url, class: "form-control", value: "EXAMPLE: http://www.example.com - include http://", :onfocus => 'this.value = ""'   %>
               </div>
 
 
@@ -47,7 +47,7 @@
               </div>
 
               <div class="form-group">
-                <%= f.label :order_url, "Order page url (for conversion rate calculation)" %><br>
+                <%= f.label :order_url, "Order page url (OPTIONAL: Used for ecommerce conversion rate calculation)" %><br>
                 <%= f.text_field :order_url, class: "form-control" %>
                 <p><small style='font-size:12px;line-height:90%;'><em><strong>Note:</strong> All visited urls starting with this value will be considered valid orders.</em><br>wildcards with * symbol allowed (example: http://mysite.com/*/order)</small></p>
               </div>

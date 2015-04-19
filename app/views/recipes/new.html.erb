@@ -4,7 +4,22 @@
   <li class="active">New Recipe</li>
 </ol>
 
+<% if current_user.sites.empty? %>
+                                    
+
+                                    <div class="jumbotron text-center" style="background:#fff;">
+                                    <div class="container">
+                                        <h2>You do not have any web sites set up yet</h2>
+                                    <%= link_to "Get Started Here", new_site_path, class: "btn btn-primary" %>
+                                      </div>
+                                    </div>
+
+
+                                <% else %>
+
 <%= render 'form' %>
+
+<% end %>
 
 <% content_for :body_class, "main-form" %>
 

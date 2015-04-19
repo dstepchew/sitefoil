@@ -2,6 +2,22 @@
 
 <hr>
 
+
+<% if current_user.sites.empty? %>
+                                    
+
+                                    <div class="jumbotron text-center" style="background:#fff;">
+                                    <div class="container">
+                                        <h2>You do not have any web sites set up yet</h2>
+                                    <%= link_to "Get Started Here", new_site_path, class: "btn btn-primary" %>
+                                      </div>
+                                    </div>
+
+
+                                <% else %>
+
+
+
 <% @sites.each do |site| %>
 
 <div class="panel panel-default">
@@ -114,8 +130,12 @@
           <a class="btn btn-default btn-xs" href=<%= edit_recipe_path(recipe)%>>edit</a> 
         </p>
         <% end %>
+
+
+
       </ul>
 
+      <%= link_to "Add A Recipe", new_recipe_path, class: "btn btn-success" %>
 
     </div>
 
@@ -132,5 +152,7 @@
 <br>
 
 <%= link_to 'Add A New Site', new_site_path, class: "btn btn-primary" %>
+
+<% end %>
 
 <% content_for :body_class, "sites" %>

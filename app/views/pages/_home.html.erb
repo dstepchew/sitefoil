@@ -3,7 +3,7 @@
 
     <% if user_signed_in? %>
 
-<div class="container">
+<div class="container" style="background;#FFF;">
 
     <div class="row">
     <h2>SiteFoil Dashboard</h2>
@@ -16,6 +16,20 @@
 
 
                                 </div>
+
+
+                                <% if current_user.sites.empty? %>
+                                    <p>Welcome To SiteFoil!</p>
+
+                                    <div class="jumbotron text-center" style="background:#EFEFEF;">
+                                    <div class="container">
+                                        <h2>You do not have any web sites set up yet</h2>
+                                    <%= link_to "Get Started Here", new_site_path, class: "btn btn-primary" %>
+                                      </div>
+                                    </div>
+
+
+                                <% else %>
 
 
                                 <% current_user.sites.each do |site| %>
@@ -77,6 +91,7 @@
                                         
      
                                     </div>
+                                    <% end %>
                                 <% end %>
  
 
