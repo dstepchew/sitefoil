@@ -44,8 +44,7 @@ var sitefoil = {
 
 	},
 
-	autofill_and_submit: function(selector,value) {
-		var emulate = localStorage['sitefoil_emulate']
+	autofill_and_submit: function(selector,value,emulate) {
 		console.log("sitefoil action 'autofill and submit'")
 		var submit_data = JSON.stringify({url:window.location.pathname,selector:selector,value:value})
 		if(localStorage["last_autofill_and_submit"]==submit_data) {
