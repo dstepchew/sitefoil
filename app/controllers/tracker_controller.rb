@@ -12,7 +12,7 @@ class TrackerController < ApplicationController
   end
 
   def index
-    
+
     if !params[:site_id]
       render text:"site_id parameter not specified", status: 400
       return
@@ -39,6 +39,7 @@ class TrackerController < ApplicationController
     @hit = visitor.hits.new
     #saving whole data just in case
     @hit.url = request.referrer #url that calls script
+
 
     @geoip ||= GeoIP.new(GEOIP_DATA)
 
@@ -72,11 +73,10 @@ class TrackerController < ApplicationController
 
     @app_base = APP_PROTOCOL+request.host_with_port
 
-    js = index_render
-    #js = Uglifier.new.compile(js)
-    if params[:format] == 'html'
+    if params[:format] == "html"
         render :profiling
     else
+        js = index_render
         render text: js, layout: false, content_type: "application/javascript"
     end
 
