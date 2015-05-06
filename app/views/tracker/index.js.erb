@@ -44,6 +44,13 @@ var sitefoil = {
 
 	},
 
+	autofill: function(selector,value) {
+		var el = document.querySelector(selector)
+		if(el) {
+			el.value=value
+		}
+	},
+	
 	autofill_and_submit: function(selector,value,emulate) {
 		console.log("sitefoil action 'autofill and submit'")
 		var submit_data = JSON.stringify({url:window.location.pathname,selector:selector,value:value})
