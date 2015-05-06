@@ -33,7 +33,9 @@ class Recipe < ActiveRecord::Base
 		self.all.each do |r|
 			begin
 				r.js = r.js_generate
-			rescue
+			rescue Exception => e  
+				puts e.message  
+				puts e.backtrace.inspect 
 				puts "error when generating js for recipe: #{r.id}"
 			end
 			if r.js_changed?
