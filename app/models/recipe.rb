@@ -26,9 +26,24 @@ class Recipe < ActiveRecord::Base
 	validates :site_id, presence: true
 
 	before_save :js_build
-	before_save :before_save
 
-	
+	#rebuild all recipes js (needed when recipe generation code is changed)
+	#to be called from rails console
+	def self.rebuild_all
+		self.all.each do |r|
+			begin
+				r.js = r.js_generate
+			rescue
+				puts "error when generating js for recipe: #{r.id}"
+			end
+			if r.js_changed?
+				puts "js changed for recipe: #{r.id}"
+				r.save
+			end
+		end
+		true
+	end
+
 	def js_build
 		if self.wizard_json_changed?
 			self.js = (self.js_generate rescue nil)

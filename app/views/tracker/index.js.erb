@@ -243,7 +243,7 @@ var sitefoil = {
 					  	console.log("checking recipe condition, recipe_id: ",<%= recipe.id %>)
 					  	if(!only_recipe_id || only_recipe_id==<%= recipe.id %>) {
 					  		var recipe_id = <%= recipe.id %>
-					  		<%= recipe.js.html_safe %>
+					  		<%= recipe.js.to_s.html_safe %>
 					  	}
 		        <% end %>
 					}
@@ -253,7 +253,7 @@ var sitefoil = {
 				  	<% if recipe.js.include? "(el_click"  %>
 				  	if(!only_recipe_id || only_recipe_id==<%= recipe.id %>) {
 				  			var recipe_id = <%= recipe.id %>
-					    	<%= recipe.js.html_safe %>
+					    	<%= recipe.js.to_s.html_safe %>
 					    }
 				    <% end %>
 				  <% end %>
