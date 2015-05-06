@@ -28,24 +28,11 @@ class Recipe < ActiveRecord::Base
 	before_save :js_build
 	before_save :before_save
 
-	before_destroy :site_cache_clear
-
-	def before_save
-		if self.enabled_changed?
-			self.site_cache_clear
-		end
-	end
 	
-	def site_cache_clear
-		self.site.save #clear cache
-	end
-
-
 	def js_build
 		if self.wizard_json_changed?
 			self.js = (self.js_generate rescue nil)
 			self.js_will_change!
-			self.site_cache_clear #expire cache
 		end
 	end
 
