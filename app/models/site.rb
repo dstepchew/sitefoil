@@ -38,6 +38,16 @@ class Site < ActiveRecord::Base
     end
   end
 
+
+  def date
+    timezone_hours = self.timezone_minutes/60
+    DateTime.now.new_offset(Rational(timezone_hours,24)).to_date
+  end
+
+  def day_begin_s
+    self.date.to_date.to_s+" 00:00:00 "+ self.timezone_string
+  end
+
   def orders
     self.hits.where("url like ?",self.order_url_sql_wildcard)
   end

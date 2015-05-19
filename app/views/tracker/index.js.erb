@@ -12,7 +12,7 @@ var sitefoil = {
 	
 	visitor: JSON.parse('<%= raw(@hit.to_json) %>'), /* location, country, browser etc. */
 	site: JSON.parse('<%= raw(@site_hash.to_json) %>'), /* conversion rates here */
-	date_int: (new Date('<%= "#{DateTime.now.to_date.to_s} 00:00:00 "+ @site.timezone_string %>')).valueOf(),
+	date_int: (new Date('<%= @site.day_begin_s %>')).valueOf(),
 	hours_minutes_int: <%= @site.time.hour%>*60+<%= @site.time.min %>,
 
 /* end of dynamic per hit data */
