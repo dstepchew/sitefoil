@@ -12,7 +12,7 @@ var sitefoil = {
 	
 	visitor: JSON.parse('<%= raw(@hit.to_json) %>'), /* location, country, browser etc. */
 	site: JSON.parse('<%= raw(@site_hash.to_json) %>'), /* conversion rates here */
-	date_int: (new Date('<%= "#{DateTime.now.to_date.to_s} 00:00:00 "+ @site.timezone_string %>')).valueOf(),
+	date_int: (new Date('<%= @site.day_begin_s %>')).valueOf(),
 	hours_minutes_int: <%= @site.time.hour%>*60+<%= @site.time.min %>,
 
 /* end of dynamic per hit data */
@@ -44,6 +44,13 @@ var sitefoil = {
 
 	},
 
+	autofill: function(selector,value) {
+		var el = document.querySelector(selector)
+		if(el) {
+			el.value=value
+		}
+	},
+	
 	autofill_and_submit: function(selector,value,emulate) {
 		console.log("sitefoil action 'autofill and submit'")
 		var submit_data = JSON.stringify({url:window.location.pathname,selector:selector,value:value})
@@ -236,7 +243,7 @@ var sitefoil = {
 					  	console.log("checking recipe condition, recipe_id: ",<%= recipe.id %>)
 					  	if(!only_recipe_id || only_recipe_id==<%= recipe.id %>) {
 					  		var recipe_id = <%= recipe.id %>
-					  		<%= recipe.js.html_safe %>
+					  		<%= recipe.js.to_s.html_safe %>
 					  	}
 		        <% end %>
 					}
@@ -246,7 +253,7 @@ var sitefoil = {
 				  	<% if recipe.js.include? "(el_click"  %>
 				  	if(!only_recipe_id || only_recipe_id==<%= recipe.id %>) {
 				  			var recipe_id = <%= recipe.id %>
-					    	<%= recipe.js.html_safe %>
+					    	<%= recipe.js.to_s.html_safe %>
 					    }
 				    <% end %>
 				  <% end %>
