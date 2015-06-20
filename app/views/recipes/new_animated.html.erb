@@ -453,8 +453,11 @@ $(function() {
     
     <br>
     <br>
+    <p><strong>Note</strong> - After you create your recipe you will receive a snippet of code that you may add to your website's layout for it to function correctly. </p>
+    <br>
+    <br>
 		<a onclick='if(validateSiteUrl()) { toNextStep.apply(this) }' class='btn btn-default'>Next <i class="glyphicon glyphicon-chevron-right"></i></a>
-		<p>Note - Once you create your recipe you will receive a snippet of code that you may add to your website's layout for it to function correctly.</p>P
+		
 		</div></div>
 		<div class='wizard-progress col-xs-12 col-sm-2 col-md-2 col-lg-2'>
 			<% if current_user %>
@@ -471,6 +474,7 @@ $(function() {
     		<i class="glyphicon fa fa-trash"></i>
     </button>
 		<h1>Choose Trigger</h1>
+		<p><a href="http://www.sitefoil.com/features/" target="_blank">What do these triggers do?</a> (link opens in a new window)</p>
 		<div style='font-size:20px'>
 			<% ApplicationHelper::triggers.each do |trigger| %>
 				<div class="trigger_select" onclick='toTriggerParams.apply(this,["<%= trigger[:name] %>"])'><%= trigger[:name] %></div>
@@ -517,6 +521,7 @@ $(function() {
 		<div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
 		<h1 class="primary">Then Do <b>This</b>...</h1>
 		<h2>Choose Action</h2>
+		<p><a href="http://www.sitefoil.com/features/" target="_blank">What do these actions do?</a> (link opens in a new window)</p>
 		<div style='font-size:20px'>
 			<% ApplicationHelper::actions.each do |action| %>
 				<div class="action_select" id="<%= action[:name] %>" onclick='toActionParams("<%= action[:name] %>")'><%= action[:name] %></div>

@@ -22,14 +22,14 @@
   <div class="panel-heading">
     <div class="row">
       <div class="col-lg-10 col-md-8 col-sm-8 col-xs-6">
-        <h3 class="panel-title"><%= link_to @site.name_or_url, edit_site_path(@site) %></h3>
+        <h3 class="panel-title"><%= link_to @site.name_or_url, edit_site_path(@site) %></h3><%= link_to 'ADD CODE SNIPPET', code_site_path(@site), class: "btn btn-success btn-sm" %>
          <h4><%= @site.url %> <small style="color:#666;">- created <%= @site.created_at.strftime("%b %d, %Y") %>, site time: <%= @site.time.to_formatted_s(:rfc822)  %></small></h4> 
       </div>
       <div class="col-lg-1 col-md-2 col-sm-2 col-xs-3 text-right">
-        <%= link_to 'Edit Site', edit_site_path(@site), class: "btn btn-primary" %><br/>
+        <%= link_to 'EDIT SITE', edit_site_path(@site), class: "btn btn-primary" %>
       </div>
       <div class="col-lg-1 col-md-2 col-sm-2 col-xs-3 text-right">
-        <%= link_to 'Delete', @site, class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+        <%= link_to 'DELETE', @site, class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
       </div>
     </div>
   </div>
