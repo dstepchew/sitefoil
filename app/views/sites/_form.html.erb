@@ -36,8 +36,8 @@
         
         
               <div class="form-group">
-                <%= f.label :url, "Site URL address" %>
-                <%= f.text_field :url, class: "form-control", value: "EXAMPLE: http://www.example.com - include http://", :onfocus => 'this.value = ""'   %>
+                <%= f.label :url, "Site URL address (Please include http:// or https://)" %>
+                <%= f.text_field :url, class: "form-control", :onfocus => 'this.value = ""'   %>
               </div>
 
 

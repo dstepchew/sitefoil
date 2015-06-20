@@ -24,10 +24,19 @@ class Site < ActiveRecord::Base
 	validates_presence_of :user_id, :url
   	 
 	belongs_to :user
-	has_many :recipes
+  #adding limit to number of sites for now
+	validate :site_count_within_limit, :on => :create
+
+  has_many :recipes
   has_many :hits, dependent: :destroy
 	has_many :channels
   serialize :tag, Hash
+
+  def site_count_within_limit
+      if self.user.sites(:reload).count >= 1
+      errors.add(:base, "Sorry - you may only create ONE site while SiteFoil is in BETA")
+    end
+  end
 
 
   def order_url_sql_wildcard

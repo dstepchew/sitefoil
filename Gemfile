@@ -80,3 +80,4 @@ gem 'rails-observers'
 
 gem 'rack-mini-profiler'
 gem 'geoip'
+gem 'whenever', :require => false

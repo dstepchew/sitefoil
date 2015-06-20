@@ -24,9 +24,16 @@ class Recipe < ActiveRecord::Base
 
 	belongs_to :site
 	validates :site_id, presence: true
+	validate :recipe_count_within_limit, :on => :create
 
 	before_save :js_build
 
+
+	def recipe_count_within_limit
+      if self.site.recipes(:reload).count >= 2
+      errors.add(:base, "Sorry - you may only create TWO recipes while SiteFoil is in BETA")
+    end
+  end
 	#rebuild all recipes js (needed when recipe generation code is changed)
 	#to be called from rails console
 	def self.rebuild_all
