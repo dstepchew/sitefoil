@@ -30,8 +30,8 @@ class Recipe < ActiveRecord::Base
 
 
 	def recipe_count_within_limit
-      if self.site.recipes(:reload).count >= 2
-      errors.add(:base, "Sorry - you may only create TWO recipes while SiteFoil is in BETA")
+      if self.site.recipes(:reload).count >= 10
+      errors.add(:base, "Sorry - you may only create TEN recipes while SiteFoil is in BETA")
     end
   end
 	#rebuild all recipes js (needed when recipe generation code is changed)
